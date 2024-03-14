@@ -56,7 +56,7 @@ export default function PledgeCounter() {
                 <>
                   {/* box 1 */}
                   <div
-                    key={index}
+                    key={number + 10 + index}
                     className="w-[65px] sm:w-[120px] h-[70px] sm:h-[120px] flex justify-center items-center p-1 mr-[-2px]"
                   >
                     <div className="w-full h-full">

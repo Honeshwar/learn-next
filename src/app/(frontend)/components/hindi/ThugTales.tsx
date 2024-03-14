@@ -9,6 +9,15 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
 import "../../styles/thug-tales.css";
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
+import { video_share_count } from "../../utils/common-functions";
+
+interface Swiper {
+  autoplay: {
+    stop: () => void;
+  };
+  swiper: any;
+}
 
 function ThugTales({
   title = "हमारी ठग की कहानियाँ",
@@ -17,41 +26,192 @@ function ThugTales({
   title: string;
   lang: string;
 }) {
+  const [whatsapp_link, setWhatsapp_link] = useState("");
+  const [facebook_link, setFacebook_link] = useState("");
+  const [twitter_link, setTwitter_link] = useState("");
+  const [playingThugVideo, setPlayingThugVideo] = useState(false);
+
+  const swiperRef = useRef<Swiper>(null);
+
   const videos = [
     {
       src: "/assets/thug tales/videos/r1.mp4",
       poster: "/assets/thug tales/images/Ravana1.webp",
+      "data-url": "thug_tales_videos/raven_videos/r1.mp4",
     },
     {
       src: "/assets/thug tales/videos/r2.mp4",
       poster: "/assets/thug tales/images/Ravana2.webp",
+      "data-url": "thug_tales_videos/raven_videos/r2.mp4",
     },
     {
       src: "/assets/thug tales/videos/r3.mp4",
       poster: "/assets/thug tales/images/Ravana3.webp",
+      "data-url": "thug_tales_videos/raven_videos/r3.mp4",
     },
     {
       src: `/assets/thug tales/videos/${lang}/1.mp4`,
       poster: `/assets/thug tales/images/${lang}/1.webp`,
+      "data-url": "thug_tales_videos/hindi/h1.mp4",
     },
     {
       src: `/assets/thug tales/videos/${lang}/2.mp4`,
       poster: `/assets/thug tales/images/${lang}/2.webp`,
+      "data-url": "thug_tales_videos/hindi/h2.mp4",
     },
     {
       src: `/assets/thug tales/videos/${lang}/3.mp4`,
       poster: `/assets/thug tales/images/${lang}/3.webp`,
+      "data-url": "thug_tales_videos/hindi/h3.mp4",
     },
     {
       src: `/assets/thug tales/videos/${lang}/4.mp4`,
       poster: `/assets/thug tales/images/${lang}/4.webp`,
+      "data-url": "thug_tales_videos/hindi/h4.mp4",
     },
     {
       src: `/assets/thug tales/videos/${lang}/5.mp4`,
       poster: `/assets/thug tales/images/${lang}/5.webp`,
+      "data-url": "thug_tales_videos/hindi/h5.mp4",
     },
   ];
-  const playThugVideo = (e: any, index: string) => {};
+  // const playThugVideo = (e: any, index: string) => {};
+  // function playThugVideo(
+  //   e: any,
+  //   videoId: string,
+  //   dataUrl: string,
+  //   shareId: string
+  // ) {
+  //   const video = document.getElementById(videoId) as HTMLVideoElement;
+  //   if (e !== undefined) {
+  //     e.target.style.display = "none";
+  //   }
+  //   console.log(swiperRef.current.swiper);
+  //   swiperRef.current!.swiper.autoplay.stop();
+  //   video.controls = true;
+
+  //   const muteBtn = document.getElementById("svg_mute") as HTMLElement;
+  //   const unMuteBtn = document.getElementById("svg_unmute") as HTMLElement;
+  //   const TeaserVideo = document.getElementById(
+  //     "teaser-video"
+  //   ) as HTMLVideoElement;
+  //   // muted teasure video, when we play this video
+  //   unMuteBtn.style.display = "none";
+  //   muteBtn.style.display = "inline";
+  //   TeaserVideo.muted = true; // or teaserVideo.stop();
+  //   // mobileVideo.muted = true;
+
+  //   generateShareLinks(document.getElementById(shareId)!, dataUrl);
+  //   video.play(); //play
+  //   // pledgeSwiper.pagination.el.style.display = "none";
+  //   // thugVideoPlaying = true;
+
+  //   // // Listen for the slideChange event
+  //   // pledgeSwiper.on("slideChange", function () {
+  //   //   pledgeSwiper.pagination.el.style.display = "block";
+  //   //   e.target.style.display = "block";
+  //   //   thugShares[videoId.charAt(videoId.length - 1) - 1].innerHTML = "";
+  //   //   pledgeSwiper.autoplay.start();
+  //   //   video.controls = false;
+  //   //   video.load(); //video load again and we will see poster img again
+  //   //   thugVideoPlaying = false;
+  //   // });
+  // }
+
+  const generateShareLinks = (shareElement: HTMLElement, videoUrl: string) => {
+    let link = encodeURIComponent(
+      "https://mahathugbandhan.com/api/v1/videos?name=" + videoUrl
+    );
+
+    let text =
+      "Check out this video about the Mahathugbandhan, let's remove them from our Bharat!" +
+      " %0A " +
+      link;
+
+    console.log(text);
+
+    // shares links
+    let twitter_link =
+      "https://twitter.com/intent/tweet?url=" + link + "&text=" + text;
+    let facebook_link =
+      "http://www.facebook.com/sharer/sharer.php?u=" + link + "&text=" + text;
+
+    let whatsapp_link = "";
+    if (screen.width > 750)
+      whatsapp_link =
+        "https://web.whatsapp.com/send?url=" +
+        link +
+        "&text=" +
+        link +
+        " " +
+        `%0A` +
+        text;
+    else
+      whatsapp_link =
+        "https://wa.me/?url=" + link + "&text=" + link + " " + `%0A` + text;
+
+    setWhatsapp_link(whatsapp_link);
+    setFacebook_link(facebook_link);
+    setTwitter_link(twitter_link);
+  };
+
+  /**************************** play Thug Tales Video ****************************** */
+  useEffect(() => {
+    const thugTalesVideos = document.querySelectorAll(".pledge-swiper video");
+    thugTalesVideos.forEach((video) => {
+      video.addEventListener("mouseenter", function () {
+        swiperRef.current!.swiper.autoplay.stop();
+      });
+      video.addEventListener("mouseleave", function () {
+        if (!playingThugVideo) {
+          swiperRef.current!!.swiper.autoplay.start();
+          setPlayingThugVideo(false);
+        }
+      });
+    });
+  }, []);
+
+  function playThugVideo(
+    imgId: string,
+    videoId: string,
+    videoUrl: string,
+    shareElementId: string
+  ) {
+    const muteBtn = document.getElementById("svg_mute") as HTMLElement;
+    const unMuteBtn = document.getElementById("svg_unmute") as HTMLElement;
+    const TeaserVideo = document.querySelector(
+      "#teaser-video"
+    ) as HTMLVideoElement;
+    const video = document.getElementById(videoId) as HTMLVideoElement;
+    const imgElement = document.getElementById(imgId)!;
+    imgElement.style.display = "none";
+    // video.style.display = "block";
+    console.log(swiperRef.current!.swiper);
+    swiperRef.current!.swiper.autoplay.stop();
+    video.controls = true;
+
+    // muted teasure video, when we play this video
+    unMuteBtn.style.display = "none";
+    muteBtn.style.display = "inline";
+    TeaserVideo.muted = true; // or teaserVideo.stop();
+    // mobileVideo.muted = true;
+    const shareElement = document.getElementById(shareElementId)!;
+    generateShareLinks(shareElement, videoUrl);
+    video.play(); //play
+    swiperRef.current!.swiper.pagination.el.style.display = "none";
+    setPlayingThugVideo(true);
+    // Listen for the slideChange event
+    swiperRef.current!.swiper.on("slideChange", function () {
+      swiperRef.current!.swiper.pagination.el.style.display = "block";
+      imgElement.style.display = "block";
+      // shareElement.innerHTML = "";
+      swiperRef.current!.swiper.autoplay.start();
+      video.controls = false;
+      video.load(); //video load again and we will see poster img again
+      setPlayingThugVideo(false);
+    });
+  }
+
   return (
     <section
       id="thugs-tales"
@@ -71,6 +231,7 @@ function ThugTales({
       <div className="w-full h-full mt-6 sm:mt-[50px]">
         {/* <!-- Swiper --> */}
         <Swiper
+          ref={swiperRef}
           slidesPerView={1}
           spaceBetween={0}
           pagination={{
@@ -78,6 +239,11 @@ function ThugTales({
           }}
           autoplay={{
             delay: 3000,
+          }}
+          navigation={{
+            nextEl: ".thug-swiper .swiper-button-next",
+            prevEl: ".thug-swiper .swiper-button-prev",
+            disabledClass: "hidden",
           }}
           loop={true}
           modules={[Pagination, Autoplay, Navigation]}
@@ -90,26 +256,97 @@ function ThugTales({
             >
               <div className="h-full relative flex justify-center items-center">
                 <video
-                  id="thug-1"
+                  id={`thug-${index + 1}`}
                   className="w-[90vw] sm:w-[60vw] max-h-fit  rounded-[15px] sm:rounded-[30px] mx-auto"
-                  data-url="thug_tales_videos/raven_videos/r1.mp4"
+                  data-url=""
                   poster={video.poster}
+                  onClick={() =>
+                    playThugVideo(
+                      `img-${index + 1}`,
+                      `thug-${index + 1}`,
+                      video["data-url"],
+                      `thug-shares-${index + 1}`
+                    )
+                  }
                 >
                   <source src={video.src} type="video/mp4" />
                   Your browser doesn&apos;t support video
                 </video>
                 <Image
+                  id={`img-${index + 1}`}
                   width={100}
                   height={100}
-                  onClick={() => playThugVideo(event, "thug-1")}
+                  onClick={() =>
+                    playThugVideo(
+                      `img-${index + 1}`,
+                      `thug-${index + 1}`,
+                      video["data-url"],
+                      `thug-shares-${index + 1}`
+                    )
+                  }
                   className="w-[5vw] h-[5vw] min-h-[30px]  min-w-[30px]  max-h-[70px]  max-w-[70px] absolute cursor-pointer"
                   src="/assets/thug tales/Video icon.webp"
                   alt="video icon"
                 />
                 <div
-                  id="thugs-share-1"
+                  id={`thug-shares-${index + 1}`}
                   className=" absolute right-[8vw] top-[5vw] sm:right-[19vw] sm:top-[5vw] text-white flex flex-col justify-center items-center gap-[2vw] sm:gap-5"
-                ></div>
+                >
+                  {playingThugVideo && (
+                    <>
+                      <a
+                        onClick={video_share_count}
+                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
+                        href={whatsapp_link}
+                        target="_blank"
+                        style={{ color: "black" }}
+                      >
+                        <Image
+                          width={50}
+                          height={50}
+                          className="w-fit h-[6vw] sm:h-[4vw] sm:max-h-[50px]"
+                          src="/assets/svg/whatsapp.svg"
+                          alt="whatsapp logo"
+                        />
+                      </a>
+                      <a
+                        onClick={video_share_count}
+                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
+                        href={twitter_link}
+                        style={{ color: "black" }}
+                        target="_blank"
+                      >
+                        <Image
+                          width={50}
+                          height={50}
+                          className="w-fit h-[6vw] sm:h-[4vw] sm:max-h-[50px]"
+                          src="/assets/svg/twt-x-logo.svg"
+                          alt="twitter logo"
+                          style={{
+                            backgroundColor: "black",
+                            padding: "3px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      </a>
+                      <a
+                        onClick={video_share_count}
+                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
+                        href={facebook_link}
+                        target="_blank"
+                        style={{ color: "black" }}
+                      >
+                        <Image
+                          width={50}
+                          height={50}
+                          className="w-fit h-[6vw] sm:h-[4vw] sm:max-h-[50px]"
+                          src="/assets/svg/fb.svg"
+                          alt="facebook logo"
+                        />
+                      </a>
+                    </>
+                  )}
+                </div>
               </div>
             </SwiperSlide>
           ))}

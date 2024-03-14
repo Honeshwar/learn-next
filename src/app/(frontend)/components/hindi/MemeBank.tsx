@@ -8,9 +8,25 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "../../styles/meme-bazar.css";
 import { useEffect, useState } from "react";
+import {
+  image_download_count,
+  image_share_count,
+  upload_count,
+} from "../../utils/common-functions";
 
 function MemeBank({ title = "मीम बैंक" }: { title: string }) {
   const [slides, setSlides] = useState(4.7);
+  const [openShareModal, setOpenShareModal] = useState(false);
+  const [openUploadMemeModal, setopenUploadMemeModal] = useState(false);
+  const [uploadfileName, setUploadfileName] = useState("फ़ाइल चयन करें");
+  const [uploadFileError, setUploadFileError] = useState(false);
+  const [openThankYouModal, setOpenThankYouModal] = useState(false);
+  const [UPLOAD, setUPLOAD] = useState(false);
+
+  const [whatsapp_link, setWhatsapp_link] = useState("");
+  const [facebook_link, setFacebook_link] = useState("");
+  const [twitter_link, setTwitter_link] = useState("");
+  const [slideChanged, setSlideChanged] = useState(false);
 
   useEffect(() => {
     if (window.screen.width <= 640) {
@@ -18,31 +34,168 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
     }
   }, []);
   const images = [
-    "/assets/meme-bazar/1.webp",
-    "/assets/meme-bazar/2.webp",
-    "/assets/meme-bazar/3.webp",
-    "/assets/meme-bazar/4.webp",
-    "/assets/meme-bazar/5.webp",
-    "/assets/meme-bazar/6.webp",
-    "/assets/meme-bazar/7.webp",
-    "/assets/meme-bazar/8.webp",
-    "/assets/meme-bazar/9.webp",
-    "/assets/meme-bazar/10.webp",
-    "/assets/meme-bazar/11.webp",
-    "/assets/meme-bazar/12.webp",
-    "/assets/meme-bazar/13.webp",
-    "/assets/meme-bazar/14.webp",
-    "/assets/meme-bazar/15.webp",
+    {
+      src: "/assets/meme-bazar/1.webp",
+      "data-url": "memes/1.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/2.webp",
+      "data-url": "memes/2.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/3.webp",
+      "data-url": "memes/3.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/4.webp",
+      "data-url": "memes/4.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/5.webp",
+      "data-url": "memes/5.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/6.webp",
+      "data-url": "memes/6.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/7.webp",
+      "data-url": "memes/7.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/8.webp",
+      "data-url": "memes/8.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/9.webp",
+      "data-url": "memes/9.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/10.webp",
+      "data-url": "memes/10.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/11.webp",
+      "data-url": "memes/11.jpg",
+    },
+    {
+      src: "/assets/meme-bazar/12.webp",
+      "data-url": "memes/12.png",
+    },
+    {
+      src: "/assets/meme-bazar/13.webp",
+      "data-url": "memes/13.png",
+    },
+    {
+      src: "/assets/meme-bazar/14.webp",
+      "data-url": "memes/14.png",
+    },
+    {
+      src: "/assets/meme-bazar/15.webp",
+      "data-url": "memes/15.png",
+    },
     // "/assets/meme-bazar/16.webp",
   ];
-  const downloadMeme = () => {};
-  const share = () => {};
-  const openUploadMemeModal = () => {};
-  const closeShareModal = () => {};
-  const UploadMeme = () => {};
-  const previewFile = () => {};
-  const closeUploadMemeModal = () => {};
-  const closeThankYouMemeModal = () => {};
+  const downloadMeme = () => {
+    const imgElement = document.querySelector(
+      ".meme-bazar-swiper .swiper-slide-active > img"
+    ) as HTMLImageElement;
+
+    console.log("download meme image url", imgElement, imgElement.src);
+
+    // Creating a anchor element
+    const anchor = document.createElement("a");
+
+    // Setting the download attribute with a desired filename
+    anchor.download = "meme-image.jpg";
+
+    // Creating a data URL from the image source
+    const imageUrl = imgElement.src;
+    anchor.href = imageUrl;
+    anchor.click();
+
+    image_download_count();
+  };
+  const previewFile = (e: any) => {
+    setUploadFileError(false);
+    console.log("preview", e.target.files[0]);
+    setUploadfileName(e.target.files[0].name);
+  };
+
+  const uploadMeme = (e: any) => {
+    e.preventDefault();
+    console.log("ip", e.target[0].files, e.target[0].files.length === 0);
+    if (e.target[0].files.length === 0) {
+      //error
+      setUploadFileError(true);
+      return;
+    }
+
+    let body = new FormData();
+    body.append("image", e.target[0].files[0]);
+    fetch("https://mahathugbandhan.com/api/v1/upload_image/", {
+      method: "POST",
+      body,
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        console.log("uploaded", d);
+        if (d.status === 200) {
+          upload_count();
+          setopenUploadMemeModal(false);
+          setOpenThankYouModal(true);
+          // uploadfileName.innerText =
+          //   lang === "en" ? "Click Here to Upload" : "फ़ाइल चयन करें";
+          setUploadfileName("फ़ाइल चयन करें");
+          e.target[0].value = "";
+        }
+      });
+  };
+
+  const generateShareLinks = () => {
+    const imgElement = document.querySelector(
+      ".meme-bazar-swiper .swiper-slide-active > img"
+    ) as HTMLImageElement;
+    const imageUrl = imgElement.getAttribute("data-url");
+    console.log(imgElement, imgElement.getAttribute("data-url"));
+
+    let l =
+      "https://mahathugbandhan.com/api/v1/image_metamaker?name=" + imageUrl;
+    console.log("url", l);
+    let link = encodeURIComponent(l);
+    let first = encodeURIComponent("ये देखने के बाद आप भी हंस पड़ेंगे! 😂 ");
+    // let second = encodeURIComponent(" Check out ");
+    let text =
+      first +
+      link +
+      `\n` +
+      " पुरी " +
+      "https://mahathugbandhan.com/" +
+      " देखें!";
+    console.log(text);
+
+    // shares links
+    let twitter_link =
+      "https://twitter.com/intent/tweet?url=" + link + "&text=" + text;
+    let facebook_link =
+      "http://www.facebook.com/sharer/sharer.php?u=" + link + "&text=" + text;
+
+    let whatsapp_link = "";
+    if (screen.width > 750)
+      whatsapp_link =
+        "https://web.whatsapp.com/send?url=" + link + "&text=" + text;
+    else whatsapp_link = "https://wa.me/?url=" + link + "&text=" + text;
+
+    setTwitter_link(twitter_link);
+    setFacebook_link(facebook_link);
+    setWhatsapp_link(whatsapp_link);
+
+    setSlideChanged(false);
+  };
+  useEffect(() => {
+    generateShareLinks();
+  }, [slideChanged]);
+
   return (
     <>
       <section
@@ -91,17 +244,21 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
             }}
             className="meme-bazar-swiper"
           >
-            {images.map((src, index) => (
+            {images.map((image, index) => (
               <SwiperSlide key={index} className="w-full h-full">
                 <Image
                   className="w-full h-full "
                   width={1000}
                   height={800}
-                  src={src}
+                  src={image.src}
                   alt="meme card"
+                  data-url={image["data-url"]}
                 />
                 {/* <!-- arrow --> */}
-                <div className="swiper-button-next meme-bazar-button-next">
+                <div
+                  onClick={() => setSlideChanged(true)}
+                  className="swiper-button-next meme-bazar-button-next"
+                >
                   <Image
                     width={50}
                     height={50}
@@ -110,7 +267,10 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
                     alt="navigation left"
                   />
                 </div>
-                <div className="swiper-button-prev meme-bazar-button-prev">
+                <div
+                  onClick={() => setSlideChanged(true)}
+                  className="swiper-button-prev meme-bazar-button-prev"
+                >
                   <Image
                     width={50}
                     height={50}
@@ -145,7 +305,7 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
               <span>डाउनलोड करें</span>
             </a>
             <a
-              onClick={share}
+              onClick={() => setOpenShareModal(true)}
               className="w-[120px] bg-[rgb(255,0,0)] p-1 px-0 flex justify-center items-center gap-3 rounded-md text-white font-bold cursor-pointer font-yatra  text-[1.2rem]"
             >
               {/* <span className="material-symbols-outlined"> share </span> */}
@@ -162,7 +322,7 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
             </a>
           </div>
           <button
-            onClick={openUploadMemeModal}
+            onClick={() => setopenUploadMemeModal(true)}
             type="button"
             className="w-[230px] sm:w-fit  px-5 py-[6px] sm:px-5  sm:py-2 bg-blue-950 text-yellow-500 flex items-center gap-2 font-bold rounded-md cursor-pointer"
           >
@@ -183,104 +343,182 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
         </div>
       </section>
 
-      {/* <!-- Share modal --> */}
-      <div
-        id="share-modal"
-        className="hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full"
-        style={{ backgroundColor: "#181844c0" }}
-      >
-        <div tabIndex={-1}>
-          <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
-            <div className="relative bg-yellow-600 rounded-lg shadow ">
-              <div className="p-10 md:p-20 text-center">
-                <h3 className="mb-5 text-[2rem] font-yatra text-white">शेयर</h3>
+      {openShareModal && (
+        <>
+          {/* <!-- Share modal --> */}
+          <div
+            id="share-modal"
+            className="flex overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full"
+            style={{ backgroundColor: "#181844c0" }}
+          >
+            <div tabIndex={-1}>
+              <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
+                <div className="relative bg-yellow-600 rounded-lg shadow ">
+                  <div className="p-10 md:p-20 text-center">
+                    <h3 className="mb-5 text-[2rem] font-yatra text-white">
+                      शेयर
+                    </h3>
 
-                <div
-                  id="share"
-                  className="flex gap-5 sm:gap-[3vw] justify-center items-center flex-wrap pb-9"
-                ></div>
-                <button
-                  onClick={closeShareModal}
-                  data-modal-hide="popup-modal"
-                  type="button"
-                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base inline-flex items-center px-5 py-1 pt-2 text-center me-2 font-yatra "
-                >
-                  बंद करें
-                </button>
+                    <div
+                      id="share"
+                      className="flex gap-5 sm:gap-[3vw] justify-center items-center flex-wrap pb-9"
+                    >
+                      <div
+                        id="result-card-share"
+                        className="text-white flex justify-center items-center gap-4 sm:gap-5"
+                      >
+                        <a
+                          onClick={image_share_count}
+                          className="flex flex-col justify-center items-center gap-2"
+                          href={whatsapp_link}
+                          target="_blank"
+                          style={{ color: "black" }}
+                        >
+                          <Image
+                            width={50}
+                            height={50}
+                            className="w-fit h-[10vw] sm:h-[50px]"
+                            src="/assets/svg/whatsapp.svg"
+                            alt="whatsapp logo"
+                          />
+                          {/* <span className="text-white font-yatra text-xl">
+                          Whatsapp{" "}
+                        </span> */}
+                        </a>
+                        <a
+                          onClick={image_share_count}
+                          className="flex flex-col justify-center items-center gap-2"
+                          href={twitter_link}
+                          style={{ color: "black" }}
+                          target="_blank"
+                        >
+                          <Image
+                            width={100}
+                            height={50}
+                            className="w-fit h-[10vw] sm:h-[50px]"
+                            src="/assets/svg/twt-x-logo.svg"
+                            alt="twitter logo"
+                            style={{
+                              backgroundColor: "black",
+                              padding: "3px",
+                              borderRadius: "50%",
+                            }}
+                          />
+                          {/* <span className="text-white font-yatra text-xl">
+                          Twitter
+                        </span> */}
+                        </a>
+                        <a
+                          onClick={image_share_count}
+                          className="flex flex-col justify-center items-center gap-2"
+                          href={facebook_link}
+                          target="_blank"
+                          style={{ color: "black" }}
+                        >
+                          <Image
+                            width={100}
+                            height={50}
+                            className="w-fit h-[10vw] sm:h-[50px]"
+                            src="/assets/svg/fb.svg"
+                            alt="facebook logo"
+                          />
+                          {/* <span className="text-white font-yatra text-xl">
+                          Facebook
+                        </span> */}
+                        </a>
+                      </div>
+                    </div>
+                    <button
+                      onClick={() => setOpenShareModal(false)}
+                      data-modal-hide="popup-modal"
+                      type="button"
+                      className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base inline-flex items-center px-5 py-1 pt-2 text-center me-2 font-yatra "
+                    >
+                      बंद करें
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
 
-      {/* <!-- Upload Meme modal --> */}
-      <div
-        id="upload-meme-modal"
-        className=" hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full"
-        style={{ backgroundColor: "#181844c0" }}
-      >
-        <div tabIndex={-1} className="h-full flex justify-center items-center">
-          <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
-            <div className="relative bg-yellow-600 rounded-lg shadow ">
-              <div className="p-10 md:p-20 text-center flex gap-5 flex-col items-center">
-                <h3 className=" text-[2rem] font-yatra text-white">
-                  अपलोड मीम्स
-                </h3>
+      {openUploadMemeModal && (
+        <>
+          {/* <!-- Upload Meme modal --> */}
+          <div
+            id="upload-meme-modal"
+            className=" flex overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full"
+            style={{ backgroundColor: "#181844c0" }}
+          >
+            <div
+              tabIndex={-1}
+              className="h-full flex justify-center items-center"
+            >
+              <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
+                <div className="relative bg-yellow-600 rounded-lg shadow ">
+                  <div className="p-10 md:p-20 text-center flex gap-5 flex-col items-center">
+                    <h3 className=" text-[2rem] font-yatra text-white">
+                      अपलोड मीम्स
+                    </h3>
 
-                <form
-                  onSubmit={UploadMeme}
-                  id=""
-                  className="flex flex-col gap-5 justify-center items-center flex-wrap pb-9"
-                >
-                  {/* <!-- <input className="block w-full  max-w-[300px] text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none " id="large_size" type="file" required placeholder="फ़ाइल चयन करें"> --> */}
-                  <div className="w-full">
-                    <label
-                      htmlFor="upload-file"
-                      id="upload-file-name"
-                      className="text-black bg-white font-yatra text-center border-2 py-4 border-blue-500 rounded-md flex flex-col gap-3 justify-center items-center "
+                    <form
+                      onSubmit={uploadMeme}
+                      id=""
+                      className="flex flex-col gap-5 justify-center items-center flex-wrap pb-9"
                     >
-                      <span className="material-symbols-outlined text-blue-600">
-                        cloud_upload
-                      </span>
-                      <span className="text-blue-600" id="file-name">
-                        फ़ाइल चयन करें
-                      </span>
-                    </label>
-                    <input
-                      id="upload-file"
-                      style={{ display: "none" }}
-                      type="file"
-                      onChange={previewFile}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: " flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <p
-                      id="upload-file-error"
-                      style={{
-                        display: "none",
-                        color: "red",
-                        textAlign: "center",
-                        marginBlock: "-5px 5px",
-                      }}
-                    >
-                      {" "}
-                      एक छवि चुनें{" "}
-                    </p>
-                    <button
-                      type="submit"
-                      className="max-w-[250px] px-3 pl-2 py-1 pt-[6px] sm:w-fit sm:px-5 bg-blue-950 text-yellow-500 flex justify-center items-center gap-2 font-bold  rounded-md cursor-pointer font-yatra text-[1.2rem] sm:text-[1.5rem] text-center "
-                    >
-                      अपने मीम्स अपलोड करें
-                    </button>
-                  </div>
-                </form>
-                {/* <!-- <button
+                      {/* <!-- <input className="block w-full  max-w-[300px] text-lg text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none " id="large_size" type="file" required placeholder="फ़ाइल चयन करें"> --> */}
+                      <div className="w-full">
+                        <label
+                          htmlFor="upload-file"
+                          id="upload-file-name"
+                          className="text-black bg-white font-yatra text-center border-2 py-4 border-blue-500 rounded-md flex flex-col gap-3 justify-center items-center "
+                        >
+                          <span className="material-symbols-outlined text-blue-600">
+                            cloud_upload
+                          </span>
+                          <span className="text-blue-600" id="file-name">
+                            {/* फ़ाइल चयन करें */}
+                            {uploadfileName}
+                          </span>
+                        </label>
+                        <input
+                          id="upload-file"
+                          style={{ display: "none" }}
+                          type="file"
+                          onChange={previewFile}
+                        />
+                      </div>
+                      <div
+                        style={{
+                          display: " flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                        }}
+                      >
+                        {uploadFileError && (
+                          <p
+                            id="upload-file-error"
+                            style={{
+                              display: "block",
+                              color: "red",
+                              textAlign: "center",
+                              marginBlock: "-5px 5px",
+                            }}
+                          >
+                            एक छवि चुनें
+                          </p>
+                        )}
+                        <button
+                          type="submit"
+                          className="max-w-[250px] px-3 pl-2 py-1 pt-[6px] sm:w-fit sm:px-5 bg-blue-950 text-yellow-500 flex justify-center items-center gap-2 font-bold  rounded-md cursor-pointer font-yatra text-[1.2rem] sm:text-[1.5rem] text-center "
+                        >
+                          अपने मीम्स अपलोड करें
+                        </button>
+                      </div>
+                    </form>
+                    {/* <!-- <button
                 onclick="closeUploadMemeModal(event)"
                 data-modal-hide="popup-modal"
                 type="button"
@@ -288,50 +526,58 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
               >
               बंद करें
               </button> --> */}
-                <span
-                  onClick={closeUploadMemeModal}
-                  className="material-symbols-outlined text-red-700 text-[7vw]   sm:text-[4vw] md:text-[2.5rem] absolute right-5 top-5 cursor-pointer"
-                >
-                  cancel
-                </span>
+                    <span
+                      onClick={() => setopenUploadMemeModal(false)}
+                      className="material-symbols-outlined text-red-700 text-[7vw]   sm:text-[4vw] md:text-[2.5rem] absolute right-5 top-5 cursor-pointer"
+                    >
+                      cancel
+                    </span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-
-      {/* <!-- Upload Meme Thank-you pop --> */}
-      <div
-        id="thank-you-meme-modal"
-        className=" hidden overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full"
-        style={{ backgroundColor: "#181844c0" }}
-      >
-        <div tabIndex={-1} className="h-full flex justify-center items-center">
-          <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
-            <div className="relative bg-yellow-600 rounded-lg shadow ">
-              <div className="p-10 md:p-20 text-center flex gap-5 flex-col items-center relative ">
-                <h3 className="text-[1.5rem] sm:text-[2.5rem] font-yatra text-white">
-                  इमेज अपलोड करने के लिए धन्यवाद
-                </h3>
-                <span
-                  onClick={closeThankYouMemeModal}
-                  className="material-symbols-outlined text-red-700 text-[5vw]   sm:text-[4vw] absolute right-5 top-5 cursor-pointer"
-                >
-                  cancel
-                </span>
-                {/* <!-- <button
-              onclick="closeThankYouMemeModal(event)"
-              data-modal-hide="popup-modal"
-              type="button"
-              className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2 mt-3"
+        </>
+      )}
+      {openThankYouModal && (
+        <>
+          {/* <!-- Upload Meme Thank-you pop --> */}
+          <div
+            id="thank-you-meme-modal"
+            className=" flex overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full"
+            style={{ backgroundColor: "#181844c0" }}
+          >
+            <div
+              tabIndex={-1}
+              className="h-full flex justify-center items-center"
             >
-            Close
-            </button> --> */}
+              <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
+                <div className="relative bg-yellow-600 rounded-lg shadow ">
+                  <div className="p-10 md:p-20 text-center flex gap-5 flex-col items-center relative ">
+                    <h3 className="text-[1.5rem] sm:text-[2.5rem] font-yatra text-white">
+                      इमेज अपलोड करने के लिए धन्यवाद
+                    </h3>
+                    <span
+                      onClick={() => setOpenThankYouModal(false)}
+                      className="material-symbols-outlined text-red-700 text-[7vw]   sm:text-[4vw] md:text-[2.5rem] absolute right-5 top-5 cursor-pointer"
+                    >
+                      cancel
+                    </span>
+                    {/* <!-- <button
+                  onclick="closeThankYouMemeModal(event)"
+                  data-modal-hide="popup-modal"
+                  type="button"
+                  className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2 mt-3"
+                >
+                Close
+                </button> --> */}
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
+        </>
+      )}
     </>
   );
 }

@@ -96,7 +96,11 @@ export default function Video({ isMobile }: { isMobile: boolean }) {
           loop
           style={{ minHeight: "600px" }}
         >
-          <source id="source-of-teaser-video" src="" type="video/mp4" />
+          <source
+            id="source-of-teaser-video"
+            src="/assets/teaser/teaser_hm.mp4"
+            type="video/mp4"
+          />
         </video>
       </div>
     </>

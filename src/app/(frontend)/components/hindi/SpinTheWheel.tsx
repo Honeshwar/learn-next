@@ -3,7 +3,11 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import useMobileNumber from "../../hooks/MobileNumberHook";
-
+import {
+  image_download_count,
+  spin_wheel_count,
+  image_share_count,
+} from "../../utils/common-functions";
 function SpinTheWheel() {
   const [isSpinning, setIsSpinning] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
@@ -11,6 +15,9 @@ function SpinTheWheel() {
   const [result_ID, setResultID] = useState(0);
   const [showResult, setShowResult] = useState(false);
 
+  const [whatsapp_link, setWhatsapp_link] = useState("");
+  const [facebook_link, setFacebook_link] = useState("");
+  const [twitter_link, setTwitter_link] = useState("");
   // custom hook use
   const {
     mobileNumber,
@@ -21,50 +28,6 @@ function SpinTheWheel() {
   } = useMobileNumber();
   const [submitMobileNumber, setSubmitMobileNumber] = useState(false);
 
-  useEffect(() => {
-    function getQueryParam(e: any) {
-      return decodeURIComponent(
-        window.location.search.replace(
-          RegExp(
-            "^(?:.*[&\\?]" +
-              encodeURIComponent(e).replace(/[\.\+\*]/g, "\\$&") +
-              "(?:\\=([^&]*))?)?.*$",
-            "i"
-          ),
-          "$1"
-        )
-      );
-    }
-    async function submit(mobileNumber: string) {
-      // form data
-      let body = new FormData();
-      // adding utm data
-      let a = getQueryParam("utm_source"),
-        s = getQueryParam("utm_medium"),
-        n = getQueryParam("utm_campaign");
-      body.append("utm_source", a),
-        body.append("utm_medium", s),
-        body.append("utm_campaign", n),
-        // adding mobile data
-        body.append("mobile", mobileNumber),
-        // call api
-        fetch("https:mahathugbandhan.com/api/v1/" + "user", {
-          method: "POST",
-          body,
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            // if(data.status !== 404){
-            setShowPhoneModal(false);
-            localStorage.setItem("mobile", mobileNumber);
-            setShowResult(true);
-          });
-    }
-    if (submitMobileNumber) {
-      submit(mobileNumber);
-    }
-  }, [submitMobileNumber]);
   const lang = "hi";
   const spinResultData = [
     {
@@ -148,6 +111,61 @@ function SpinTheWheel() {
       }MK_Stalin.png`,
     },
   ];
+
+  useEffect(() => {
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href =
+      "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0";
+    document.head.prepend(link);
+  }, []);
+
+  useEffect(() => {
+    function getQueryParam(e: any) {
+      return decodeURIComponent(
+        window.location.search.replace(
+          RegExp(
+            "^(?:.*[&\\?]" +
+              encodeURIComponent(e).replace(/[\.\+\*]/g, "\\$&") +
+              "(?:\\=([^&]*))?)?.*$",
+            "i"
+          ),
+          "$1"
+        )
+      );
+    }
+    async function submit(mobileNumber: string) {
+      // form data
+      let body = new FormData();
+      // adding utm data
+      let a = getQueryParam("utm_source"),
+        s = getQueryParam("utm_medium"),
+        n = getQueryParam("utm_campaign");
+      body.append("utm_source", a),
+        body.append("utm_medium", s),
+        body.append("utm_campaign", n),
+        // adding mobile data
+        body.append("mobile", mobileNumber),
+        // call api
+        fetch("https:mahathugbandhan.com/api/v1/" + "user", {
+          method: "POST",
+          body,
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log(data);
+            // if(data.status !== 404){
+            setShowPhoneModal(false);
+            localStorage.setItem("mobile", mobileNumber);
+            generateShareLinks(result_ID);
+            setShowResult(true);
+          });
+    }
+    if (submitMobileNumber) {
+      submit(mobileNumber);
+    }
+  }, [submitMobileNumber]);
+
   useEffect(() => {
     if (isSpinning) {
       setTimeout(() => {
@@ -180,7 +198,10 @@ function SpinTheWheel() {
         }
         setResultID(id);
 
-        if (localStorage.getItem("mobile")) setShowResult(true);
+        if (localStorage.getItem("mobile")) {
+          generateShareLinks(id);
+          setShowResult(true);
+        }
 
         wheel.style.transition = "none";
         wheel.style.transform = "rotate(0deg)";
@@ -188,6 +209,51 @@ function SpinTheWheel() {
       }, 6000);
     }
   }, [isSpinning]);
+
+  function generateShareLinks(id: number) {
+    let link = encodeURIComponent(
+      "https://mahathugbandhan.com/api/v1/image_metamaker?name=" +
+        spinResultData[id].dataUrl
+    );
+
+    let text =
+      "क्या आपने कभी सोचा है कि अगर " +
+      spinResultData[id].name +
+      " भारत का प्रधानमंत्री बन जाए तो क्या होगा?" +
+      "%0A" +
+      "आइए हम सब मिलकर अपने देश को इस शर्मिंदगी से बचाएं। ❌❌" +
+      "%0A" +
+      "अभी " +
+      "https://mahathugbandhan.com/" +
+      " देखें! " +
+      "%0A";
+
+    console.log(text);
+
+    // shares links
+    let twitter_link =
+      "https://twitter.com/intent/tweet?url=" + link + "&text=" + text;
+    let facebook_link =
+      "http://www.facebook.com/sharer/sharer.php?u=" + link + "&text=" + text;
+
+    let whatsapp_link = "";
+    if (screen.width > 750)
+      whatsapp_link =
+        "https://web.whatsapp.com/send?url=" +
+        link +
+        "&text=" +
+        link +
+        " " +
+        `%0A` +
+        text;
+    else
+      whatsapp_link =
+        "https://wa.me/?url=" + link + "&text=" + link + " " + `%0A` + text;
+
+    setTwitter_link(twitter_link);
+    setFacebook_link(facebook_link);
+    setWhatsapp_link(whatsapp_link);
+  }
   const spinWheel = () => {
     if (!isSpinning) setIsSpinning(true);
   };
@@ -204,7 +270,7 @@ function SpinTheWheel() {
   const closeSubmitNumberToSeeResult = () => {
     setShowPhoneModal(false);
   };
-  const spin_wheel_count = () => {};
+
   return (
     <section
       id="spinthewheel"
@@ -299,12 +365,63 @@ function SpinTheWheel() {
                     <div
                       id="result-card-share"
                       className="text-white flex justify-center items-center gap-4 sm:gap-5"
-                    ></div>
+                    >
+                      <a
+                        onClick={image_share_count}
+                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
+                        href={whatsapp_link}
+                        target="_blank"
+                        style={{ color: "black" }}
+                      >
+                        <Image
+                          width={50}
+                          height={50}
+                          className="h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
+                          src="/assets/svg/whatsapp.svg"
+                          alt="whatsapp logo"
+                        />
+                      </a>
+                      <a
+                        onClick={image_share_count}
+                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
+                        href={twitter_link}
+                        style={{ color: "black" }}
+                        target="_blank"
+                      >
+                        <Image
+                          width={50}
+                          height={50}
+                          className="h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
+                          src="/assets/svg/twt-x-logo.svg"
+                          alt="twitter logo"
+                          style={{
+                            backgroundColor: "black",
+                            padding: "3px",
+                            borderRadius: "50%",
+                          }}
+                        />
+                      </a>
+                      <a
+                        onClick={image_share_count}
+                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
+                        href={facebook_link}
+                        target="_blank"
+                        style={{ color: "black" }}
+                      >
+                        <Image
+                          width={50}
+                          height={50}
+                          className="h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
+                          src="/assets/svg/fb.svg"
+                          alt="facebook logo"
+                        />
+                      </a>
+                    </div>
                   </div>
                   <a
                     id="result-card-download"
                     onClick={image_download_count}
-                    href=""
+                    href={spinResultData[result_ID].imgUrl}
                     download="choose_our_PM_candidate"
                     className="w-[150px] bg-[rgb(255,0,0)] py-1 px-4 flex justify-center items-center gap-3 rounded-md text-white font-bold "
                   >
