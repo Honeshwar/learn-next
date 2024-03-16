@@ -1,13 +1,13 @@
 "use client";
-// import Banner from "./components/Banner";
-// import Achievement from "./components/hindi/Achievement";
+// import Banner from "./UI/components/Banner";
+// import Achievement from "./UI/components/hindi/Achievement";
 import { Suspense, useState, useEffect } from "react";
-import Header from "./components/hindi/Header";
-// import MediaCoverage from "./components/hindi/MediaCoverage";
-// import MemeBank from "./components/hindi/MemeBank";
-// import PledgeCounter from "./components/hindi/PledgeCounter";
-// import SpinTheWheel from "./components/hindi/SpinTheWheel";
-// import ThugTales from "./components/hindi/ThugTales";
+import Header from "./UI/components/hindi/Header";
+// import MediaCoverage from "./UI/components/hindi/MediaCoverage";
+// import MemeBank from "./UI/components/hindi/MemeBank";
+// import PledgeCounter from "./UI/components/hindi/PledgeCounter";
+// import SpinTheWheel from "./UI/components/hindi/SpinTheWheel";
+// import ThugTales from "./UI/components/hindi/ThugTales";
 
 import dynamic from "next/dynamic";
 import {
@@ -19,44 +19,47 @@ import {
   MemeSkeleton,
   PledgeCounterSkeleton,
   ThugTalesSkeleton,
-} from "./components/skeleton/Skeleton";
+} from "./UI/components/skeleton/Skeleton";
 
-// const HeaderComponent = dynamic(() => import('./components/hindi/Header'), {
+// const HeaderComponent = dynamic(() => import('./UI/components/hindi/Header'), {
 //   loading: () => <p>Loading...</p>,
 //  });
 
 const PledgeCounterComponent = dynamic(
-  () => import("./components/hindi/PledgeCounter"),
+  () => import("./UI/components/hindi/PledgeCounter"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
 const AchievementComponent = dynamic(
-  () => import("./components/hindi/Achievement"),
+  () => import("./UI/components/hindi/Achievement"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
-const BannerComponent = dynamic(() => import("./components/Banner"), {
+const BannerComponent = dynamic(() => import("./UI/components/Banner"), {
   // loading: () => <p>Loading...</p>,
 });
 const SpinTheWheelComponent = dynamic(
-  () => import("./components/hindi/SpinTheWheel"),
+  () => import("./UI/components/hindi/SpinTheWheel"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
-const MemeBankComponent = dynamic(() => import("./components/hindi/MemeBank"), {
-  // loading: () => <p>Loading...</p>,
-});
+const MemeBankComponent = dynamic(
+  () => import("./UI/components/hindi/MemeBank"),
+  {
+    // loading: () => <p>Loading...</p>,
+  }
+);
 const MediaCoverageComponent = dynamic(
-  () => import("./components/hindi/MediaCoverage"),
+  () => import("./UI/components/hindi/MediaCoverage"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
 const ThugTalesComponent = dynamic(
-  () => import("./components/hindi/ThugTales"),
+  () => import("./UI/components/hindi/ThugTales"),
   {
     // loading: () => <p>Loading...</p>,
   }
@@ -73,7 +76,7 @@ export default function HindiPage() {
 
     setTimeout(() => {
       setDelay(true);
-    }, 0);
+    }, 5000);
   }, []);
   console.log("isMobile", isMobile);
   return (
@@ -84,13 +87,15 @@ export default function HindiPage() {
 
       {delay ? (
         <>
-          <Suspense fallback={<div></div>}>
+          <Suspense fallback={<PledgeCounterSkeleton />}>
             <PledgeCounterComponent />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense fallback={<AchievementSkeleton />}>
             <AchievementComponent />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense
+            fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
+          >
             <BannerComponent
               bannerData={{
                 id: "corruption-teller-machine",
@@ -100,10 +105,12 @@ export default function HindiPage() {
               }}
             />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense fallback={<ChoosePMSkeleton />}>
             <SpinTheWheelComponent />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense
+            fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
+          >
             <BannerComponent
               bannerData={{
                 id: "quiz",
@@ -113,13 +120,13 @@ export default function HindiPage() {
               }}
             />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense fallback={<MemeSkeleton />}>
             <MemeBankComponent title="मीम बैंक" />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense fallback={<ThugTalesSkeleton />}>
             <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hindi" />
           </Suspense>
-          <Suspense fallback={<div className="h-[50vh] bg-gray-400"></div>}>
+          <Suspense fallback={<MediaCoverageSkeleton />}>
             <MediaCoverageComponent title="मीडिया कवरेज" lang="hindi" />
           </Suspense>
         </>
