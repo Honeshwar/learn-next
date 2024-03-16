@@ -66,7 +66,7 @@ const ThugTalesComponent = dynamic(
 );
 export default function HindiPage() {
   const [isMobile, setIsMobile] = useState(false);
-  const [delay, setDelay] = useState(false);
+  // const [delay, setDelay] = useState(false);
   useEffect(() => {
     if (window.screen.width <= 640) {
       setIsMobile(true);
@@ -74,9 +74,9 @@ export default function HindiPage() {
       setIsMobile(false);
     }
 
-    setTimeout(() => {
-      setDelay(true);
-    }, 1000);
+    // setTimeout(() => {
+    // setDelay(true);
+    // }, 1000);
   }, []);
   console.log("isMobile", isMobile);
   return (
@@ -85,7 +85,7 @@ export default function HindiPage() {
         <Header isMobile={isMobile} />
       </Suspense>
 
-      {delay ? (
+      {true ? (
         <>
           <Suspense fallback={<PledgeCounterSkeleton />}>
             <PledgeCounterComponent />
