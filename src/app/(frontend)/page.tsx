@@ -76,7 +76,7 @@ export default function HindiPage() {
 
     setTimeout(() => {
       setDelay(true);
-    }, 5000);
+    }, 1000);
   }, []);
   console.log("isMobile", isMobile);
   return (

@@ -13,7 +13,7 @@ const context = createContext({} as any);
 
 // provide  context
 function QuizContextProvider({ children }: { children: React.ReactNode }) {
-  const [screen, setScreen] = useState(4);
+  const [screen, setScreen] = useState(1);
   const [scored, setScored] = useState(0);
   const [certificateUrl, setCertificateUrl] = useState("");
 
