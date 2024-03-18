@@ -50,7 +50,7 @@ function DetailForm({
       body.append("gender", details.gender);
       body.append("state", details.state);
       body.append("district", details.district);
-      body.append("mobile", localStorage.getItem("mobile")!);
+      body.append("mobile", localStorage.getItem("mobile_main")!);
       fetch(`https://mahathugbandhan.com/api/v1/user/update`, {
         method: "PATCH",
         body,

@@ -156,7 +156,7 @@ function SpinTheWheel() {
             console.log(data);
             // if(data.status !== 404){
             setShowPhoneModal(false);
-            localStorage.setItem("mobile", mobileNumber);
+            localStorage.setItem("mobile_spin", mobileNumber);
             generateShareLinks(result_ID);
             setShowResult(true);
           });
@@ -170,7 +170,7 @@ function SpinTheWheel() {
     if (isSpinning) {
       setTimeout(() => {
         console.log("result popup");
-        if (!localStorage.getItem("mobile")) {
+        if (!localStorage.getItem("mobile_spin")) {
           setShowPhoneModal(true);
         }
       }, 4800);
@@ -198,7 +198,7 @@ function SpinTheWheel() {
         }
         setResultID(id);
 
-        if (localStorage.getItem("mobile")) {
+        if (localStorage.getItem("mobile_spin")) {
           generateShareLinks(id);
           setShowResult(true);
         }

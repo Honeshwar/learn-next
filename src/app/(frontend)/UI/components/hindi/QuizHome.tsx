@@ -3,6 +3,7 @@ import Image from "next/image";
 import "../../styles/quiz/home.css";
 import { useState } from "react";
 import QuizHomeModal from "./QuizHomeModal";
+import Link from "next/link";
 function QuizHome({ setScreen }: { setScreen: Function }) {
   const [openModal, setOpenModal] = useState(false);
   return (
@@ -14,7 +15,7 @@ function QuizHome({ setScreen }: { setScreen: Function }) {
       </span>
       <section id="start-container" className="w-100 section-container">
         <span id="language">
-          <a href="../en/quiz/">English</a>
+          <Link href="/en/quiz/">English</Link>
         </span>
 
         <div id="start-header">

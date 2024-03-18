@@ -82,7 +82,7 @@ export default function HindiPage() {
   return (
     <>
       <Suspense fallback={<div></div>}>
-        <Header isMobile={isMobile} />
+        <Header isMobile={isMobile} lang="hi" />
       </Suspense>
 
       {true ? (

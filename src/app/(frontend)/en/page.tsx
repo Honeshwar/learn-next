@@ -1,7 +1,8 @@
+import { Metadata } from "next";
+import { englishMetadata } from "../UI/utils/constant";
+import EnglishPage from "../UI/components/english/EnglishPage";
+export const metadata: Metadata = englishMetadata;
 
-export default function EnglishPage() {
-  return (
-    <div className="text-3xl font-bold text-center pt-5">English Page</div>
-  )
+export default function EnglishPageWrapper() {
+  return <EnglishPage />;
 }
-

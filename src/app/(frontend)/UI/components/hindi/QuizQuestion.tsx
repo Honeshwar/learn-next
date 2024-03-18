@@ -1,9 +1,10 @@
 import Image from "next/image";
 import "../../styles/quiz/question.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QuizHomeModal from "./QuizHomeModal";
 import SubmitModal from "./SubmitModal";
 import { useQuizContext } from "../../context/quizContext";
+import { generateCertificate } from "../../utils/common-functions";
 export default function QuizQuestion() {
   const Questions = [
     {
@@ -61,9 +62,48 @@ export default function QuizQuestion() {
   const [score, setScore] = useState(0);
   const [isOptionSelected, setIsOptionSelected] = useState(false);
   const [error, setError] = useState(false);
-  const [openSubmitModal, setOpenSubmitModal] = useState(true);
+  const [openSubmitModal, setOpenSubmitModal] = useState(false);
 
-  const { setScreen, setScored } = useQuizContext();
+  const { setScreen, scored, setScored, setTotalQuestion, setCertificateUrl } =
+    useQuizContext();
+  const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+  useEffect(() => {
+    setTotalQuestion(Questions.length);
+  }, []);
+  useEffect(() => {
+    function callAPI(mobile: string, score: number) {
+      let fd = new FormData();
+      fd.append("mobile", mobile);
+      fd.append("score", score + "");
+
+      fetch("https://mahathugbandhan.com/api/v1/user/update", {
+        method: "PATCH",
+        body: fd,
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          console.log("result", result);
+          if (result.status === 200) {
+            if (localStorage.getItem("certificate_url_hi")) {
+              setCertificateUrl(localStorage.getItem("certificate_url_hi")!);
+              setScreen(3);
+            } else {
+              generateCertificate(
+                mobile,
+                "hi",
+                () => setScreen(3),
+                setCertificateUrl
+              );
+            }
+            setAlreadyRegistered(false);
+          }
+        });
+    }
+    if (alreadyRegistered) {
+      console.log("scored", scored);
+      callAPI(localStorage.getItem("mobile_quiz")!, scored);
+    }
+  }, [alreadyRegistered]);
   const selectOption = (e: any, isRightAnswer: boolean) => {
     setError(false);
 
@@ -88,9 +128,11 @@ export default function QuizQuestion() {
       return;
     }
     if (currentQuestion === Questions.length) {
-      if (localStorage.getItem("mobile")) {
+      if (localStorage.getItem("mobile_quiz")) {
+        console.log("score", score);
         setScored(score);
-        setScreen(3);
+        // setScreen(3);
+        setAlreadyRegistered(true);
       } else {
         setOpenSubmitModal(true);
       }

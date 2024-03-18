@@ -15,6 +15,7 @@ const context = createContext({} as any);
 function QuizContextProvider({ children }: { children: React.ReactNode }) {
   const [screen, setScreen] = useState(1);
   const [scored, setScored] = useState(0);
+  const [totalQuestion, setTotalQuestion] = useState(0);
   const [certificateUrl, setCertificateUrl] = useState("");
 
   return (
@@ -26,6 +27,8 @@ function QuizContextProvider({ children }: { children: React.ReactNode }) {
         setScored,
         certificateUrl,
         setCertificateUrl,
+        totalQuestion,
+        setTotalQuestion,
       }}
     >
       {children}

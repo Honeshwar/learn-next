@@ -2,11 +2,16 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import TeaserVideo from "./TeaserVideo";
-import axios from "axios";
-import { configDotenv } from "dotenv";
 import DetailForm from "./DetailForm";
+import Link from "next/link";
 
-function Header({ isMobile }: { isMobile: boolean }) {
+function Header({
+  isMobile,
+  lang = "hi",
+}: {
+  isMobile: boolean;
+  lang: string;
+}) {
   const [openNavDropdown, setOpenNavDropdown] = useState(false);
   console.log("openNavDropdown", openNavDropdown);
 
@@ -14,6 +19,10 @@ function Header({ isMobile }: { isMobile: boolean }) {
     {
       name: "हमारी उपलब्धियाँ",
       url: "#achievement",
+    },
+    {
+      name: "करप्शन टेलर मशीन",
+      url: "#corruption-teller-machine",
     },
     {
       name: "हमारा प्रधानमंत्री उम्मीदवार चुनें",
@@ -45,7 +54,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
   const [states, setStates] = useState([]);
 
   useEffect(() => {
-    if (step === 1 && localStorage.getItem("mobile") !== null) {
+    if (step === 1 && localStorage.getItem("mobile_main") !== null) {
       setStep(5); //5
     }
     async function submit() {
@@ -81,14 +90,14 @@ function Header({ isMobile }: { isMobile: boolean }) {
                 if (responseData.status >= 200 && responseData.status < 300) {
                   // save mobile no to sessionStorage
                   console.log("before session add kare se", data);
-                  sessionStorage.setItem("mobile", data);
+                  sessionStorage.setItem("mobile_main", data);
                   setStep(2);
                   setData("");
                 }
               });
           } else {
             console.log("already resistered", "already registered");
-            localStorage.setItem("mobile", data); // so in spin the when no form shown
+            localStorage.setItem("mobile_main", data); // so in spin the when no form shown
             setStep(0);
           }
         });
@@ -104,7 +113,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
       // form data
       let body = new FormData();
       body.append("otp", data);
-      body.append("mobile", sessionStorage.getItem("mobile")!),
+      body.append("mobile", sessionStorage.getItem("mobile_main")!),
         console.log("form data", body);
 
       // call api
@@ -121,7 +130,10 @@ function Header({ isMobile }: { isMobile: boolean }) {
           console.log(data);
           if (data?.status >= 200 && data?.status < 300) {
             //otp verified
-            localStorage.setItem("mobile", sessionStorage.getItem("mobile")!);
+            localStorage.setItem(
+              "mobile_main",
+              sessionStorage.getItem("mobile_main")!
+            );
             fetch(
               `https://mahathugbandhan.com/api/v1/get_district?language=${"hi"}`
             )
@@ -148,9 +160,17 @@ function Header({ isMobile }: { isMobile: boolean }) {
     }
     console.log("data", data.length);
     if (data.length === 10) {
-      submit();
+      try {
+        submit();
+      } catch (error) {
+        console.log("error while create user", error);
+      }
     } else if (data.length === 6) {
-      otpVerification();
+      try {
+        otpVerification();
+      } catch (error) {
+        console.log("error while otp matching", error);
+      }
     }
   }, [data]);
 
@@ -185,8 +205,6 @@ function Header({ isMobile }: { isMobile: boolean }) {
     e.preventDefault();
     setData(otp);
   };
-  const closeThanksPledge = () => {};
-  const submitDetailHandler = () => {};
 
   return (
     <>
@@ -194,18 +212,26 @@ function Header({ isMobile }: { isMobile: boolean }) {
       {isMobile ? null : (
         <nav className="hidden md:flex bg-blue-900 px-5 pt-2 items-end gap-0 md:gap-5 xl:gap-10 justify-around h-[100px]">
           <div className="w-full md:w-auto flex justify-between gap-2 text-white">
-            <a href="/" className="">
+            <Link href="/" className="">
               <Image
                 className="h-[95px] object-contain"
-                src="/assets/images/mtb_logo.webp"
+                src={
+                  lang === "hi"
+                    ? "/assets/mtb_hindi_logo.webp"
+                    : "/assets/mtb_english_logo.webp"
+                }
                 priority={true}
                 placeholder="blur"
-                blurDataURL="/assets/images/mtb_logo.webp"
+                blurDataURL={
+                  lang === "hi"
+                    ? "/assets/mtb_hindi_logo.webp"
+                    : "/assets/mtb_english_logo.webp"
+                }
                 alt="brand logo"
                 width={100}
                 height={100}
               />
-            </a>
+            </Link>
           </div>
 
           <div className="w-[90%] md:w-[90%] h-full flex justify-center items-center">
@@ -221,7 +247,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
               ))}
 
               {/* <!-- language switch button --> */}
-              <a
+              <Link
                 href="./en"
                 className="flex gap-2 items-center px-4 flex-wrap justify-center z-10"
                 style={{ top: "90px", right: "5vw" }}
@@ -237,7 +263,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
                   <div className="w-3 h-3 bg-white rounded-full"></div>
                   <span id="language"> English</span>
                 </button>
-              </a>
+              </Link>
             </ul>
           </div>
         </nav>
@@ -249,21 +275,29 @@ function Header({ isMobile }: { isMobile: boolean }) {
             {/* <!-- mobile  navbar --> */}
             <nav className="flex md:hidden absolute left-0 right-0 top-0 z-[11] px-5 pt-2 items-end">
               <div className="w-full md:w-auto flex justify-between gap-2 text-white">
-                <a href="/" className="">
+                <Link href="/" className="">
                   <Image
                     className="h-[90px] object-contain"
-                    src="/assets/images/mtb_logo.webp"
+                    src={
+                      lang === "hi"
+                        ? "/assets/mtb_hindi_logo.webp"
+                        : "/assets/mtb_english_logo.webp"
+                    }
                     priority={true}
                     placeholder="blur"
-                    blurDataURL="/assets/images/mtb_logo.webp"
+                    blurDataURL={
+                      lang === "hi"
+                        ? "/assets/mtb_hindi_logo.webp"
+                        : "/assets/mtb_english_logo.webp"
+                    }
                     alt="brand logo"
                     width={100}
                     height={100}
                   />
-                </a>
+                </Link>
                 {/* <!-- mobile --> */}
                 <div className="md:hidden flex flex-col items-end gap-3">
-                  <a href="./en" className="flex gap-2">
+                  <Link href="./en" className="flex gap-2">
                     <Image
                       className="h-5"
                       src="/assets/images/language icon.webp"
@@ -276,7 +310,7 @@ function Header({ isMobile }: { isMobile: boolean }) {
 
                       <span id="language"> English</span>
                     </button>
-                  </a>
+                  </Link>
                   <Image
                     onClick={() => {
                       console.log("openNavDropdown", openNavDropdown);
@@ -323,17 +357,18 @@ function Header({ isMobile }: { isMobile: boolean }) {
             <div className="sm:hidden absolute bottom-[0vw] left-0 right-0 text-center flex flex-col gap-2 z-10 px-3 py-7 pb-0">
               <div className="font-climateCrisis flex flex-col px-2 items-center">
                 <Image
-                  className="max-w-[150px] mx-auto"
-                  src="/assets/images/mtb_logo.webp"
+                  className="w-full h-full max-w-[150px] mx-auto "
+                  src="/assets/mtb_english_logo.webp"
                   priority={true}
                   placeholder="blur"
-                  blurDataURL="/assets/images/mtb_logo.webp"
+                  blurDataURL="/assets/mtb_hindi_logo.webp"
                   alt="MTB logo"
                   width={100}
                   height={100}
                 />
                 <span className="text-[21px] text-white font-yatra max-w-[290px]">
                   देश को महाठगबंधन से बचाने का संकल्प लें
+                  {/* Pledge to save the country from Mahathugbandhan */}
                 </span>
               </div>
 
@@ -419,10 +454,10 @@ function Header({ isMobile }: { isMobile: boolean }) {
               <div className="font-bold flex flex-col gap-3 px-2">
                 <Image
                   className="max-w-[170px] mx-auto"
-                  src="/assets/images/mtb_logo.webp"
+                  src="/assets/mtb_hindi_logo.webp"
                   priority={true} //lazy lodaing remove and preload hoga start
                   placeholder="empty"
-                  //   blurDataURL="/assets/images/mtb_logo.webp"
+                  //   blurDataURL="/assets/mtb_hindi_logo.webp"
                   alt="MTB logo"
                   width={100}
                   height={100}

@@ -1,9 +1,14 @@
 import Image from "next/image";
-import { quiz_share_count } from "../../utils/common-functions";
+import {
+  generateShareLinks,
+  quiz_share_count,
+} from "../../utils/common-functions";
 import { useEffect, useState } from "react";
 import "../../styles/quiz/certificateContainer.css";
 import QuizHomeModal from "./QuizHomeModal";
 import { useQuizContext } from "../../context/quizContext";
+import { useShareLinks } from "../../hooks/ShareLinksHook";
+import Link from "next/link";
 
 export default function QuizCertificate() {
   const { certificateUrl } = useQuizContext();
@@ -12,11 +17,34 @@ export default function QuizCertificate() {
   console.log(certificateUrl);
   useEffect(() => {
     if (isDownload) {
-      const x = localStorage.getItem("mobile");
+      const x = localStorage.getItem("mobile_quiz");
       window.location.href =
         `https://mahathugbandhan.com/api/v1/get_certificate/` + x;
     }
   }, [isDownload]);
+
+  const {
+    whatsapp_link,
+    setWhatsapp_link,
+    facebook_link,
+    setFacebook_link,
+    twitter_link,
+    setTwitter_link,
+  } = useShareLinks();
+
+  useEffect(() => {
+    const link =
+      `https://mahathugbandhan.com/api/v1/metamaker/` +
+      localStorage.getItem("mobile_quiz") +
+      `?lang=hi`;
+    const text = encodeURIComponent(
+      `मेरी तरह आप भी भारत को विश्व गुरु बनाने के लिए इस लिंक पर क्लिक करें और मोदी जी का समर्थन करें | \n`
+    );
+    const { w, f, t } = generateShareLinks(link, text);
+    setWhatsapp_link(w);
+    setFacebook_link(f);
+    setTwitter_link(t);
+  }, []);
 
   return (
     <>
@@ -43,11 +71,7 @@ export default function QuizCertificate() {
             height={650}
             id="certificate"
             className="w-full my-2"
-            src={
-              certificateUrl === ""
-                ? "/assets/quiz/MTB_WebCertificate_Eng.png"
-                : certificateUrl
-            }
+            src={certificateUrl}
             alt="certificate"
             loading="eager"
           />
@@ -69,27 +93,42 @@ export default function QuizCertificate() {
             <div className="w-full md:w-[40%] flex justify-center items-center gap-0  mt-5 md:mt-0">
               <span className="mx-2">शेयर करें:</span>
               <div className="flex justify-center items-center">
-                <a id="facebook-link" target="_blank" href="" className="mx-1">
+                <a
+                  id="facebook-link"
+                  target="_blank"
+                  href={facebook_link}
+                  className="mx-1"
+                >
                   <Image
                     width={20}
                     height={20}
                     className="w-[30px] h-[30px] mr-2"
                     onClick={quiz_share_count}
                     src="/assets/quiz/fb.svg"
-                    alt=""
+                    alt="facebook logo"
                   />
                 </a>
-                <a id="whatsapp-link" target="_blank" href="" className="mx-1">
+                <a
+                  id="whatsapp-link"
+                  target="_blank"
+                  href={whatsapp_link}
+                  className="mx-1"
+                >
                   <Image
                     width={20}
                     height={20}
                     className="w-[30px] h-[30px] mr-2"
                     onClick={quiz_share_count}
                     src="/assets/quiz/whatsapp.svg"
-                    alt=""
+                    alt="whatsapp logo"
                   />
                 </a>
-                <a id="twitter-link" target="_blank" href="" className="mx-1">
+                <a
+                  id="twitter-link"
+                  target="_blank"
+                  href={twitter_link}
+                  className="mx-1"
+                >
                   <Image
                     width={20}
                     height={20}
@@ -101,15 +140,15 @@ export default function QuizCertificate() {
                       padding: "5px",
                       borderRadius: "50%",
                     }}
-                    alt=""
+                    alt="twitter logo"
                   />
                 </a>
               </div>
             </div>
           </div>
-          <a href="../" className="mx-3 p-3 underline">
+          <Link href="/" className="mx-3 p-3 underline">
             मुख्य वेबसाइट पर वापस जाएँ
-          </a>
+          </Link>
         </div>
       </section>
       {openModal && <QuizHomeModal setOpenModal={setOpenModal} />}

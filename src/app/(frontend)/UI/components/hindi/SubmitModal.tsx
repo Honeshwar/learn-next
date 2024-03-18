@@ -40,7 +40,7 @@ function SubmitModal({
       const data = await response.json();
       console.log(data);
       if (data.status === 200) {
-        localStorage.setItem("mobile", userData.mobile);
+        localStorage.setItem("mobile_quiz", userData.mobile);
         setScored(score);
         generateCertificate(
           userData.mobile,

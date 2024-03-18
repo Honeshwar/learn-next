@@ -1,14 +1,35 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useQuizContext } from "../../context/quizContext";
 import "../../styles/quiz/resultContainer.css";
 import QuizHomeModal from "./QuizHomeModal";
+import { useShareLinks } from "../../hooks/ShareLinksHook";
+import { generateShareLinks } from "../../utils/common-functions";
 export default function QuizResult() {
-  const { setScored, setScreen } = useQuizContext();
+  const { scored, setScored, setScreen, totalQuestion } = useQuizContext();
   const [openModal, setOpenModal] = useState(false);
+
+  const {
+    whatsapp_link,
+    setWhatsapp_link,
+    facebook_link,
+    setFacebook_link,
+    twitter_link,
+    setTwitter_link,
+  } = useShareLinks();
   const reset = () => {
     setScored(0);
     setScreen(1);
   };
+
+  useEffect(() => {
+    const link = location.origin + "/quiz";
+    const text = `मुझे "महाठगबंधन" क्विज़ में ${scored}/${totalQuestion} स्कोर मिला! क्या आप मुझ से ज्यादा स्कोर ला सकते हैं? क्विज खेलें और जानें! \n`;
+    const { w, f, t } = generateShareLinks(link, text);
+    setWhatsapp_link(w);
+    setFacebook_link(f);
+    setTwitter_link(t);
+  }, []);
+
   return (
     <>
       <span
@@ -45,7 +66,7 @@ export default function QuizResult() {
             आपका स्कोर हैं
           </p>
           <div id="score-container">
-            <span id="score">0</span>/3
+            <span id="score">{scored}</span>/{totalQuestion}
           </div>
           <div className=" w-full flex" style={{ justifyContent: "center" }}>
             <button
@@ -59,7 +80,7 @@ export default function QuizResult() {
           </div>
 
           <center>
-            <a id="" onClick={reset} href="" className="w-full">
+            <div id="" onClick={reset} className="w-full">
               <p>
                 <u className="flex justify-center">
                   <img
@@ -70,7 +91,7 @@ export default function QuizResult() {
                   <span> फिर से क्विज़ खेलें</span>
                 </u>
               </p>
-            </a>
+            </div>
           </center>
           <div className="mt-2">
             <p className="mb-0 text-center">शेयर करें</p>
@@ -78,23 +99,23 @@ export default function QuizResult() {
               <a
                 id="facebook-link-score"
                 target="_blank"
-                href=""
+                href={facebook_link}
                 className="mx-1"
               >
-                <img src="/assets/quiz/fb.svg" alt="" />
+                <img src="/assets/quiz/fb.svg" alt="facebook logo" />
               </a>
               <a
                 id="whatsapp-link-score"
                 target="_blank"
-                href=""
+                href={whatsapp_link}
                 className="mx-1"
               >
-                <img src="/assets/quiz/whatsapp.svg" alt="" />
+                <img src="/assets/quiz/whatsapp.svg" alt="whatsapp logo" />
               </a>
               <a
                 id="twitter-link-score"
                 target="_blank"
-                href=""
+                href={twitter_link}
                 className="mx-1"
               >
                 <img
@@ -104,7 +125,7 @@ export default function QuizResult() {
                     padding: "3px",
                     borderRadius: "50%",
                   }}
-                  alt=""
+                  alt="twitter logo"
                 />
               </a>
             </div>

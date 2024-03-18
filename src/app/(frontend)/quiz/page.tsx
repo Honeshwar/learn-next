@@ -9,12 +9,12 @@ import "../UI/styles/quiz/global.css";
 function Quiz() {
   const { screen, setScreen } = useQuizContext();
   return (
-    <>
+    <div className="body">
       {screen === 1 ? <QuizHome setScreen={setScreen} /> : null}
       {screen === 2 ? <QuizQuestion /> : null}
       {screen === 3 ? <QuizResult /> : null}
       {screen === 4 ? <QuizCertificate /> : null}
-    </>
+    </div>
   );
 }
 

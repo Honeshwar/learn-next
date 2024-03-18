@@ -223,7 +223,8 @@ export default function PledgeCounter() {
                 src="/assets/counter/Rahul17.webp"
                 alt="Rahul Gandhi"
               />
-              {/* <!-- <Image 
+              {/* <!-- <Image
+                 
                   width={100}
                   height={120}
                 className="h-[14vw] sm:h-[8vw]  bottom-[.5vw] right-[15vw] sm:bottom-[.4vw] sm:right-[26vw]"

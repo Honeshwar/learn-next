@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 type bannerData = {
   id: string;
   href: string;
@@ -30,7 +31,7 @@ function Banner({ bannerData }: { bannerData: bannerData }) {
   // }
   return (
     <section id={bannerData.id} className="w-full">
-      <a href={bannerData.href} className="w-full h-full">
+      <Link href={bannerData.href} className="w-full h-full">
         <Image
           className="w-full h-full "
           src={bannerData.src}
@@ -39,7 +40,7 @@ function Banner({ bannerData }: { bannerData: bannerData }) {
           width={1920}
           height={1500}
         />
-      </a>
+      </Link>
     </section>
   );
 }

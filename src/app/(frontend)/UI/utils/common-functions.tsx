@@ -76,10 +76,70 @@ async function generateCertificate(
   console.log("certificate", responseData, responseData.status === 200);
   if (responseData.status === 200) {
     console.log(responseData.certificate_url);
+    localStorage.setItem(
+      `certificate_url_${lang}`,
+      responseData.certificate_url
+    );
     setCertificateUrl(responseData.certificate_url);
     next();
   }
 }
+
+// share link generator
+function generateShareLinks(
+  link: string,
+  text: string
+): {
+  w: string;
+  f: string;
+  t: string;
+} {
+  // shares links
+  let twitter_link =
+    "https://twitter.com/intent/tweet?url=" + link + "&text=" + text;
+  let facebook_link =
+    "http://www.facebook.com/sharer/sharer.php?u=" + link + "&text=" + text;
+
+  let whatsapp_link = "";
+  if (screen.width > 750)
+    whatsapp_link =
+      "https://web.whatsapp.com/send?url=" +
+      link +
+      "&text=" +
+      link +
+      " " +
+      `%0A` +
+      text;
+  else
+    whatsapp_link =
+      "https://wa.me/?url=" + link + "&text=" + link + " " + `%0A` + text;
+
+  return {
+    w: whatsapp_link,
+    f: facebook_link,
+    t: twitter_link,
+  };
+}
+// validate phoneNumber
+function validationFirstDigit(number: string) {
+  console.log("first", number);
+  const firstDigit = parseInt(number.toString()[0]);
+  return firstDigit >= 6 && firstDigit <= 9;
+}
+function validateMobileNumberOnInput(
+  setError: React.Dispatch<React.SetStateAction<boolean>>,
+  event: any,
+  setMobileNumber: React.Dispatch<React.SetStateAction<string>>
+) {
+  setError(false);
+  //fetch input
+  let phoneInput = event.target;
+
+  const inputData = phoneInput.value.slice(0, 10);
+  phoneInput.value = inputData;
+  setMobileNumber(inputData);
+}
+
 export {
   image_download_count,
   spin_wheel_count,
@@ -89,4 +149,7 @@ export {
   quiz_share_count,
   getQueryParam,
   generateCertificate,
+  generateShareLinks,
+  validationFirstDigit,
+  validateMobileNumberOnInput,
 };
