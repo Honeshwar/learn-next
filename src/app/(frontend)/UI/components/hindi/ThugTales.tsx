@@ -11,6 +11,7 @@ import "../../styles/thug-tales.css";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { video_share_count } from "../../utils/common-functions";
+import clsx from "clsx";
 
 interface Swiper {
   autoplay: {
@@ -21,7 +22,7 @@ interface Swiper {
 
 function ThugTales({
   title = "हमारी ठग की कहानियाँ",
-  lang = "hindi",
+  lang = "hi",
 }: {
   title: string;
   lang: string;
@@ -52,27 +53,37 @@ function ThugTales({
     {
       src: `/assets/thug tales/videos/${lang}/1.mp4`,
       poster: `/assets/thug tales/images/${lang}/1.webp`,
-      "data-url": "thug_tales_videos/hindi/h1.mp4",
+      "data-url": `thug_tales_videos/${
+        lang === "hi" ? "hindi" : "english"
+      }/h1.mp4`,
     },
     {
       src: `/assets/thug tales/videos/${lang}/2.mp4`,
       poster: `/assets/thug tales/images/${lang}/2.webp`,
-      "data-url": "thug_tales_videos/hindi/h2.mp4",
+      "data-url": `thug_tales_videos/${
+        lang === "hi" ? "hindi" : "english"
+      }/h2.mp4`,
     },
     {
       src: `/assets/thug tales/videos/${lang}/3.mp4`,
       poster: `/assets/thug tales/images/${lang}/3.webp`,
-      "data-url": "thug_tales_videos/hindi/h3.mp4",
+      "data-url": `thug_tales_videos/${
+        lang === "hi" ? "hindi" : "english"
+      }/h3.mp4`,
     },
     {
       src: `/assets/thug tales/videos/${lang}/4.mp4`,
       poster: `/assets/thug tales/images/${lang}/4.webp`,
-      "data-url": "thug_tales_videos/hindi/h4.mp4",
+      "data-url": `thug_tales_videos/${
+        lang === "hi" ? "hindi" : "english"
+      }/h4.mp4`,
     },
     {
       src: `/assets/thug tales/videos/${lang}/5.mp4`,
       poster: `/assets/thug tales/images/${lang}/5.webp`,
-      "data-url": "thug_tales_videos/hindi/h5.mp4",
+      "data-url": `thug_tales_videos/${
+        lang === "hi" ? "hindi" : "english"
+      }/h5.mp4`,
     },
   ];
   // const playThugVideo = (e: any, index: string) => {};
@@ -123,11 +134,17 @@ function ThugTales({
       "https://mahathugbandhan.com/api/v1/videos?name=" + videoUrl
     );
 
-    let text =
-      "Check out this video about the Mahathugbandhan, let's remove them from our Bharat!" +
-      " %0A " +
-      link;
-
+    let text = "";
+    if (lang === "hi") {
+      text =
+        "महाठगबंधन का यह वीडियो देखें, आइए उन्हें अपने भारत से हटा दें!" +
+        "%0A";
+    } else {
+      text =
+        "Check out this video about the Mahathugbandhan, let's remove them from our Bharat!" +
+        " %0A " +
+        link;
+    }
     console.log(text);
 
     // shares links
@@ -220,7 +237,15 @@ function ThugTales({
     >
       <div className="flex flex-col gap-5 text-white pt-5 sm:pb-2 sm:pt-10 px-5  ">
         <div className="flex flex-col items-center ">
-          <span className="tracking-wider text-white text-center text-[7vw] sm:text-[3vw] font-yatra">
+          <span
+            className={clsx(
+              "tracking-wider text-white text-center text-[7vw] sm:text-[3vw]",
+              {
+                "font-yatra": lang === "hi",
+                "font-dangerous": lang === "en",
+              }
+            )}
+          >
             {title}
           </span>
           <div className="w-16 sm:w-24 h-[2px] sm:h-[3px] bg-yellow-600"></div>

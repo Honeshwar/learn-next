@@ -1,7 +1,13 @@
 "use client";
 import { useEffect } from "react";
 
-export default function Video({ isMobile }: { isMobile: boolean }) {
+export default function Video({
+  isMobile,
+  lang,
+}: {
+  isMobile: boolean;
+  lang: string;
+}) {
   useEffect(() => {
     console.log("video mounted", isMobile);
     let videoElement = document.getElementById(
@@ -14,14 +20,20 @@ export default function Video({ isMobile }: { isMobile: boolean }) {
       // videoElement.setAttribute("poster", "/assets/teaser/poster_hd.webp");
       // videoElement.style.objectFit = "contain";
       // videoElement.style.objectPosition = "0px";
-      sourceElement.setAttribute("src", "/assets/teaser/teaser_hd.mp4");
+      sourceElement.setAttribute(
+        "src",
+        `/assets/teaser/teaser_${lang === "hi" ? "hd" : "ed"}.mp4`
+      );
     } else {
       // videoElement.setAttribute("poster", "/assets/teaser/poster_hm.webp");
       // videoElement.style.objectFit = "auto";
       // videoElement.style.objectPosition = "0px"; //-20px
       // videoElement.style.objectFit = "fill";
       // videoElement.style.objectPosition = "auto";
-      sourceElement.setAttribute("src", "/assets/teaser/teaser_hm.mp4");
+      sourceElement.setAttribute(
+        "src",
+        `/assets/teaser/teaser_${lang === "hi" ? "hm" : "em"}.mp4`
+      );
     }
 
     videoElement.load();
@@ -98,7 +110,15 @@ export default function Video({ isMobile }: { isMobile: boolean }) {
         >
           <source
             id="source-of-teaser-video"
-            src="/assets/teaser/teaser_hm.mp4"
+            // src={
+            //   isMobile
+            //     ? lang === "hi"
+            //       ? "/assets/teaser/teaser_hm.mp4"
+            //       : "/assets/teaser/teaser_em.mp4"
+            //     : lang === "hi"
+            //     ? "/assets/teaser/teaser_hd.mp4"
+            //     : "/assets/teaser/teaser_ed.mp4"
+            // }
             type="video/mp4"
           />
         </video>

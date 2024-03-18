@@ -6,29 +6,34 @@ type bannerData = {
   src: string;
   alt: string;
 };
-function Banner({ bannerData }: { bannerData: bannerData }) {
-  // let data:Object;
-  // switch(name){
-  //     case "ctm":
-  //         data = {
-  //             id: "corruption-teller-machine",
-  //             href: "./ctm",
-  //             src:`/assets/banner/ctm hindi banner.webp`,
-  //             alt:"corruption teller machine banner"
-  //         }
-  //         break;
-  //     case "quiz":
-  //         data = {
-  //             id: "quiz",
-  //             href: "./quiz",
-  //             src:`/assets/banner/quiz hindi banner.webp`,
-  //             alt:"quiz banner"
-
-  //         }
-  //         break;
-  //     default:
-  //         console.log("error while swi")
-  // }
+function Banner({
+  section_name,
+  lang = "hi",
+}: {
+  section_name: string;
+  lang: string;
+}) {
+  let bannerData: bannerData = { id: "", href: "", src: "", alt: "" };
+  switch (section_name) {
+    case "ctm":
+      bannerData = {
+        id: "corruption-teller-machine",
+        href: "./ctm",
+        src: `/assets/banner/ctm_${lang}.webp`,
+        alt: "corruption teller machine banner",
+      };
+      break;
+    case "quiz":
+      bannerData = {
+        id: "quiz",
+        href: "./quiz",
+        src: `/assets/banner/quiz_${lang}.webp`,
+        alt: "quiz banner",
+      };
+      break;
+    default:
+      console.log("error while swi");
+  }
   return (
     <section id={bannerData.id} className="w-full">
       <Link href={bannerData.href} className="w-full h-full">

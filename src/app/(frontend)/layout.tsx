@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { hindiMetadata } from "./UI/utils/constant";
+import DATA from "./UI/utils/constant";
+import { AppContextProvider } from "./UI/context/appContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata: Metadata = hindiMetadata;
+export const metadata: Metadata = DATA.hi.Metadata;
 
 export default function RootLayout({
   children,
@@ -30,7 +31,7 @@ export default function RootLayout({
         /> */}
       </head>
       <body className={inter.className}>
-        {children}
+        <AppContextProvider>{children}</AppContextProvider>
 
         {/* <script defer src="/swipper.js"></script> */}
         {/* <script defer src="./slider.js"></script> */}

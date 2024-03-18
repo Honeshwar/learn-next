@@ -20,6 +20,7 @@ import {
   PledgeCounterSkeleton,
   ThugTalesSkeleton,
 } from "./UI/components/skeleton/Skeleton";
+import { useAppContext } from "./UI/context/appContext";
 
 // const HeaderComponent = dynamic(() => import('./UI/components/hindi/Header'), {
 //   loading: () => <p>Loading...</p>,
@@ -65,19 +66,20 @@ const ThugTalesComponent = dynamic(
   }
 );
 export default function HindiPage() {
-  const [isMobile, setIsMobile] = useState(false);
-  // const [delay, setDelay] = useState(false);
-  useEffect(() => {
-    if (window.screen.width <= 640) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
+  const { isMobile } = useAppContext();
+  // const [isMobile, setIsMobile] = useState(false);
+  // // const [delay, setDelay] = useState(false);
+  // useEffect(() => {
+  //   if (window.screen.width <= 640) {
+  //     setIsMobile(true);
+  //   } else {
+  //     setIsMobile(false);
+  //   }
 
-    // setTimeout(() => {
-    // setDelay(true);
-    // }, 1000);
-  }, []);
+  //   // setTimeout(() => {
+  //   // setDelay(true);
+  //   // }, 1000);
+  // }, []);
   console.log("isMobile", isMobile);
   return (
     <>
@@ -88,46 +90,32 @@ export default function HindiPage() {
       {true ? (
         <>
           <Suspense fallback={<PledgeCounterSkeleton />}>
-            <PledgeCounterComponent />
+            <PledgeCounterComponent lang="hi" key={"ounter"} />
           </Suspense>
           <Suspense fallback={<AchievementSkeleton />}>
-            <AchievementComponent />
+            <AchievementComponent title="हमारी उपलब्धियाँ" lang="hi" />
           </Suspense>
           <Suspense
             fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
           >
-            <BannerComponent
-              bannerData={{
-                id: "corruption-teller-machine",
-                href: "./ctm",
-                src: "/assets/banner/ctm hindi banner.webp",
-                alt: "corruption teller machine banner",
-              }}
-            />
+            <BannerComponent section_name="ctm" lang="hi" />
           </Suspense>
           <Suspense fallback={<ChoosePMSkeleton />}>
-            <SpinTheWheelComponent />
+            <SpinTheWheelComponent lang="hi" />
           </Suspense>
           <Suspense
             fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
           >
-            <BannerComponent
-              bannerData={{
-                id: "quiz",
-                href: "./quiz",
-                src: "/assets/banner/quiz hindi banner.webp",
-                alt: "quiz banner",
-              }}
-            />
+            <BannerComponent section_name="quiz" lang="hi" />
           </Suspense>
           <Suspense fallback={<MemeSkeleton />}>
-            <MemeBankComponent title="मीम बैंक" />
+            <MemeBankComponent lang="hi" />
           </Suspense>
           <Suspense fallback={<ThugTalesSkeleton />}>
-            <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hindi" />
+            <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hi" />
           </Suspense>
           <Suspense fallback={<MediaCoverageSkeleton />}>
-            <MediaCoverageComponent title="मीडिया कवरेज" lang="hindi" />
+            <MediaCoverageComponent title="मीडिया कवरेज" lang="hi" />
           </Suspense>
         </>
       ) : (

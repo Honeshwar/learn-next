@@ -8,7 +8,8 @@ import {
   spin_wheel_count,
   image_share_count,
 } from "../../utils/common-functions";
-function SpinTheWheel() {
+import clsx from "clsx";
+function SpinTheWheel({ lang = "hi" }: { lang: string }) {
   const [isSpinning, setIsSpinning] = useState(false);
   const [showPhoneModal, setShowPhoneModal] = useState(false);
   const [counter, setCounter] = useState(0);
@@ -28,14 +29,11 @@ function SpinTheWheel() {
   } = useMobileNumber();
   const [submitMobileNumber, setSubmitMobileNumber] = useState(false);
 
-  const lang = "hi";
   const spinResultData = [
     {
       id: 0,
       name: "Mamata Banerjee",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Mamata Banerjee.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Mamata Banerjee.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Mamata_Banerjee.png`,
@@ -43,9 +41,7 @@ function SpinTheWheel() {
     {
       id: 1,
       name: "Rahul Gandhi",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Rahul Gandhi.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Rahul Gandhi.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Rahul_Gandhi.png`,
@@ -53,9 +49,7 @@ function SpinTheWheel() {
     {
       id: 2,
       name: "Sharad Pawar",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Sharad Pawar.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Sharad Pawar.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Sharad_Pawar.png`,
@@ -63,9 +57,7 @@ function SpinTheWheel() {
     {
       id: 3,
       name: "Lalu Prasad Yadav",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Lalu Prasad Yadav.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Lalu Prasad Yadav.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Lalu_Prasad_Yadav.png`,
@@ -73,9 +65,7 @@ function SpinTheWheel() {
     {
       id: 4,
       name: "Arvind Kejriwal ",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Arvind Kejriwal.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Arvind Kejriwal.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Arvind_Kejriwal.png`,
@@ -83,9 +73,7 @@ function SpinTheWheel() {
     {
       id: 5,
       name: "Akhilesh Yadav",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Akhilesh Yadav.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Akhilesh Yadav.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Akhilesh_Yadav.png`,
@@ -93,9 +81,7 @@ function SpinTheWheel() {
     {
       id: 6,
       name: "Mallikarjun Kharge",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }Mallikarjun Kharge.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/Mallikarjun Kharge.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }Mallikarjun_Kharge.png`,
@@ -103,9 +89,7 @@ function SpinTheWheel() {
     {
       id: 7,
       name: "MK Stalin",
-      imgUrl: `/assets/spinthewheel/${
-        lang === "hi" ? "hindi/" : ""
-      }MK Stalin.webp`,
+      imgUrl: `/assets/spinthewheel/${lang}/MK Stalin.webp`,
       dataUrl: `result_cards/${
         lang === "hi" ? "hindi/" : "english/"
       }MK_Stalin.png`,
@@ -216,17 +200,31 @@ function SpinTheWheel() {
         spinResultData[id].dataUrl
     );
 
-    let text =
-      "क्या आपने कभी सोचा है कि अगर " +
-      spinResultData[id].name +
-      " भारत का प्रधानमंत्री बन जाए तो क्या होगा?" +
-      "%0A" +
-      "आइए हम सब मिलकर अपने देश को इस शर्मिंदगी से बचाएं। ❌❌" +
-      "%0A" +
-      "अभी " +
-      "https://mahathugbandhan.com/" +
-      " देखें! " +
-      "%0A";
+    let text = "";
+    if (lang === "hi") {
+      text =
+        "क्या आपने कभी सोचा है कि अगर " +
+        spinResultData[id].name +
+        " भारत का प्रधानमंत्री बन जाए तो क्या होगा?" +
+        "%0A" +
+        "आइए हम सब मिलकर अपने देश को इस शर्मिंदगी से बचाएं। ❌❌" +
+        "%0A" +
+        "अभी " +
+        "https://mahathugbandhan.com/" +
+        " देखें! " +
+        "%0A";
+    } else {
+      text =
+        "Ever imagined what would happen if " +
+        spinResultData[id].name +
+        " becomes Bharat's Prime Minister?" +
+        " %0A " +
+        "Let's together avoid this embarrassment for our nation. ❌❌" +
+        " %0A " +
+        "Check out " +
+        "https://mahathugbandhan.com/" +
+        " now! ";
+    }
 
     console.log(text);
 
@@ -277,8 +275,18 @@ function SpinTheWheel() {
       className="py-7 sm:py-10 bg-stw-mobile md:bg-stw-desktop bg-cover md:bg-center bg-no-repeat "
     >
       <div className="flex flex-col items-center gap-0 sm:pb-2">
-        <span className="tracking-wider text-white text-center text-[7vw] w-full sm:text-[3vw] font-yatra  sm:max-w-fit">
-          हमारा प्रधानमंत्री उम्मीदवार चुनें
+        <span
+          className={clsx(
+            "tracking-wider text-white text-center text-[7vw] w-full sm:text-[3vw]  sm:max-w-fit max-w-fit",
+            {
+              "font-yatra": lang === "hi",
+              "font-dangerous": lang === "en",
+            }
+          )}
+        >
+          {lang === "hi"
+            ? " हमारा प्रधानमंत्री उम्मीदवार चुनें"
+            : "CHOOSE OUR PM CANDIDATE"}
         </span>
         <div className="w-16 sm:w-24 h-[2px] sm:h-[3px] bg-yellow-600"></div>
       </div>
@@ -301,15 +309,15 @@ function SpinTheWheel() {
                 backgroundImage:
                   "url('/assets/spinthewheel/fortune wheel middle.webp')",
                 backgroundRepeat: "no-repeat",
-                backgroundSize: "contain",
+                backgroundSize: "cover",
               }}
             ></div>
           </div>
-          <div className="absolute flex justify-center">
+          <div className=" absolute flex justify-center">
             <Image
-              width={150}
-              height={150}
-              className="absolute w-[45%] sm:w-[60%] -top-5"
+              width={200}
+              height={200}
+              className="absolute w-[45%] sm:w-[60%] -top-2.5"
               src="/assets/spinthewheel/Fortune Wheel Top.webp"
               alt="wheel top"
             />
@@ -323,19 +331,28 @@ function SpinTheWheel() {
             <Image
               width={150}
               height={150}
-              className="w-[35%] h-fit sm:w-[45%] z-[1]"
-              src="/assets/spinthewheel/mtb_hindi_logo.webp"
+              className="w-[35%] h-fit sm:w-[45%] z-[1] object-contain"
+              src={
+                lang === "hi"
+                  ? "/assets/spinthewheel/mtb_hindi_logo.webp"
+                  : "/assets/spinthewheel/mtb_english_logo.webp"
+              }
               alt="wheel logo"
+              quality={100}
             />
           </div>
         </div>
         <button
-          id="spin-btn"
           onClick={spinWheel}
-          className="w-[70%] text-white font-yatra text-[6vw] sm:text-2xl relative sm:w-fit cursor-pointer bg-[blue] hover:bg-blue-950 px-[50px] py-[10px] sm:pt-3 rounded-xl sm:mt-2"
-          style={{ letterSpacing: "2px" }}
+          className={clsx(
+            "w-[70%] text-white  sm:text-2xl relative sm:w-fit cursor-pointer bg-[blue] hover:bg-blue-950 px-[50px] py-[10px] sm:pt-3 rounded-xl sm:mt-2",
+            {
+              "font-yatra text-[6vw] tracking-[2px]": lang === "hi",
+              "font-bold": lang === "en",
+            }
+          )}
         >
-          पहिया घुमाएं
+          {lang === "hi" ? "पहिया घुमाएं" : "Spin The Wheel"}
         </button>
       </div>
 
@@ -355,12 +372,20 @@ function SpinTheWheel() {
                   className="h-full w-full sm:w-[50%]   object-contain sm:object-cover"
                   src={spinResultData[result_ID].imgUrl}
                   alt="spin the wheel result"
+                  quality={100}
                 />
                 <div className=" h-full w-full sm:w-[30%]  text-white flex flex-col justify-center items-center gap-5 sm:gap-[3vw] ">
                   <div className="flex flex-col justify-center items-center gap-[1vw] ">
-                    <h3 className="text-[9vw] sm:text-[2rem] font-dangerous text-white font-yatra ">
-                      {" "}
-                      शेयर{" "}
+                    <h3
+                      className={clsx(
+                        "text-[9vw] sm:text-[2rem]  text-white ",
+                        {
+                          "font-yatra": lang === "hi",
+                          "font-dangerous": lang === "en",
+                        }
+                      )}
+                    >
+                      {lang === "hi" ? "शेयर" : "Share"}
                     </h3>
                     <div
                       id="result-card-share"
@@ -376,7 +401,7 @@ function SpinTheWheel() {
                         <Image
                           width={50}
                           height={50}
-                          className="h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
+                          className="w-fit h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
                           src="/assets/svg/whatsapp.svg"
                           alt="whatsapp logo"
                         />
@@ -391,12 +416,12 @@ function SpinTheWheel() {
                         <Image
                           width={50}
                           height={50}
-                          className="h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
+                          className="w-fit h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
                           src="/assets/svg/twt-x-logo.svg"
                           alt="twitter logo"
                           style={{
                             backgroundColor: "black",
-                            padding: "3px",
+                            padding: "5px",
                             borderRadius: "50%",
                           }}
                         />
@@ -411,7 +436,7 @@ function SpinTheWheel() {
                         <Image
                           width={50}
                           height={50}
-                          className="h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
+                          className="w-fit h-[10vw] sm:h-[4vw] sm:max-h-[50px]"
                           src="/assets/svg/fb.svg"
                           alt="facebook logo"
                         />
@@ -425,12 +450,9 @@ function SpinTheWheel() {
                     download="choose_our_PM_candidate"
                     className="w-[150px] bg-[rgb(255,0,0)] py-1 px-4 flex justify-center items-center gap-3 rounded-md text-white font-bold "
                   >
-                    <span className="material-symbols-outlined">
-                      {" "}
-                      download{" "}
-                    </span>
+                    <span className="material-symbols-outlined">download</span>
                     <span className="font-yatra text-[1.2rem] sm:text-[1.5rem] pt-[2px]">
-                      डाउनलोड
+                      {lang === "hi" ? "डाउनलोड" : "Download"}
                     </span>
                   </a>
                 </div>
@@ -466,35 +488,65 @@ function SpinTheWheel() {
                 {/* <!-- Modal content --> */}
                 <div
                   id="result-mobile-number-form"
-                  className="relative bg- rounded-lg  h-full w-full flex justify-center items-center flex-col sm:py-[3vw]  sm:gap-1"
+                  className="relative bg- rounded-lg  h-full w-full flex justify-center items-center flex-col sm:py-[3vw]  gap-2 sm:gap-3"
                 >
-                  <h3 className=" text-center text-[1.5rem] sm:text-[2rem] font-yatra text-white  ">
-                    परिणाम देखने के लिए मोबाइल नंबर दर्ज करें
+                  <h3
+                    className={clsx(
+                      " text-center text-[1.5rem] sm:text-[2rem]  text-white  ",
+                      {
+                        "font-yatra": lang === "hi",
+                        "font-dangerous": lang === "en",
+                      }
+                    )}
+                  >
+                    {lang === "hi"
+                      ? "परिणाम देखने के लिए मोबाइल नंबर दर्ज करें"
+                      : "Enter Mobile Number to See Result"}
                   </h3>
                   {/* <!-- Modal body --> */}
                   {/* <!-- show error --> */}
                   {error && (
                     <div
                       id="result-mobile-number-error"
-                      className="flex text-[red] font-bold  justify-center font-yatra text-[1.2rem] sm:text-[1.4rem]"
+                      className={clsx(
+                        "flex text-[red] font-bold  justify-center text-[1.2rem] sm:text-[1.4rem] py-1",
+                        {
+                          "font-yatra": lang === "hi",
+                          "text-[1rem] sm:text-[1.2rem]": lang === "en",
+                        }
+                      )}
                     >
-                      त्रुटि उत्पन्न हुई अमान्य मोबाइल नंबर
+                      {lang === "hi"
+                        ? "त्रुटि उत्पन्न हुई अमान्य मोबाइल नंबर"
+                        : "Error Occured: Invalid Number"}
                     </div>
                   )}
                   <form
                     onSubmit={submitNumberToSeeResult}
-                    className="mobileNo-form flex flex-col items-center  gap-5 sm:gap-6 w-full h-full"
+                    className="mobileNo-form flex flex-col items-center  gap-3 sm:gap-4 w-full h-full"
                   >
                     <input
                       id="result-card-input"
                       className=" pl-3 py-[1.3vw] sm:py-[.51vw] w-[90%]"
                       type="number"
-                      placeholder="मोबाइल नंबर दर्ज करें"
+                      placeholder={
+                        lang === "hi"
+                          ? "मोबाइल नंबर दर्ज करें"
+                          : "Enter Your Mobile Number"
+                      }
                       required
                       onInput={validatePhoneNumber}
                     />
-                    <button className="w-[90%]  rounded-lg px-3 py-2 text-white  bg-red-600  text-[1.2rem] sm:text-[1.5rem] font-yatra font-extrabold sm:tracking-[1px]">
-                      जमा करें
+                    <button
+                      className={clsx(
+                        "w-[90%]  rounded-lg px-3 py-2 text-white  bg-red-600  text-[1.2rem] sm:text-[1.5rem] font-extrabold sm:tracking-[1px] font-yatra ",
+                        {
+                          // "font-yatra": lang === "hi",
+                          // "font-yatra": lang === "en",
+                        }
+                      )}
+                    >
+                      {lang === "hi" ? "जमा करें" : "Submit"}
                     </button>
                   </form>
                   <span

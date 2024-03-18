@@ -1,7 +1,7 @@
 import Image from "next/image"; //image api import png(1mb)-->compress and webp convert
 import { useEffect, useState } from "react";
 
-export default function PledgeCounter() {
+export default function PledgeCounter({ lang = "hi" }: { lang: string }) {
   const [pledgeCount, setPledgeCount] = useState([]);
   useEffect(() => {
     async function getCount() {
@@ -22,7 +22,11 @@ export default function PledgeCounter() {
 
       setPledgeCount(countArr);
     }
-    getCount();
+    try {
+      getCount();
+    } catch (error) {
+      console.log("error while caliing get_count API");
+    }
   }, []);
   return (
     <section id="pledge" className=" overflow-hidden  sm:overflow-visible">
@@ -190,7 +194,7 @@ export default function PledgeCounter() {
           <div className="flex flex-col  justify-center items-center relative h-full w-full ">
             <div className="h-fit w-fit">
               <h1 className="h-fit font-yatra text-[white] text-[10vw] sm:text-[3vw] pt-[1vw]">
-                संकल्प लिए जा चुके हैं
+                {lang === "hi" ? "संकल्प लिए जा चुके हैं" : "PLEDGES TAKEN"}
               </h1>
             </div>
             <div className="relative flex justify-center items-center py-[2vw] mt-[-20px]">

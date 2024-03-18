@@ -1,15 +1,18 @@
-import { useEffect, useState } from "react";
+import clsx from "clsx";
+import React, { useEffect, useState } from "react";
 
 function DetailForm({
-  step,
+  CTA,
   states,
   setStates,
   setStep,
+  lang,
 }: {
-  step: number;
+  CTA: any;
   states: any;
-  setStates: any;
-  setStep: Function;
+  setStates: React.Dispatch<React.SetStateAction<any>>;
+  setStep: React.Dispatch<React.SetStateAction<number>>;
+  lang: string;
 }) {
   const [details, setDetails] = useState({
     name: "",
@@ -28,7 +31,7 @@ function DetailForm({
   const [district, setDistrict] = useState("");
 
   //   useEffect(() => {
-  //     fetch(`https://mahathugbandhan.com/api/v1/get_district?language=${"hi"}`)
+  //     fetch(`https://mahathugbandhan.com/api/v1/get_district?language=${lang}`)
   //       .then((response) => response.json())
   //       .then((data) => {
   //         console.log("get allstates ", data);
@@ -70,7 +73,7 @@ function DetailForm({
     async function getDistrict(stateId: number) {
       console.log("click option");
       const response = await fetch(
-        `https://mahathugbandhan.com/api/v1/get_ac_from_district?district_id=${stateId}&language=${"hi"}`
+        `https://mahathugbandhan.com/api/v1/get_ac_from_district?district_id=${stateId}&language=${lang}`
       );
       const responseData = await response.json();
       console.log("all districts", responseData);
@@ -90,13 +93,13 @@ function DetailForm({
     console.log(name, age, gender, state, district);
     setError("");
     if (gender === "") {
-      setError("** Select Gender!");
+      setError(lang === "hi" ? "** लिंग आवश्यक है!" : "** Select Gender!");
       return;
     } else if (state === "") {
-      setError("** Select State!");
+      setError(lang === "hi" ? "** राज्य आवश्यक है!" : "** Select State!");
       return;
     } else if (district === "") {
-      setError("** Select District!");
+      setError(lang === "hi" ? "** जिला आवश्यक है!" : "** Select District!");
       return;
     }
 
@@ -111,167 +114,204 @@ function DetailForm({
 
   const stateHandler = (e: any) => {
     e.preventDefault();
+    setError("");
     setStateId(e.target.value);
     setState(e.target.value);
   };
 
   return (
-    <>
-      {step === 3 && (
-        <div
-          id="detail-form"
-          className=" overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full "
-          style={{ backgroundColor: "#181844c0" }}
-        >
-          <div className="w-full h-full sm:w-fit sm:h-fit justify-center items-center">
-            <div className="relative p-4 w-full max-w-md max-h-full">
-              {/* <!-- Modal content --> */}
-              <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 font-yatra">
-                {/* <!-- Modal header --> */}
-                <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                  <h3 className=" font-semibold text-gray-900 dark:text-white text-center font-[inherit] text-[1.2rem] sm:text-[1.5rem]">
-                    रजिस्ट्रेशन की प्रक्रिया पूरी करने के लिए नीचे दिया फॉर्म
-                    भरें
-                  </h3>
-                  {/* <!-- close btn --> */}
-                </div>
-
-                {/* <!-- Modal body --> */}
-                <form className="p-4 md:p-5" onSubmit={submitDetailHandler}>
-                  {/* <!-- show error --> */}
-                  <div
-                    id="detail-form-error"
-                    className="text-[red] font-bold flex justify-center"
-                  >
-                    {error}
-                  </div>
-                  <div className="grid gap-4 mb-4 grid-cols-2">
-                    <div className="col-span-2 ">
-                      <label
-                        htmlFor="name"
-                        className="block mb-2  text-[1.2rem] sm:text-[1.5rem] font-medium text-gray-900 dark:text-white font-[inherit]"
-                      >
-                        नाम
-                      </label>
-                      <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500  text-[1.2rem] sm:text-[1.2rem]"
-                        placeholder="अपना नाम दर्ज करें"
-                        required
-                        onChange={(e) => setName(e.target.value)}
-                      />
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="age"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
-                      >
-                        आयु
-                      </label>
-                      <input
-                        type="number"
-                        name="age"
-                        id="age"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500  text-[1.2rem] sm:text-[1.2rem]"
-                        placeholder="अपनी आयु दर्ज करें"
-                        required
-                        onChange={(e) => setAge(e.target.value)}
-                      />
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="gender"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
-                      >
-                        लिंग
-                      </label>
-                      <select
-                        id="gender"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500  text-[1.2rem] sm:text-[1.2rem]"
-                        required
-                        defaultValue="अपना लिंग चुनें"
-                        onChange={(e) => setGender(e.target.value)}
-                      >
-                        <option disabled className="font-[inherit]">
-                          अपना लिंग चुनें
-                        </option>
-                        <option value="Male" className="font-[inherit]">
-                          पुरुष
-                        </option>
-                        <option value="Female" className="font-[inherit]">
-                          महिला
-                        </option>
-                        <option value="Others" className="font-[inherit]">
-                          अन्य
-                        </option>
-                      </select>
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="state"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
-                      >
-                        राज्य
-                      </label>
-                      <select
-                        id="state"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500  text-[1.2rem] sm:text-[1.2rem]"
-                        required
-                        defaultValue="अपना राज्य चुनें"
-                        onChange={stateHandler}
-                      >
-                        <option disabled className="font-[inherit]">
-                          अपना राज्य चुनें
-                        </option>
-                        {states.map((state: any) => (
-                          <option value={state.id} key={state.id}>
-                            {state.district_name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                    <div className="col-span-2 sm:col-span-1">
-                      <label
-                        htmlFor="district"
-                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
-                      >
-                        ज़िला
-                      </label>
-                      <select
-                        id="district"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500  text-[1.2rem] sm:text-[1.2rem]"
-                        required
-                        defaultValue="अपना ज़िला चुनें"
-                        onChange={(e) => setDistrict(e.target.value)}
-                      >
-                        <option disabled className="font-[inherit]">
-                          अपना ज़िला चुनें
-                        </option>
-                        {districts.map((district: any) => (
-                          <option value={district.id} key={district.id}>
-                            {district.ac_name}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </div>
-                  <div className="flex justify-center pt-5">
-                    <button
-                      type="submit"
-                      className="text-white inline-flex justify-center items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2 pt-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 font-[inherit]  text-[1.2rem] sm:text-[1.5rem]"
-                    >
-                      विवरण जमा करें
-                    </button>
-                  </div>
-                </form>
-              </div>
+    <div
+      id="detail-form"
+      className=" overflow-y-auto overflow-x-hidden fixed top-0 left-0 z-50 flex justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full "
+      style={{ backgroundColor: "#181844c0" }}
+    >
+      <div className="w-full h-full sm:w-fit sm:h-fit justify-center items-center">
+        <div className="relative p-4 w-full max-w-md max-h-full">
+          {/* <!-- Modal content --> */}
+          <div
+            className={clsx("relative bg-yellow-600 rounded-lg shadow  ", {
+              "font-yatra": lang === "hi",
+              "font-book": lang === "en",
+            })}
+          >
+            {/* <!-- Modal header --> */}
+            <div className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-yellow-500">
+              <h3 className=" font-semibold  text-white text-center font-[inherit] text-[1.2rem] sm:text-[1.5rem]">
+                {/* रजिस्ट्रेशन की प्रक्रिया पूरी करने के लिए नीचे दिया फॉर्म भरें */}
+                {CTA["form-3"].title}
+              </h3>
+              {/* <!-- close btn --> */}
             </div>
+
+            {/* <!-- Modal body --> */}
+            <form className="p-4 md:p-5" onSubmit={submitDetailHandler}>
+              {/* <!-- show error --> */}
+              {error && (
+                <div
+                  id="detail-form-error"
+                  className="text-[red] font-bold flex justify-center"
+                >
+                  {error}
+                </div>
+              )}
+              <div className="grid gap-4 mb-4 grid-cols-2">
+                <div className="col-span-2 ">
+                  <label
+                    htmlFor="name"
+                    className="block mb-2  text-[1.2rem] sm:text-[1.5rem] font-medium  text-white font-[inherit]"
+                  >
+                    {CTA["form-3"]["input-1"].label}
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    id="name"
+                    className="bg-white-50 border border-white-300  text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 text-[1.2rem] sm:text-[1.2rem] font-[inherit] text-yellow-600 font-[500]"
+                    placeholder={CTA["form-3"]["input-1"].placeholder}
+                    required
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <label
+                    htmlFor="age"
+                    className="block mb-2 text-sm font-medium  text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
+                  >
+                    {/* आयु */}
+                    {CTA["form-3"]["input-2"].label}
+                  </label>
+                  <input
+                    type="number"
+                    name="age"
+                    id="age"
+                    className="bg-white-50 border border-white-300  text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 text-[1.2rem] sm:text-[1.2rem] font-[inherit] text-yellow-600 font-[500]"
+                    placeholder={CTA["form-3"]["input-2"].placeholder}
+                    required
+                    onChange={(e) => setAge(e.target.value)}
+                  />
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <label
+                    htmlFor="gender"
+                    className="block mb-2 text-sm font-medium  text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
+                  >
+                    {/* लिंग */}
+                    {CTA["form-3"]["input-3"].label}
+                  </label>
+                  <select
+                    id="gender"
+                    className="bg-white-50 border border-white-300  text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 text-[1.2rem] sm:text-[1.2rem] font-inherit text-gray-400 font-[550]"
+                    required
+                    defaultValue={CTA["form-3"]["input-3"]["default-value"]}
+                    onChange={(e) => {
+                      setError("");
+                      setGender(e.target.value);
+                    }}
+                  >
+                    <option selected disabled className="font-[inherit]">
+                      {/* अपना लिंग चुनें */}
+                      {CTA["form-3"]["input-3"]["disabled-option"]}
+                    </option>
+                    {/* <option value="Male" className="font-[inherit]">
+                      पुरुष
+                    </option>
+                    <option value="Female" className="font-[inherit]">
+                      महिला
+                    </option>
+                    <option value="Others" className="font-[inherit]">
+                      अन्य
+                    </option> */}
+
+                    {CTA["form-3"]["input-3"]["options"].map(
+                      (option: string) => (
+                        <option
+                          key={option}
+                          value={option}
+                          className="font-[inherit] text-yellow-600 font-[500]"
+                        >
+                          {option}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <label
+                    htmlFor="state"
+                    className="block mb-2 text-sm font-medium  text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
+                  >
+                    {/* राज्य */}
+                    {CTA["form-3"]["input-4"].label}
+                  </label>
+                  <select
+                    id="state"
+                    className="bg-white-50 border border-white-300  text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 text-[1.2rem] sm:text-[1.2rem] font-inherit text-gray-400 font-[550]"
+                    required
+                    defaultValue={CTA["form-3"]["input-4"]["disabled-option"]}
+                    onChange={stateHandler}
+                  >
+                    <option selected disabled className="font-[inherit]">
+                      {/* अपना राज्य चुनें */}
+                      {CTA["form-3"]["input-4"]["disabled-option"]}
+                    </option>
+                    {states.map((state: any) => (
+                      <option
+                        value={state.id}
+                        key={state.id}
+                        className="text-yellow-600 font-[500]"
+                      >
+                        {state.district_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="col-span-2 sm:col-span-1">
+                  <label
+                    htmlFor="district"
+                    className="block mb-2 text-sm font-medium  text-white font-[inherit]  text-[1.2rem] sm:text-[1.2rem]"
+                  >
+                    {/* ज़िला */}
+                    {CTA["form-3"]["input-5"].label}
+                  </label>
+                  <select
+                    id="district"
+                    className="bg-white-50 border border-white-300  text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 text-[1.2rem] sm:text-[1.2rem] font-inherit text-gray-400 font-[550]"
+                    required
+                    defaultValue={CTA["form-3"]["input-5"]["disabled-option"]}
+                    onChange={(e) => {
+                      setError("");
+                      setDistrict(e.target.value);
+                    }}
+                  >
+                    <option selected disabled className="font-[inherit]">
+                      {CTA["form-3"]["input-5"]["disabled-option"]}
+                    </option>
+                    {districts.map((district: any) => (
+                      <option
+                        value={district.id}
+                        key={district.id}
+                        className="text-yellow-600 font-[500]"
+                      >
+                        {district.ac_name}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+              <div className="flex justify-center pt-1 pb-2">
+                <button
+                  type="submit"
+                  className="text-white inline-flex justify-center items-center bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 pt-2 text-center font-[inherit]  text-[1rem] sm:text-[1.5rem]"
+                >
+                  {/* विवरण जमा करें */}
+                  {CTA["form-3"]["submit-btn"]}
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      )}
-    </>
+      </div>
+    </div>
   );
 }
 

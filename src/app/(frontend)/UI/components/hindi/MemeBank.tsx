@@ -13,8 +13,9 @@ import {
   image_share_count,
   upload_count,
 } from "../../utils/common-functions";
+import clsx from "clsx";
 
-function MemeBank({ title = "मीम बैंक" }: { title: string }) {
+function MemeBank({ lang = "hi" }: { lang: string }) {
   const [slides, setSlides] = useState(4.7);
   const [openShareModal, setOpenShareModal] = useState(false);
   const [openUploadMemeModal, setopenUploadMemeModal] = useState(false);
@@ -163,15 +164,21 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
       "https://mahathugbandhan.com/api/v1/image_metamaker?name=" + imageUrl;
     console.log("url", l);
     let link = encodeURIComponent(l);
-    let first = encodeURIComponent("ये देखने के बाद आप भी हंस पड़ेंगे! 😂 ");
-    // let second = encodeURIComponent(" Check out ");
-    let text =
-      first +
-      link +
-      `\n` +
-      " पुरी " +
-      "https://mahathugbandhan.com/" +
-      " देखें!";
+    let text = "";
+    if (lang === "hi") {
+      let first = encodeURIComponent("ये देखने के बाद आप भी हंस पड़ेंगे! 😂 ");
+      text =
+        first +
+        link +
+        `\n` +
+        " पुरी " +
+        "https://mahathugbandhan.com/" +
+        " देखें!";
+    } else {
+      let first = encodeURIComponent("This is hilarious! 😂 ");
+      let second = encodeURIComponent(" Check out ");
+      text = first + link + `\n` + second + "https://mahathugbandhan.com/"; //%0A
+    }
     console.log(text);
 
     // shares links
@@ -207,8 +214,16 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
       >
         <div className="flex flex-col gap-5 text-white  sm:py-4 px-5">
           <h2 className="flex flex-col items-center">
-            <span className="tracking-wider text-center text-[7vw] sm:text-[3vw] text-[red] font-yatra">
-              {title}
+            <span
+              className={clsx(
+                "tracking-wider text-center text-[7vw] sm:text-[3vw] text-[red] ",
+                {
+                  "font-yatra": lang === "hi",
+                  "font-dangerous": lang === "en",
+                }
+              )}
+            >
+              {lang === "hi" ? "मीम बैंक" : "Meme Bank"}
             </span>
             <div className="w-16 sm:w-32 h-[3px] bg-[blue]"></div>
           </h2>
@@ -289,8 +304,13 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
             <a
               onClick={downloadMeme}
               download="meme"
-              className="w-[150px] bg-[rgb(255,0,0)] py-1 px-0 flex justify-center items-center gap-3 rounded-md text-white font-bold cursor-pointer font-yatra
-                 text-[1.2rem]"
+              className={clsx(
+                "w-[150px] bg-[rgb(255,0,0)] py-1  flex justify-center items-center rounded-md text-white font-bold cursor-pointer ",
+                {
+                  "font-yatra text-[1.2rem] px-0 gap-3": lang === "hi",
+                  "px-4 gap-2": lang === "en",
+                }
+              )}
             >
               {/* <span className="material-symbols-outlined"> download </span> */}
               <svg
@@ -302,11 +322,17 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
               >
                 <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
               </svg>
-              <span>डाउनलोड करें</span>
+              <span>{lang === "hi" ? "डाउनलोड करें" : "Download"}</span>
             </a>
             <a
               onClick={() => setOpenShareModal(true)}
-              className="w-[120px] bg-[rgb(255,0,0)] p-1 px-0 flex justify-center items-center gap-3 rounded-md text-white font-bold cursor-pointer font-yatra  text-[1.2rem]"
+              className={clsx(
+                "w-[120px] bg-[rgb(255,0,0)] p-1  flex justify-center items-center  rounded-md text-white font-bold cursor-pointer ",
+                {
+                  "font-yatra text-[1.2rem] px-0 gap-3": lang === "hi",
+                  "px-4 gap-2": lang === "en",
+                }
+              )}
             >
               {/* <span className="material-symbols-outlined"> share </span> */}
               <svg
@@ -318,7 +344,7 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
               >
                 <path d="M352 224c53 0 96-43 96-96s-43-96-96-96s-96 43-96 96c0 4 .2 8 .7 11.9l-94.1 47C145.4 170.2 121.9 160 96 160c-53 0-96 43-96 96s43 96 96 96c25.9 0 49.4-10.2 66.6-26.9l94.1 47c-.5 3.9-.7 7.8-.7 11.9c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-25.9 0-49.4 10.2-66.6 26.9l-94.1-47c.5-3.9 .7-7.8 .7-11.9s-.2-8-.7-11.9l94.1-47C302.6 213.8 326.1 224 352 224z" />
               </svg>
-              <span>शेयर करें</span>
+              <span>{lang === "hi" ? "शेयर करें" : "Share"}</span>
             </a>
           </div>
           <button
@@ -326,8 +352,15 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
             type="button"
             className="w-[230px] sm:w-fit  px-5 py-[6px] sm:px-5  sm:py-2 bg-blue-950 text-yellow-500 flex items-center gap-2 font-bold rounded-md cursor-pointer"
           >
-            <span className="text-center leading-5 font-yatra text-[1.2rem] pt-1">
-              अपने मीम्स अपलोड करें और उसे प्रदर्शित करवाए
+            <span
+              className={clsx("text-center leading-5 ", {
+                "font-yatra text-[1.2rem] pt-1": lang === "hi",
+                "py-1": lang === "en",
+              })}
+            >
+              {lang === "hi"
+                ? "अपने मीम्स अपलोड करें और उसे प्रदर्शित करवाए"
+                : "Upload Your Memes and Get it Featured"}
             </span>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -354,9 +387,14 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
             <div tabIndex={-1}>
               <div className="relative p-4 w-full max-w-[700px] max-h-[400px]">
                 <div className="relative bg-yellow-600 rounded-lg shadow ">
-                  <div className="p-10 md:p-20 text-center">
-                    <h3 className="mb-5 text-[2rem] font-yatra text-white">
-                      शेयर
+                  <div className="p-10 px-16 md:p-20 text-center">
+                    <h3
+                      className={clsx("mb-5 text-[2rem]  text-white", {
+                        "font-yatra": lang === "hi",
+                        "font-dangerous": lang === "en",
+                      })}
+                    >
+                      {lang === "hi" ? "शेयर" : "Share"}
                     </h3>
 
                     <div
@@ -432,9 +470,15 @@ function MemeBank({ title = "मीम बैंक" }: { title: string }) {
                       onClick={() => setOpenShareModal(false)}
                       data-modal-hide="popup-modal"
                       type="button"
-                      className="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-base inline-flex items-center px-5 py-1 pt-2 text-center me-2 font-yatra "
+                      className={clsx(
+                        "text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300  font-medium rounded-lg text-base inline-flex items-center px-5  text-center me-2  font-book",
+                        {
+                          "font-yatra py-1 pt-2": lang === "hi",
+                          "font-book py-2": lang === "en",
+                        }
+                      )}
                     >
-                      बंद करें
+                      {lang === "hi" ? "बंद करें" : "Close"}
                     </button>
                   </div>
                 </div>

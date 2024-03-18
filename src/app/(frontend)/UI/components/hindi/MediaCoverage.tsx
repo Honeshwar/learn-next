@@ -12,10 +12,11 @@ import "swiper/css/pagination";
 import "../../styles/media-coverage.css";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
+import clsx from "clsx";
 
 function MediaCoverage({
   title = "मीडिया कवरेज",
-  lang = "hindi",
+  lang = "hi",
 }: {
   title: string;
   lang: string;
@@ -23,47 +24,58 @@ function MediaCoverage({
   const articles = [
     {
       href: "https://indianexpress.com/article/political-pulse/india-alliance-sp-vs-congress-8991266/",
-      imgSrc: "/assets/media coverage/hindi/1.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/1.webp",
+      imgSrcEnglish: "/assets/media coverage/en/1.webp",
     },
     {
       href: "https://timesofindia.indiatimes.com/city/delhi/congress-disowns-netas-statement-after-aap-threatens-to-exit-india/articleshow/102783368.cms",
-      imgSrc: "/assets/media coverage/hindi/2.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/2.webp",
+      imgSrcEnglish: "/assets/media coverage/en/2.webp",
     },
     {
       href: "https://www.youtube.com/watch?v=8KwbsXzc2ww",
-      imgSrc: "/assets/media coverage/hindi/3.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/3.webp",
+      imgSrcEnglish: "/assets/media coverage/en/3.webp",
     },
     {
       href: "https://www.youtube.com/watch?v=-n16_RrxB18",
-      imgSrc: "/assets/media coverage/hindi/4.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/4.webp",
+      imgSrcEnglish: "/assets/media coverage/en/4.webp",
     },
     {
       href: "https://www.indiatoday.in/india/story/sanjay-singh-3rd-aap-leader-arrested-5-points-on-charges-against-them-2444581-2023-10-04",
-      imgSrc: "/assets/media coverage/hindi/5.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/5.webp",
+      imgSrcEnglish: "/assets/media coverage/en/5.webp",
     },
     {
       href: "https://economictimes.indiatimes.com/news/politics-and-nation/cash-seizure-in-tax-raids-shows-how-congress-has-kept-tradition-of-corruption-alive-bjp/articleshow/105865699.cms?from=mdr",
-      imgSrc: "/assets/media coverage/hindi/6.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/6.webp",
+      imgSrcEnglish: "/assets/media coverage/en/6.webp",
     },
     {
       href: "https://www.thehindu.com/news/cities/Madurai/one-third-of-dmk-ministers-face-corruption-charges-annamalai/article67304128.ece",
-      imgSrc: "/assets/media coverage/hindi/7.webp",
+      imgSrcHindi: "/assets/media coverage/en/7.webp",
+      imgSrcEnglish: "/assets/media coverage/en/1.webp",
     },
     {
       href: "https://www.ndtv.com/india-news/uttar-pradesh-ed-arrests-sp-politician-in-ponzi-linked-money-laundering-case-4235825",
-      imgSrc: "/assets/media coverage/hindi/8.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/8.webp",
+      imgSrcEnglish: "/assets/media coverage/en/8.webp",
     },
     {
       href: "https://zeenews.india.com/tamil-nadu/will-support-it-if-southern-states-want-to-break-away-from-india-dmk-leader-mk-stalin-2090888.html",
-      imgSrc: "/assets/media coverage/hindi/9.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/9.webp",
+      imgSrcEnglish: "/assets/media coverage/en/9.webp",
     },
     {
       href: "https://www.livemint.com/politics/news/bjp-winning-elections-in-gaumutra-states-dmk-mps-comments-dnv-senthilkumar-s-bjp-says-take-mental-treatment-11701779541455.html",
-      imgSrc: "/assets/media coverage/hindi/10.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/10.webp",
+      imgSrcEnglish: "/assets/media coverage/en/10.webp",
     },
     {
       href: "https://sanatanprabhat.org/english/73633.html",
-      imgSrc: "/assets/media coverage/hindi/11.webp",
+      imgSrcHindi: "/assets/media coverage/hindi/11.webp",
+      imgSrcEnglish: "/assets/media coverage/en/11.webp",
     },
   ];
 
@@ -86,7 +98,15 @@ function MediaCoverage({
       >
         <div className="flex flex-col gap-5 text-white py-3 sm:py-4 px-5">
           <div className="flex flex-col items-center">
-            <span className="tracking-wider text-white text-center text-[7vw] sm:text-[3vw] font-yatra">
+            <span
+              className={clsx(
+                "tracking-wider text-white text-center text-[7vw] sm:text-[3vw]",
+                {
+                  "font-yatra": lang === "hi",
+                  "font-dangerous": lang === "en",
+                }
+              )}
+            >
               {title}
             </span>
             <div className="w-16 sm:w-24 h-[2px] sm:h-[3px] bg-yellow-600"></div>
@@ -134,7 +154,11 @@ function MediaCoverage({
                     width={400}
                     height={300}
                     className="w-full h-full"
-                    src={article.imgSrc}
+                    src={
+                      lang === "hi"
+                        ? article.imgSrcHindi
+                        : article.imgSrcEnglish
+                    }
                     alt="media coverage article"
                   />
                 </a>
@@ -163,7 +187,7 @@ function MediaCoverage({
           </Swiper>
         </div>
 
-        <Footer />
+        <Footer lang={lang} />
       </section>
     </>
   );
