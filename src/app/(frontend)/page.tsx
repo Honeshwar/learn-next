@@ -59,17 +59,17 @@ const ThugTalesComponent = dynamic(() => import("./components/ThugTales"), {
 export default function HindiPage() {
   const { isMobile } = useAppContext();
   // const [isMobile, setIsMobile] = useState(false);
-  // // const [delay, setDelay] = useState(false);
+  // const [delay, setDelay] = useState(false);
   // useEffect(() => {
-  //   if (window.screen.width <= 640) {
-  //     setIsMobile(true);
-  //   } else {
-  //     setIsMobile(false);
-  //   }
+  //   // if (window.screen.width <= 640) {
+  //   //   setIsMobile(true);
+  //   // } else {
+  //   //   setIsMobile(false);
+  //   // }
 
-  //   // setTimeout(() => {
-  //   // setDelay(true);
-  //   // }, 1000);
+  //   setTimeout(() => {
+  //     setDelay(true);
+  //   }, 5000);
   // }, []);
   console.log("isMobile", isMobile);
   return (
@@ -78,38 +78,36 @@ export default function HindiPage() {
         <Header isMobile={isMobile} lang="hi" />
       </Suspense>
 
-      {true ? (
-        <>
-          <Suspense fallback={<PledgeCounterSkeleton />}>
-            <PledgeCounterComponent lang="hi" key={"ounter"} />
-          </Suspense>
-          <Suspense fallback={<AchievementSkeleton />}>
-            <AchievementComponent title="हमारी उपलब्धियाँ" lang="hi" />
-          </Suspense>
-          <Suspense
-            fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
-          >
-            <BannerComponent section_name="ctm" lang="hi" />
-          </Suspense>
-          <Suspense fallback={<ChoosePMSkeleton />}>
-            <SpinTheWheelComponent lang="hi" />
-          </Suspense>
-          <Suspense
-            fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
-          >
-            <BannerComponent section_name="quiz" lang="hi" />
-          </Suspense>
-          <Suspense fallback={<MemeSkeleton />}>
-            <MemeBankComponent lang="hi" />
-          </Suspense>
-          <Suspense fallback={<ThugTalesSkeleton />}>
-            <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hi" />
-          </Suspense>
-          <Suspense fallback={<MediaCoverageSkeleton />}>
-            <MediaCoverageComponent title="मीडिया कवरेज" lang="hi" />
-          </Suspense>
-        </>
-      ) : (
+      {/* {delay ? ( */}
+      <>
+        <Suspense fallback={<PledgeCounterSkeleton />}>
+          <PledgeCounterComponent lang="hi" key={"counter"} />
+        </Suspense>
+        <Suspense fallback={<AchievementSkeleton />}>
+          <AchievementComponent title="हमारी उपलब्धियाँ" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}>
+          <BannerComponent section_name="ctm" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<ChoosePMSkeleton />}>
+          <SpinTheWheelComponent lang="hi" />
+        </Suspense>
+        <Suspense
+          fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
+        >
+          <BannerComponent section_name="quiz" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<MemeSkeleton />}>
+          <MemeBankComponent lang="hi" />
+        </Suspense>
+        <Suspense fallback={<ThugTalesSkeleton />}>
+          <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<MediaCoverageSkeleton />}>
+          <MediaCoverageComponent title="मीडिया कवरेज" lang="hi" />
+        </Suspense>
+      </>
+      {/* ) : (
         <>
           <PledgeCounterSkeleton />
           <AchievementSkeleton />
@@ -118,10 +116,10 @@ export default function HindiPage() {
           <BannerSkeleton src="/assets/skeleton/quiz.webp" />
           <MemeSkeleton />
           <ThugTalesSkeleton />
-          <MediaCoverageSkeleton />
-          {/* <FooterSkeleton /> */}
-        </>
-      )}
+          <MediaCoverageSkeleton /> */}
+      {/* <FooterSkeleton /> */}
+      {/* </>
+      )} */}
     </>
   );
 }

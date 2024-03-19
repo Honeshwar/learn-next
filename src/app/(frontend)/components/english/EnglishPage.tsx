@@ -12,11 +12,12 @@ import {
   PledgeCounterSkeleton,
   ThugTalesSkeleton,
 } from "../skeleton/Skeleton";
+import Header from "../Header";
 
 export default function EnglishPage() {
   const { isMobile } = useAppContext();
 
-  const HeaderComponent = dynamic(() => import("../Header"));
+  // const HeaderComponent = dynamic(() => import("../Header"));
   const PledgeCounterComponent = dynamic(() => import("../PledgeCounter"));
   const AchievementComponent = dynamic(() => import("../Achievement"));
   const BannerComponent = dynamic(() => import("../Banner"), {
@@ -28,9 +29,21 @@ export default function EnglishPage() {
   });
   const ThugTalesComponent = dynamic(() => import("../ThugTales"));
   const MediaCoverageComponent = dynamic(() => import("../MediaCoverage"));
+  // const [delay, setDelay] = useState(false);
+  // useEffect(() => {
+  //   // if (window.screen.width <= 640) {
+  //   //   setIsMobile(true);
+  //   // } else {
+  //   //   setIsMobile(false);
+  //   // }
+
+  //   setTimeout(() => {
+  //     setDelay(true);
+  //   }, 0);
+  // }, []);
   return (
     <>
-      <Suspense
+      {/* <Suspense
         fallback={
           <div>
             <Image
@@ -41,34 +54,51 @@ export default function EnglishPage() {
             />
           </div>
         }
-      >
-        <HeaderComponent isMobile={isMobile} lang="en" />
-      </Suspense>
-      <Suspense fallback={<PledgeCounterSkeleton />}>
-        <PledgeCounterComponent lang="en" />
-      </Suspense>
-      <Suspense fallback={<AchievementSkeleton />}>
-        <AchievementComponent title="OUR ACHIEVEMENTS" lang="en" />
-      </Suspense>
-      <Suspense fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}>
-        <BannerComponent section_name="ctm" lang="en" />
-      </Suspense>
-      <Suspense fallback={<ChoosePMSkeleton />}>
-        <SpinTheWheelComponent lang="en" />
-      </Suspense>
-      <Suspense fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}>
-        <BannerComponent section_name="quiz" lang="en" />
-      </Suspense>
-      <Suspense fallback={<MemeSkeleton />}>
-        <MemeBankComponent lang="en" />
-      </Suspense>
+      > */}
+      <Header isMobile={isMobile} lang="en" />
+      {/* </Suspense> */}
+      {/* {delay ? ( */}
+      <>
+        <Suspense fallback={<PledgeCounterSkeleton />}>
+          <PledgeCounterComponent lang="en" />
+        </Suspense>
+        <Suspense fallback={<AchievementSkeleton />}>
+          <AchievementComponent title="OUR ACHIEVEMENTS" lang="en" />
+        </Suspense>
+        <Suspense fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}>
+          <BannerComponent section_name="ctm" lang="en" />
+        </Suspense>
+        <Suspense fallback={<ChoosePMSkeleton />}>
+          <SpinTheWheelComponent lang="en" />
+        </Suspense>
+        <Suspense
+          fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
+        >
+          <BannerComponent section_name="quiz" lang="en" />
+        </Suspense>
+        <Suspense fallback={<MemeSkeleton />}>
+          <MemeBankComponent lang="en" />
+        </Suspense>
 
-      <Suspense fallback={<ThugTalesSkeleton />}>
-        <ThugTalesComponent title="OUR THUG TALES" lang="en" />
-      </Suspense>
-      <Suspense fallback={<MediaCoverageSkeleton />}>
-        <MediaCoverageComponent title="Media Coverage" lang="en" />
-      </Suspense>
+        <Suspense fallback={<ThugTalesSkeleton />}>
+          <ThugTalesComponent title="OUR THUG TALES" lang="en" />
+        </Suspense>
+        <Suspense fallback={<MediaCoverageSkeleton />}>
+          <MediaCoverageComponent title="Media Coverage" lang="en" />
+        </Suspense>
+      </>
+      {/* ) : (
+        <>
+          <PledgeCounterSkeleton />
+          <AchievementSkeleton />
+          <BannerSkeleton src="/assets/skeleton/ctm.webp" />
+          <ChoosePMSkeleton />
+          <BannerSkeleton src="/assets/skeleton/quiz.webp" />
+          <MemeSkeleton />
+          <ThugTalesSkeleton />
+          <MediaCoverageSkeleton />
+        </> */}
+      {/* )} */}
     </>
   );
 }

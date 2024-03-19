@@ -1,7 +1,9 @@
+// "use server";
 import Image from "next/image"; //image api import png(1mb)-->compress and webp convert
 import { useEffect, useState } from "react";
+// import getPlaiceholderImage from "../utils/plaiceholder";
 
-export default function PledgeCounter({ lang = "hi" }: { lang: string }) {
+export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
   const [pledgeCount, setPledgeCount] = useState([]);
   useEffect(() => {
     async function getCount() {
@@ -28,6 +30,9 @@ export default function PledgeCounter({ lang = "hi" }: { lang: string }) {
       console.log("error while caliing get_count API");
     }
   }, []);
+
+  // const a = await getPlaiceholderImage("/assets/counter/yadev.webp");
+
   return (
     <section id="pledge" className=" overflow-hidden  sm:overflow-visible">
       {/* <!-- Pledge Counter --> */}
@@ -40,6 +45,8 @@ export default function PledgeCounter({ lang = "hi" }: { lang: string }) {
             <Image
               width={100}
               height={120}
+              // placeholder="blur"
+              // blurDataURL={a}
               className="w-fit h-[120px] sm:h-[210px] absolute left-[-53px] sm:left-[-0px] top-[-35px] sm:top-[-65px] z-[10] sm:absolute"
               src="/assets/counter/yadev.webp"
               alt="akhilesh yadev"
