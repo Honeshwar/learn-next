@@ -4,7 +4,7 @@ import "../../styles/quiz/resultContainer.css";
 import QuizHomeModal from "./QuizHomeModal";
 import { useShareLinks } from "../../hooks/ShareLinksHook";
 import { generateShareLinks } from "../../utils/common-functions";
-export default function QuizResult() {
+export default function QuizResult({ lang = "hi" }: { lang?: string }) {
   const { scored, setScored, setScreen, totalQuestion } = useQuizContext();
   const [openModal, setOpenModal] = useState(false);
 
@@ -23,7 +23,13 @@ export default function QuizResult() {
 
   useEffect(() => {
     const link = location.origin + "/quiz";
-    const text = `मुझे "महाठगबंधन" क्विज़ में ${scored}/${totalQuestion} स्कोर मिला! क्या आप मुझ से ज्यादा स्कोर ला सकते हैं? क्विज खेलें और जानें! \n`;
+    let text = "";
+    if (lang === "hi") {
+      text = `मुझे "महाठगबंधन" क्विज़ में ${scored}/${totalQuestion} स्कोर मिला! क्या आप मुझ से ज्यादा स्कोर ला सकते हैं? क्विज खेलें और जानें! \n`;
+    } else {
+      text = `I got a ${scored}/${totalQuestion} score on the “Mahathugbandhan” Quiz! Can you beat my score? - Test your knowledge now! \n`;
+    }
+    console.log("generate score share", link, text);
     const { w, f, t } = generateShareLinks(link, text);
     setWhatsapp_link(w);
     setFacebook_link(f);
@@ -63,7 +69,7 @@ export default function QuizResult() {
               marginTop: "0px",
             }}
           >
-            आपका स्कोर हैं
+            {lang === "hi" ? "आपका स्कोर हैं" : "Your Score"}
           </p>
           <div id="score-container">
             <span id="score">{scored}</span>/{totalQuestion}
@@ -75,7 +81,9 @@ export default function QuizResult() {
               className="btn w-[60%] max-w-[300px] my-2"
             >
               <i className="fa fa-download me-2" aria-hidden="true"></i>
-              प्रमाणपत्र डाउनलोड करें
+              {lang === "hi"
+                ? " प्रमाणपत्र डाउनलोड करें"
+                : "Download Certificate"}
             </button>
           </div>
 
@@ -88,13 +96,17 @@ export default function QuizResult() {
                     src="/assets/quiz/again.svg"
                     alt="again svg"
                   />
-                  <span> फिर से क्विज़ खेलें</span>
+                  <span>
+                    {lang === "hi" ? "फिर से क्विज़ खेलें" : "Try Again"}
+                  </span>
                 </u>
               </p>
             </div>
           </center>
           <div className="mt-2">
-            <p className="mb-0 text-center">शेयर करें</p>
+            <p className="mb-0 text-center">
+              {lang === "hi" ? "शेयर करें" : "Share:"}
+            </p>
             <div className="flex justify-center items-center">
               <a
                 id="facebook-link-score"
@@ -135,7 +147,7 @@ export default function QuizResult() {
           </div> --> */}
         </div>
       </section>
-      {openModal && <QuizHomeModal setOpenModal={setOpenModal} />}
+      {openModal && <QuizHomeModal setOpenModal={setOpenModal} lang={lang} />}
     </>
   );
 }

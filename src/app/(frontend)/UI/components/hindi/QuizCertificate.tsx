@@ -10,7 +10,7 @@ import { useQuizContext } from "../../context/quizContext";
 import { useShareLinks } from "../../hooks/ShareLinksHook";
 import Link from "next/link";
 
-export default function QuizCertificate() {
+export default function QuizCertificate({ lang = "hi" }: { lang: string }) {
   const { certificateUrl } = useQuizContext();
   const [isDownload, setIsDownload] = useState(false);
   const [openModal, setOpenModal] = useState(false);
@@ -36,10 +36,16 @@ export default function QuizCertificate() {
     const link =
       `https://mahathugbandhan.com/api/v1/metamaker/` +
       localStorage.getItem("mobile_quiz") +
-      `?lang=hi`;
-    const text = encodeURIComponent(
-      `मेरी तरह आप भी भारत को विश्व गुरु बनाने के लिए इस लिंक पर क्लिक करें और मोदी जी का समर्थन करें | \n`
-    );
+      `?lang=${lang}`;
+    let text = "";
+    if (lang === "hi")
+      text = encodeURIComponent(
+        `मेरी तरह आप भी भारत को विश्व गुरु बनाने के लिए इस लिंक पर क्लिक करें और मोदी जी का समर्थन करें | \n`
+      );
+    else
+      text = encodeURIComponent(
+        `Like me, you also click on this link to make India a world leader and support Modi ji.।`
+      );
     const { w, f, t } = generateShareLinks(link, text);
     setWhatsapp_link(w);
     setFacebook_link(f);
@@ -88,10 +94,12 @@ export default function QuizCertificate() {
                 src="/assets/quiz/download.svg"
                 alt="download"
               />
-              डाउनलोड करें
+              {lang === "hi" ? "डाउनलोड करें" : "Download"}
             </button>
             <div className="w-full md:w-[40%] flex justify-center items-center gap-0  mt-5 md:mt-0">
-              <span className="mx-2">शेयर करें:</span>
+              <span className="mx-2">
+                {lang === "hi" ? "शेयर करें:" : "Share:"}
+              </span>
               <div className="flex justify-center items-center">
                 <a
                   id="facebook-link"
@@ -146,12 +154,17 @@ export default function QuizCertificate() {
               </div>
             </div>
           </div>
-          <Link href="/" className="mx-3 p-3 underline">
-            मुख्य वेबसाइट पर वापस जाएँ
+          <Link
+            href={lang === "hi" ? "/" : "/en"}
+            className="mx-3 p-3 underline"
+          >
+            {lang === "hi"
+              ? " मुख्य वेबसाइट पर वापस जाएँ"
+              : "Go Back to Main website"}
           </Link>
         </div>
       </section>
-      {openModal && <QuizHomeModal setOpenModal={setOpenModal} />}
+      {openModal && <QuizHomeModal setOpenModal={setOpenModal} lang={lang} />}
     </>
   );
 }

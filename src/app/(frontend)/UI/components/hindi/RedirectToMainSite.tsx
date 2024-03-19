@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { useCTMContext } from "../../context/ctmContext";
 
-export default function RedirectToMainSite() {
+export default function RedirectToMainSite({ lang }: { lang: string }) {
   const countRef = useRef() as any;
   const router = useRouter();
   // const { setScreen } = useCTMContext();
@@ -14,7 +14,7 @@ export default function RedirectToMainSite() {
       if (count === 0) {
         clearInterval(interval);
         // setScreen(1);
-        router.push("/");
+        router.push(lang === "hi" ? "/" : "/en");
       }
     }, 1000);
   }, []);
@@ -29,11 +29,15 @@ export default function RedirectToMainSite() {
             {/* <!-- Modal content --> */}
             <div className="relative rounded-lg  h-full w-full flex justify-center items-center py-[10vw] md:py-[50px]   lg:py-[50px] ">
               <h3 className=" text-center text-[1.5rem] sm:text-[2rem] font-serif text-white relative">
-                आपको{" "}
+                {lang === "hi"
+                  ? "आपको"
+                  : "You will be redirected to the website in"}{" "}
                 <span ref={countRef} className="font-mono">
                   5
                 </span>{" "}
-                सेकंड में वेबसाइट पर रीडायरेक्ट कर दिया जाएगा
+                {lang === "hi"
+                  ? "सेकंड में वेबसाइट पर रीडायरेक्ट कर दिया जाएगा"
+                  : "seconds"}
               </h3>
             </div>
           </div>

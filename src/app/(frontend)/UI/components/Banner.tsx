@@ -18,7 +18,7 @@ function Banner({
     case "ctm":
       bannerData = {
         id: "corruption-teller-machine",
-        href: "./ctm",
+        href: lang === "hi" ? "/ctm" : "/en/ctm",
         src: `/assets/banner/ctm_${lang}.webp`,
         alt: "corruption teller machine banner",
       };
@@ -26,7 +26,7 @@ function Banner({
     case "quiz":
       bannerData = {
         id: "quiz",
-        href: "./quiz",
+        href: lang === "hi" ? "/quiz" : "/en/quiz",
         src: `/assets/banner/quiz_${lang}.webp`,
         alt: "quiz banner",
       };

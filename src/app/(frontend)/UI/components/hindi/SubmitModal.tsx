@@ -9,10 +9,12 @@ function SubmitModal({
   setOpenSubmitModal,
   score,
   resetGame,
+  lang = "hi",
 }: {
   setOpenSubmitModal: React.Dispatch<React.SetStateAction<boolean>>;
   score: number;
   resetGame: Function;
+  lang: string;
 }) {
   const [name, setName] = useState("");
   const [mobile, setPhoneNo] = useState("");
@@ -44,7 +46,7 @@ function SubmitModal({
         setScored(score);
         generateCertificate(
           userData.mobile,
-          "hi",
+          lang,
           () => setScreen(3),
           setCertificateUrl
         );
@@ -74,11 +76,17 @@ function SubmitModal({
     e.preventDefault();
     console.log(typeof name.length, name.length < 3);
     if (name.length < 3) {
-      setError("कृपया कोई मान्य नाम दर्ज करें");
+      setError(
+        lang === "hi"
+          ? "कृपया कोई मान्य नाम दर्ज करें"
+          : "Please enter a valid name"
+      );
       return;
     }
     if (!isValidPhoneNumber(mobile)) {
-      setError("मान्य फ़ोन नंबर दर्ज करें");
+      setError(
+        lang === "hi" ? "मान्य फ़ोन नंबर दर्ज करें" : "Enter valid phone number"
+      );
       return;
     }
     setCall({ name, mobile });
@@ -103,7 +111,7 @@ function SubmitModal({
           {/* <!-- Modal header --> */}
           <div className="flex items-center justify-center p-4 md:p-5  ">
             <h3 className="text-xl font-medium text-[#212529] text-center">
-              स्कोर देखने के लिए
+              {lang === "hi" ? "स्कोर देखने के लिए" : "To View Score"}
               <button
                 type="button"
                 className="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center  absolute top-1 right-[0px]"
@@ -139,7 +147,7 @@ function SubmitModal({
                   type="text"
                   id="name"
                   className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                  placeholder="नाम*"
+                  placeholder={lang === "hi" ? "नाम*" : "Name*"}
                   required
                   onChange={(e) => {
                     setName(e.target.value.trim());
@@ -151,7 +159,9 @@ function SubmitModal({
                 <input
                   type="number"
                   id="mobile"
-                  placeholder="फ़ोन नंबर*"
+                  placeholder={
+                    lang === "hi" ? "मोबाइल नंबर*" : "Mobile Number*"
+                  }
                   className="bg-gray-50 border border-gray-300 text-black text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                   required
                   onChange={mobileHandler}
@@ -162,7 +172,7 @@ function SubmitModal({
                   type="submit"
                   className="w-fit text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center "
                 >
-                  सबमिट करें
+                  {lang === "hi" ? "सबमिट करें" : "Submit"}
                 </button>
               </div>
             </form>

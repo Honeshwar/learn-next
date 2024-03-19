@@ -232,7 +232,7 @@ function MemeBank({ lang = "hi" }: { lang: string }) {
         {/* <!-- our meme slider --> */}
         <div
           id="meme-bazar"
-          className="w-full h-full relative flex justify-center items-center overflow-hidden mt-2"
+          className="w-full h-full relative flex justify-center items-center overflow-hidden mt-2 pt-5 pb-10 md:pb-[50px]"
         >
           {/* <!-- Swiper --> */}
           <Swiper

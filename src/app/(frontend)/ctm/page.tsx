@@ -5,6 +5,7 @@ import { useState } from "react";
 import ResultComponent from "../UI/components/hindi/ctm/ResultComponent";
 import SubmitFormToSeeResult from "../UI/components/hindi/SubmitFormToSeeResult";
 import { CTMContextProvider, useCTMContext } from "../UI/context/ctmContext";
+import CTMPage from "../UI/components/ctm/CTMPage";
 
 function CorruptionTellerMachine({ lang = "hi" }: { lang: string }) {
   const [select, setSelect] = useState("");
@@ -320,10 +321,10 @@ function CorruptionTellerMachine({ lang = "hi" }: { lang: string }) {
       </section>
 
       {/* <!-- phone number submit popup --> */}
-      {screen === 2 && <SubmitFormToSeeResult />}
+      {screen === 2 && <SubmitFormToSeeResult lang="hi" />}
 
       {/* <!--Result popup  --> */}
-      {screen === 3 && <ResultComponent />}
+      {screen === 3 && <ResultComponent lang="hi" />}
     </div>
   );
 }
@@ -331,7 +332,7 @@ function CorruptionTellerMachine({ lang = "hi" }: { lang: string }) {
 export default function CTM_Wrapper() {
   return (
     <CTMContextProvider>
-      <CorruptionTellerMachine lang="hi" />
+      <CTMPage lang="hi" />
     </CTMContextProvider>
   );
 }

@@ -125,8 +125,8 @@
   border-radius: 10px;
   box-shadow: 0 0 5px 2px rgb(110, 109, 109);
 
-  top: 3%;
-  right: 22%;
+  /* top: 3%; */
+  /* right: 22%; */
   font-size: 28px;
   z-index: 2;
 }
@@ -213,8 +213,8 @@
     border-radius: 10px;
     box-shadow: 0 0 5px 2px rgb(110, 109, 109);
 
-    top: 6%;
-    right: 20%;
+    /* top: 6%; */
+    /* right: 20%; */
   }
 
   #start-btn:hover {

@@ -9,8 +9,9 @@ import {
   image_share_count,
 } from "../../../utils/common-functions";
 import Link from "next/link";
+import clsx from "clsx";
 
-function ResultComponent() {
+function ResultComponent({ lang = "hi" }: { lang: string }) {
   const CTM_data = [
     {
       id: 0,
@@ -92,12 +93,22 @@ function ResultComponent() {
     "https://mahathugbandhan.com/api/v1/image_metamaker?name=" +
       result.previewImgUrl
   );
-  const text =
-    "महाठगबंधन मतलब भ्रष्टाचार!" +
-    " %0A" +
-    "आइए हम सब अपने भारत को इन ठगों से बचायें!" +
-    " %0A" +
-    "अभी https://mahathugbandhan.com/ देखें!";
+  let text = "";
+  if (lang === "hi") {
+    text =
+      "महाठगबंधन मतलब भ्रष्टाचार!" +
+      " %0A" +
+      "आइए हम सब अपने भारत को इन ठगों से बचायें!" +
+      " %0A" +
+      "अभी https://mahathugbandhan.com/ देखें!";
+  } else {
+    text =
+      "Mahathugbandhan means corruption!" +
+      " %0A" +
+      "Let us all save Bharat from these thugs!" +
+      " %0A" +
+      "Check out https://mahathugbandhan.com/ now!";
+  }
 
   const {
     w: whatsapp_link,
@@ -131,9 +142,16 @@ function ResultComponent() {
             </div>
             <div className=" h-full w-full sm:w-[30%]  text-white flex flex-col justify-center items-center gap-5 sm:gap-[3vw] ">
               <div className="flex flex-col justify-center items-center gap-[1vw] ">
-                <h3 className="text-[9vw] sm:text-[2rem] font-dangerous text-white font-yatra ">
-                  {" "}
-                  शेयर{" "}
+                <h3
+                  className={clsx(
+                    "text-[9vw] sm:text-[2rem] font-dangerous text-white ",
+                    {
+                      "font-yatra ": lang === "hi",
+                      "font-dangerous ": lang === "en",
+                    }
+                  )}
+                >
+                  {lang === "hi" ? "शेयर" : "share"}
                 </h3>
                 <div
                   id="ctm-result-card-share"
@@ -197,7 +215,7 @@ function ResultComponent() {
                 href={result.imgUrl1}
                 download={result.party_name}
                 onClick={image_download_count}
-                className="w-[150px] bg-[rgb(255,0,0)] py-1 px-4 flex justify-center items-center gap-3 rounded-md text-white font-bold cursor-pointer "
+                className="w-fit max-w-[200px] bg-[rgb(255,0,0)] py-1 px-4 flex justify-center items-center gap-3 rounded-md text-white font-bold cursor-pointer "
               >
                 {/* <span className="material-symbols-outlined"> download </span> */}
                 <svg
@@ -208,8 +226,16 @@ function ResultComponent() {
                 >
                   <path d="M288 32c0-17.7-14.3-32-32-32s-32 14.3-32 32V274.7l-73.4-73.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l128 128c12.5 12.5 32.8 12.5 45.3 0l128-128c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L288 274.7V32zM64 352c-35.3 0-64 28.7-64 64v32c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V416c0-35.3-28.7-64-64-64H346.5l-45.3 45.3c-25 25-65.5 25-90.5 0L165.5 352H64zm368 56a24 24 0 1 1 0 48 24 24 0 1 1 0-48z" />
                 </svg>
-                <span className="font-yatra text-[1.2rem] sm:text-[1.5rem] pt-[2px]">
-                  डाउनलोड
+                <span
+                  className={clsx(
+                    "w-fit text-[1.2rem] sm:text-[1.5rem] pt-[2px]",
+                    {
+                      "font-yatra ": lang === "hi",
+                      "font-book text-[1rem] sm:text-[1.2rem]": lang === "en",
+                    }
+                  )}
+                >
+                  {lang === "hi" ? "डाउनलोड" : "Download"}
                 </span>
               </a>
             </div>
@@ -234,7 +260,7 @@ function ResultComponent() {
       </div>
 
       {/* <!-- redirect popup --> */}
-      {showRedirectModal && <RedirectToMainSite />}
+      {showRedirectModal && <RedirectToMainSite lang={lang} />}
     </>
   );
 }

@@ -5,57 +5,91 @@ import QuizHomeModal from "./QuizHomeModal";
 import SubmitModal from "./SubmitModal";
 import { useQuizContext } from "../../context/quizContext";
 import { generateCertificate } from "../../utils/common-functions";
-export default function QuizQuestion() {
-  const Questions = [
-    {
-      imgUrl: "/assets/quiz/question/Fodder scam Image.webp",
-      question: "चारा घोटाले का मुख्य आरोपी कौन हैं?",
-      a: "लालू प्रसाद यादव",
-      b: "जगन्नाथ मिश्रा",
-      c: "आर.के. राणा",
-      d: "जगदीश शर्मा",
-      answer: "लालू प्रसाद यादव",
-    },
-    {
-      imgUrl: "/assets/quiz/question/Liquor Scam Image.webp",
-      question: " दिल्ली शराब घोटाले में किस AAP नेता को गिरफ्तार किया गया?",
-      a: "राघव चड्ढा",
-      b: "संजय सिंह",
-      c: "सत्येन्द्र जैन",
-      d: "मनीष सिसौदिया",
-      answer: "मनीष सिसौदिया",
-    },
-    {
-      imgUrl: "/assets/quiz/question/Article-370.webp",
-      question:
-        "किस नेता ने कहा था कि अगर श्री नरेंद्र मोदी दस बार भी प्रधानमंत्री बन जाए, तब भी जम्मू-कश्मीर से धारा 370 नहीं हटा पाएंगे?",
-      a: "फ़िरोज़ खान",
-      b: "फारूक अब्दुल्ला",
-      c: "मेहबूबा मुफ्ती",
-      d: "हकीम यासीन",
-      answer: "फारूक अब्दुल्ला",
-    },
-    // {
-    //   imgUrl: "/assets/quiz/question/Find Audio Image.WEBP",
-    //   audioUrl: "/assets/quiz/question/audio.mp3",
-    //   question: "यह किसकी आवाज है?",
-    //   a: "ममता बनर्जी",
-    //   b: "नुसरत जहां",
-    //   c: "मिमी चक्रवर्ती",
-    //   d: "महुआ मोइत्रा",
-    //   answer: "ममता बनर्जी",
-    // },
-    // {
-    //   imgUrl: "/assets/quiz/question/national-herald-jpg.webp",
-    //   question:
-    //     "988 करोड़ रुपये के नेशनल हेराल्ड भ्रष्टाचार मामले में मुख्य अभियुक्त कौन हैं?",
-    //   a: "विष्णु गोयल - रेखा गोयल",
-    //   b: "इंदिरा गांधी-राजीव गांधी",
-    //   c: "ममता बनर्जी - अभिषेक बनर्जी",
-    //   d: "सोनिया गांधी-राहुल गांधी",
-    //   answer: "इंदिरा गांधी-राजीव गांधी",
-    // },
-  ];
+import clsx from "clsx";
+export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
+  const ALL_QUESTION = {
+    hi: [
+      {
+        imgUrl: "/assets/quiz/question/Fodder scam Image.webp",
+        question: "चारा घोटाले का मुख्य आरोपी कौन हैं?",
+        a: "लालू प्रसाद यादव",
+        b: "जगन्नाथ मिश्रा",
+        c: "आर.के. राणा",
+        d: "जगदीश शर्मा",
+        answer: "लालू प्रसाद यादव",
+      },
+      {
+        imgUrl: "/assets/quiz/question/Liquor Scam Image.webp",
+        question: " दिल्ली शराब घोटाले में किस AAP नेता को गिरफ्तार किया गया?",
+        a: "राघव चड्ढा",
+        b: "संजय सिंह",
+        c: "सत्येन्द्र जैन",
+        d: "मनीष सिसौदिया",
+        answer: "मनीष सिसौदिया",
+      },
+      {
+        imgUrl: "/assets/quiz/question/Article-370.webp",
+        question:
+          "किस नेता ने कहा था कि अगर श्री नरेंद्र मोदी दस बार भी प्रधानमंत्री बन जाए, तब भी जम्मू-कश्मीर से धारा 370 नहीं हटा पाएंगे?",
+        a: "फ़िरोज़ खान",
+        b: "फारूक अब्दुल्ला",
+        c: "मेहबूबा मुफ्ती",
+        d: "हकीम यासीन",
+        answer: "फारूक अब्दुल्ला",
+      },
+      // {
+      //   imgUrl: "/assets/quiz/question/Find Audio Image.WEBP",
+      //   audioUrl: "/assets/quiz/question/audio.mp3",
+      //   question: "यह किसकी आवाज है?",
+      //   a: "ममता बनर्जी",
+      //   b: "नुसरत जहां",
+      //   c: "मिमी चक्रवर्ती",
+      //   d: "महुआ मोइत्रा",
+      //   answer: "ममता बनर्जी",
+      // },
+      // {
+      //   imgUrl: "/assets/quiz/question/national-herald-jpg.webp",
+      //   question:
+      //     "988 करोड़ रुपये के नेशनल हेराल्ड भ्रष्टाचार मामले में मुख्य अभियुक्त कौन हैं?",
+      //   a: "विष्णु गोयल - रेखा गोयल",
+      //   b: "इंदिरा गांधी-राजीव गांधी",
+      //   c: "ममता बनर्जी - अभिषेक बनर्जी",
+      //   d: "सोनिया गांधी-राहुल गांधी",
+      //   answer: "इंदिरा गांधी-राजीव गांधी",
+      // },
+    ],
+    en: [
+      {
+        imgUrl: "/assets/quiz/question/Fodder scam Image.webp",
+        question: "Who is the main accused under Fodder scam?",
+        a: "Lalu Prasad Yadav",
+        b: "Jagannath Mishra",
+        c: "R.K. Rana",
+        d: "Jagdish Sharma",
+        answer: "Lalu Prasad Yadav",
+      },
+      {
+        imgUrl: "/assets/quiz/question/Liquor Scam Image.webp",
+        question: "Which AAP leader was arrested in Delhi Liquor Scam?",
+        a: "Raghav Chadha",
+        b: "Sanjay Singh",
+        c: "Satyendra Jain",
+        d: "Manish Sisodia",
+        answer: "Manish Sisodia",
+      },
+      {
+        imgUrl: "/assets/quiz/question/Article-370.webp",
+        question:
+          "Which leader said that Shri Narendra Modi wont be able to remove Article 370 in Jammu & Kashmir even if he becomes the Prime Minister ten times?",
+        a: "Fairoz Khan",
+        b: "Farooq Abdullah",
+        c: "Mehbooba Mufti",
+        d: "Hakeem Yasin",
+        answer: "Farooq Abdullah",
+      },
+    ],
+  } as any;
+  const [Questions] = useState(ALL_QUESTION[lang]);
   const [currentQuestion, setCurrentQuestion] = useState(1);
   const [question, setQuestion] = useState(Questions[0]);
   const [openModal, setOpenModal] = useState(false);
@@ -178,7 +212,7 @@ export default function QuizQuestion() {
                 width={1920}
                 height={1080}
                 className=""
-                src="/assets/quiz/question/MTB logo hindi.webp"
+                src={`/assets/quiz/question/MTB logo ${lang}.webp`}
                 alt="logo"
               />
               <div className="second-img">
@@ -233,14 +267,30 @@ export default function QuizQuestion() {
           <div id="next-btn-container">
             {error && (
               <p className="option_select" style={{ color: "red" }}>
-                कृपया आगे बढ़ने के लिए विकल्प चुनें
+                {lang === "hi"
+                  ? "कृपया आगे बढ़ने के लिए विकल्प चुनें"
+                  : "select option to proceed"}
               </p>
             )}
             <button id="next-btn" onClick={nextQuestion} className="btn">
-              {currentQuestion === Questions.length ? "सबमिट" : "आगे बढ़ें"}
+              {lang === "hi"
+                ? currentQuestion === Questions.length
+                  ? "सबमिट"
+                  : "आगे बढ़ें"
+                : currentQuestion === Questions.length
+                ? "Submit"
+                : "Next"}
               {/* <!-- बढ़ो --> */}
             </button>
-            <p id="pagination">
+            <p
+              id="pagination"
+              className={clsx("", {
+                "bottom-[50px]":
+                  currentQuestion !== Questions.length || lang === "hi",
+                "bottom-[33px]":
+                  currentQuestion === Questions.length && lang === "en",
+              })}
+            >
               0{currentQuestion}/0{Questions.length}
             </p>
           </div>
@@ -250,12 +300,13 @@ export default function QuizQuestion() {
             </div> --> */}
       </section>
 
-      {openModal && <QuizHomeModal setOpenModal={setOpenModal} />}
+      {openModal && <QuizHomeModal setOpenModal={setOpenModal} lang={lang} />}
       {openSubmitModal && (
         <SubmitModal
           setOpenSubmitModal={setOpenSubmitModal}
           score={score}
           resetGame={resetGame}
+          lang={lang}
         />
       )}
     </>

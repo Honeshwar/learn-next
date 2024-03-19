@@ -4,7 +4,12 @@ import {
   validateMobileNumberOnInput,
   validationFirstDigit,
 } from "../../utils/common-functions";
-export default function SubmitFormToSeeResult() {
+import clsx from "clsx";
+export default function SubmitFormToSeeResult({
+  lang = "hi",
+}: {
+  lang: string;
+}) {
   const [mobileNumber, setMobileNumber] = useState("");
   const [call, setCall] = useState(false);
   const [error, setError] = useState(false);
@@ -74,35 +79,65 @@ export default function SubmitFormToSeeResult() {
         className="flex bg-[#181844] overflow-hidden fixed top-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%)] max-h-full "
       >
         <div className="w-full h-full flex justify-center items-center px-[5vw] ">
-          <div className="relative pt-7 sm:pt-0 p-4 w-[80vw] sm:w-[40vw] lg:w-[30vw] max-w-[500px] bg-yellow-600  rounded-md">
+          <div className="relative pt-7 sm:pt-0 p-4 w-[80vw] sm:w-[50vw] lg:w-[40vw] max-w-[500px] bg-yellow-600  rounded-md">
             {/* <!-- Modal content --> */}
-            <div className="relative bg- rounded-lg  h-full w-full flex justify-center items-center flex-col sm:py-[3vw]  sm:gap-1">
-              <h3 className=" text-center text-[1.5rem] sm:text-[2rem] font-yatra text-white  ">
-                परिणाम देखने के लिए मोबाइल नंबर दर्ज करें
+            <div className="relative bg- rounded-lg  h-full w-full flex justify-center items-center flex-col pt-1.5 sm:py-[3vw] gap-5  sm:gap-5">
+              <h3
+                className={clsx(
+                  " text-center text-[1.5rem] sm:text-[2rem]  text-white  ",
+                  {
+                    "font-yatra": lang === "hi",
+                    "font-dangerous": lang === "en",
+                  }
+                )}
+              >
+                {lang === "hi"
+                  ? "परिणाम देखने के लिए मोबाइल नंबर दर्ज करें"
+                  : "Enter Mobile Number to See Result"}
               </h3>
               {/* <!-- Modal body -->
               <!-- show error --> */}
               {error && (
-                <div className="flex text-[red] font-bold  justify-center font-yatra text-[1rem] sm:text-[1.2rem] lg:text-[1.4rem]">
-                  त्रुटि उत्पन्न हुई अमान्य मोबाइल नंबर
+                <div
+                  className={clsx(
+                    "flex text-[red] font-bold  justify-center text-[.9rem] sm:text-[1rem] lg:text-[1.2rem] -mb-2",
+                    {
+                      "font-yatra": lang === "hi",
+                      // "": lang === "en",
+                    }
+                  )}
+                >
+                  {lang === "hi"
+                    ? " त्रुटि उत्पन्न हुई अमान्य मोबाइल नंबर"
+                    : "Error Occured: Invalid Number"}
                 </div>
               )}
               <form
                 onSubmit={submitHandler}
-                className="mobileNo-form flex flex-col items-center  gap-5 sm:gap-6 w-full h-full"
+                className="mobileNo-form flex flex-col items-center  gap-4 sm:gap-5 w-full h-full"
               >
                 <input
                   id="ctm-result-card-input"
                   className=" pl-3 py-[1.3vw] sm:py-[.51vw] w-[90%]"
                   type="number"
-                  placeholder="मोबाइल नंबर दर्ज करें"
+                  placeholder={
+                    lang === "hi" ? "मोबाइल नंबर दर्ज करें" : "Enter Mobile No."
+                  }
                   required
                   onInput={(e) => {
                     validateMobileNumberOnInput(setError, e, setMobileNumber);
                   }}
                 />
-                <button className="w-[90%]  rounded-lg px-3 py-2 text-white  bg-red-600  text-[1.2rem] sm:text-[1.5rem] font-yatra font-extrabold sm:tracking-[1px]">
-                  जमा करें
+                <button
+                  className={clsx(
+                    "w-[90%]  rounded-lg px-3 py-2 text-white  bg-red-600  text-[1.2rem] sm:text-[1.5rem]  font-extrabold sm:tracking-[1px]",
+                    {
+                      "font-yatra": lang === "hi",
+                      "font-book": lang === "en",
+                    }
+                  )}
+                >
+                  {lang === "hi" ? "जमा करें" : "Submit"}
                 </button>
               </form>
               {/* <span
