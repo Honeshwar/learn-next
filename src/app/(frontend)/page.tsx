@@ -2,7 +2,7 @@
 // import Banner from "./UI/components/Banner";
 // import Achievement from "./UI/components/hindi/Achievement";
 import { Suspense, useState, useEffect } from "react";
-import Header from "./UI/components/hindi/Header";
+import Header from "./components/Header";
 // import MediaCoverage from "./UI/components/hindi/MediaCoverage";
 // import MemeBank from "./UI/components/hindi/MemeBank";
 // import PledgeCounter from "./UI/components/hindi/PledgeCounter";
@@ -19,52 +19,43 @@ import {
   MemeSkeleton,
   PledgeCounterSkeleton,
   ThugTalesSkeleton,
-} from "./UI/components/skeleton/Skeleton";
-import { useAppContext } from "./UI/context/appContext";
+} from "./components/skeleton/Skeleton";
+import { useAppContext } from "./context/appContext";
 
 // const HeaderComponent = dynamic(() => import('./UI/components/hindi/Header'), {
 //   loading: () => <p>Loading...</p>,
 //  });
 
 const PledgeCounterComponent = dynamic(
-  () => import("./UI/components/hindi/PledgeCounter"),
+  () => import("./components/PledgeCounter"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
-const AchievementComponent = dynamic(
-  () => import("./UI/components/hindi/Achievement"),
-  {
-    // loading: () => <p>Loading...</p>,
-  }
-);
-const BannerComponent = dynamic(() => import("./UI/components/Banner"), {
+const AchievementComponent = dynamic(() => import("./components/Achievement"), {
+  // loading: () => <p>Loading...</p>,
+});
+const BannerComponent = dynamic(() => import("./components/Banner"), {
   // loading: () => <p>Loading...</p>,
 });
 const SpinTheWheelComponent = dynamic(
-  () => import("./UI/components/hindi/SpinTheWheel"),
+  () => import("./components/SpinTheWheel"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
-const MemeBankComponent = dynamic(
-  () => import("./UI/components/hindi/MemeBank"),
-  {
-    // loading: () => <p>Loading...</p>,
-  }
-);
+const MemeBankComponent = dynamic(() => import("./components/MemeBank"), {
+  // loading: () => <p>Loading...</p>,
+});
 const MediaCoverageComponent = dynamic(
-  () => import("./UI/components/hindi/MediaCoverage"),
+  () => import("./components/MediaCoverage"),
   {
     // loading: () => <p>Loading...</p>,
   }
 );
-const ThugTalesComponent = dynamic(
-  () => import("./UI/components/hindi/ThugTales"),
-  {
-    // loading: () => <p>Loading...</p>,
-  }
-);
+const ThugTalesComponent = dynamic(() => import("./components/ThugTales"), {
+  // loading: () => <p>Loading...</p>,
+});
 export default function HindiPage() {
   const { isMobile } = useAppContext();
   // const [isMobile, setIsMobile] = useState(false);

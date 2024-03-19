@@ -1,13 +1,13 @@
 "use client";
 import Image from "next/image";
-import RedirectToMainSite from "../RedirectToMainSite";
+import RedirectToMainSite from "./RedirectToMainSite";
 import { useState } from "react";
-import { useCTMContext } from "../../../context/ctmContext";
+import { useCTMContext } from "../../context/ctmContext";
 import {
   generateShareLinks,
   image_download_count,
   image_share_count,
-} from "../../../utils/common-functions";
+} from "../../utils/common-functions";
 import Link from "next/link";
 import clsx from "clsx";
 

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import TeaserVideo from "./TeaserVideo";
 import DetailForm from "./DetailForm";
 import Link from "next/link";
-import DATA from "../../utils/constant";
+import DATA from "../utils/constant";
 import clsx from "clsx";
 
 function Header({

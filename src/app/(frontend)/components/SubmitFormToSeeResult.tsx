@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { useCTMContext } from "../../context/ctmContext";
+import { useCTMContext } from "../context/ctmContext";
 import {
   validateMobileNumberOnInput,
   validationFirstDigit,
-} from "../../utils/common-functions";
+} from "../utils/common-functions";
 import clsx from "clsx";
 export default function SubmitFormToSeeResult({
   lang = "hi",

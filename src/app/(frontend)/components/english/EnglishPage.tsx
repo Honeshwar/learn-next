@@ -16,33 +16,18 @@ import {
 export default function EnglishPage() {
   const { isMobile } = useAppContext();
 
-  const HeaderComponent = dynamic(
-    () => import("../../components/hindi/Header")
-  );
-  const PledgeCounterComponent = dynamic(
-    () => import("../../components/hindi/PledgeCounter")
-  );
-  const AchievementComponent = dynamic(
-    () => import("../../components/hindi/Achievement")
-  );
-  const BannerComponent = dynamic(() => import("../../components/Banner"), {
+  const HeaderComponent = dynamic(() => import("../Header"));
+  const PledgeCounterComponent = dynamic(() => import("../PledgeCounter"));
+  const AchievementComponent = dynamic(() => import("../Achievement"));
+  const BannerComponent = dynamic(() => import("../Banner"), {
     ssr: false,
   });
-  const SpinTheWheelComponent = dynamic(
-    () => import("../../components/hindi/SpinTheWheel")
-  );
-  const MemeBankComponent = dynamic(
-    () => import("../../components/hindi/MemeBank"),
-    {
-      ssr: false,
-    }
-  );
-  const ThugTalesComponent = dynamic(
-    () => import("../../components/hindi/ThugTales")
-  );
-  const MediaCoverageComponent = dynamic(
-    () => import("../../components/hindi/MediaCoverage")
-  );
+  const SpinTheWheelComponent = dynamic(() => import("../SpinTheWheel"));
+  const MemeBankComponent = dynamic(() => import("../MemeBank"), {
+    ssr: false,
+  });
+  const ThugTalesComponent = dynamic(() => import("../ThugTales"));
+  const MediaCoverageComponent = dynamic(() => import("../MediaCoverage"));
   return (
     <>
       <Suspense

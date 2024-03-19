@@ -1,8 +1,8 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import ResultComponent from "../hindi/ctm/ResultComponent";
-import SubmitFormToSeeResult from "../hindi/SubmitFormToSeeResult";
+import ResultComponent from "./ResultComponent";
+import SubmitFormToSeeResult from "../SubmitFormToSeeResult";
 import { CTMContextProvider, useCTMContext } from "../../context/ctmContext";
 import SelectParty from "./SelectParty";
 

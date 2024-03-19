@@ -7,10 +7,10 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
-import "../../styles/thug-tales.css";
+import "../styles/thug-tales.css";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { video_share_count } from "../../utils/common-functions";
+import { video_share_count } from "../utils/common-functions";
 import clsx from "clsx";
 
 interface Swiper {

@@ -2,10 +2,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import ResultComponent from "../UI/components/hindi/ctm/ResultComponent";
-import SubmitFormToSeeResult from "../UI/components/hindi/SubmitFormToSeeResult";
-import { CTMContextProvider, useCTMContext } from "../UI/context/ctmContext";
-import CTMPage from "../UI/components/ctm/CTMPage";
+import ResultComponent from "../components/ctm/ResultComponent";
+import SubmitFormToSeeResult from "../components/SubmitFormToSeeResult";
+import { CTMContextProvider, useCTMContext } from "../context/ctmContext";
+import CTMPage from "../components/ctm/CTMPage";
 
 function CorruptionTellerMachine({ lang = "hi" }: { lang: string }) {
   const [select, setSelect] = useState("");

@@ -9,7 +9,7 @@ import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/pagination";
 
-import "../../styles/media-coverage.css";
+import "../styles/media-coverage.css";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import clsx from "clsx";

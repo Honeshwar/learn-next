@@ -2,9 +2,9 @@
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay } from "swiper/modules";
-import "../../styles/achievement.css";
+import "../styles/achievement.css";
 import clsx from "clsx";
-import { useAppContext } from "../../context/appContext";
+import { useAppContext } from "../context/appContext";
 function Achievement({
   title = "हमारी उपलब्धियाँ",
   lang = "hi",

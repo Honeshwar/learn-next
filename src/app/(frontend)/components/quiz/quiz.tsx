@@ -1,9 +1,9 @@
 "use client";
 import { useQuizContext } from "../../context/quizContext";
-import QuizCertificate from "../hindi/QuizCertificate";
-import QuizHome from "../hindi/QuizHome";
-import QuizQuestion from "../hindi/QuizQuestion";
-import QuizResult from "../hindi/QuizResult";
+import QuizCertificate from "./QuizCertificate";
+import QuizHome from "./QuizHome";
+import QuizQuestion from "./QuizQuestion";
+import QuizResult from "./QuizResult";
 
 import "../../styles/quiz/global.css";
 export default function Quiz({ lang = "hi" }: { lang?: string }) {

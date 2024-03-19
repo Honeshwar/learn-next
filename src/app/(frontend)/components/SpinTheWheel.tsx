@@ -2,12 +2,12 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import useMobileNumber from "../../hooks/MobileNumberHook";
+import useMobileNumber from "../hooks/MobileNumberHook";
 import {
   image_download_count,
   spin_wheel_count,
   image_share_count,
-} from "../../utils/common-functions";
+} from "../utils/common-functions";
 import clsx from "clsx";
 function SpinTheWheel({ lang = "hi" }: { lang: string }) {
   const [isSpinning, setIsSpinning] = useState(false);

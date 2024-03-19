@@ -6,13 +6,13 @@ import { EffectCoverflow, Navigation, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
-import "../../styles/meme-bazar.css";
+import "../styles/meme-bazar.css";
 import { useEffect, useState } from "react";
 import {
   image_download_count,
   image_share_count,
   upload_count,
-} from "../../utils/common-functions";
+} from "../utils/common-functions";
 import clsx from "clsx";
 
 function MemeBank({ lang = "hi" }: { lang: string }) {
