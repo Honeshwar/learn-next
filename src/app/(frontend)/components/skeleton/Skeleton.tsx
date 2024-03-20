@@ -4,7 +4,7 @@ function PledgeCounterSkeleton() {
   return (
     <div
       role="status"
-      className=" animate-pulse flex flex-col w-full  h-full bg-blue-800"
+      className=" h-[265px] animate-pulse flex flex-col w-full  lh-full bg-blue-800"
       style={{ backgroundImage: "url(/assets/spinthewheel/Bg mobile.webp)" }}
     >
       <Image
