@@ -1,10 +1,17 @@
-// "use server";
+"use client";
 import Image from "next/image"; //image api import png(1mb)-->compress and webp convert
 import { useEffect, useState } from "react";
 // import getPlaiceholderImage from "../utils/plaiceholder";
 
-export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
-  const [pledgeCount, setPledgeCount] = useState([]);
+export default function PledgeCounter({ lang = "hi" }: { lang: string }) {
+  const [pledgeCount, setPledgeCount] = useState([
+    "2",
+    "2",
+    "4",
+    "4",
+    "4",
+    "5",
+  ]);
   useEffect(() => {
     async function getCount() {
       // Fetch data from an external API
@@ -43,6 +50,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
         <div className="flex justify-center items-center w-full h-full ">
           <div className="w-[70%] sm:w-fit h-full flex justify-center items-center sm:items-start relative mb-[26px] mt-3 sm:mb-1 sm:mt-4 counter-container">
             <Image
+              loading="eager"
               width={100}
               height={120}
               // placeholder="blur"
@@ -52,6 +60,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
               alt="akhilesh yadev"
             />
             <Image
+              loading="eager"
               width={150}
               height={56}
               className="w-fit h-[56px] sm:h-[100px] absolute left-[35%] sm:left-[40%] top-[-45px] sm:top-[-80px] z-[9]  "
@@ -64,130 +73,143 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
               className="flex items-center w-[100%] sm:w-[70%] h-fit "
             >
               {pledgeCount.map((number, index) => (
-                <>
-                  {/* box 1 */}
-                  <div
-                    key={number + 10 + index}
-                    className="w-[65px] sm:w-[120px] h-[70px] sm:h-[120px] flex justify-center items-center p-1 mr-[-2px]"
-                  >
-                    <div className="w-full h-full">
-                      <div className="w-full h-full relative">
-                        {/* <!-- most outer body  --> */}
-                        <Image
-                          width={120}
-                          height={120}
-                          className="w-full h-full"
-                          src="/assets/counter/Asset 2.png"
-                          alt="container"
-                        />
-                        <Image
-                          width={100}
-                          height={100}
-                          className="w-full h-full absolute top-[0px] left-[-2px]"
-                          src="/assets/counter/Asset 4.png"
-                          alt="left top line"
-                        />
-                        <Image
-                          width={100}
-                          height={120}
-                          className="w-full h-full absolute bottom-[-1px] right-[-2px]"
-                          src="/assets/counter/Asset 3.png"
-                          alt="right bottom line"
-                        />
+                // <>
+                // {/* box 1 */}
+                <div
+                  key={number + 10 + index}
+                  className="w-[65px] sm:w-[120px] h-[70px] sm:h-[120px] flex justify-center items-center p-1 mr-[-2px]"
+                >
+                  <div className="w-full h-full">
+                    <div className="w-full h-full relative">
+                      {/* <!-- most outer body  --> */}
+                      <Image
+                        loading="eager"
+                        width={120}
+                        height={120}
+                        className="w-full h-full"
+                        src="/assets/counter/Asset 2.png"
+                        alt="container"
+                      />
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={100}
+                        className="w-full h-full absolute top-[0px] left-[-2px]"
+                        src="/assets/counter/Asset 4.png"
+                        alt="left top line"
+                      />
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={120}
+                        className="w-full h-full absolute bottom-[-1px] right-[-2px]"
+                        src="/assets/counter/Asset 3.png"
+                        alt="right bottom line"
+                      />
 
-                        {/* <!-- 2 big piece --> */}
-                        <Image
-                          width={100}
-                          height={120}
-                          className=" h-fit absolute z-[4] top-[40%] sm:top-[35.5%] left-[-3px] w-[7%] sm:w-[9%]"
-                          src="/assets/counter/Asset 6.png"
-                          alt="big joint "
-                        />
-                        <Image
-                          width={100}
-                          height={120}
-                          className="h-fit absolute z-[4] top-[40%] sm:top-[35.5%] right-[-3px] w-[7%] sm:w-[9%]"
-                          src="/assets/counter/Asset 6.png"
-                          alt="big joint"
-                        />
+                      {/* <!-- 2 big piece --> */}
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={120}
+                        className=" h-fit absolute z-[4] top-[40%] sm:top-[35.5%] left-[-3px] w-[7%] sm:w-[9%]"
+                        src="/assets/counter/Asset 6.png"
+                        alt="big joint "
+                      />
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={120}
+                        className="h-fit absolute z-[4] top-[40%] sm:top-[35.5%] right-[-3px] w-[7%] sm:w-[9%]"
+                        src="/assets/counter/Asset 6.png"
+                        alt="big joint"
+                      />
 
-                        {/* <!-- 2 small picec --> */}
-                        <Image
-                          width={100}
-                          height={120}
-                          className="h-fit absolute z-[4] top-[48%] sm:top-[44%] left-1 sm:left-2 w-[7%] sm:w-[10%]"
-                          src="/assets/counter/Asset 7.png"
-                          alt="down bg"
-                        />
-                        <Image
-                          width={100}
-                          height={120}
-                          className="h-fit absolute z-[4] top-[48%] right-1 w-[6%] sm:top-[44%] sm:right-2 sm:w-[10%]"
-                          src="/assets/counter/Asset 7.png"
-                          alt="down bg"
-                        />
+                      {/* <!-- 2 small picec --> */}
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={120}
+                        className="h-fit absolute z-[4] top-[48%] sm:top-[44%] left-1 sm:left-2 w-[7%] sm:w-[10%]"
+                        src="/assets/counter/Asset 7.png"
+                        alt="down bg"
+                      />
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={120}
+                        className="h-fit absolute z-[4] top-[48%] right-1 w-[6%] sm:top-[44%] sm:right-2 sm:w-[10%]"
+                        src="/assets/counter/Asset 7.png"
+                        alt="down bg"
+                      />
 
-                        {/* <!-- two red bg --> */}
-                        <div className="absolute top-0 h-full w-full p-[2px] pt-[3px] sm:p-1">
-                          <div className="relative w-full h-1/2 mb-[.7px]">
-                            <Image
-                              width={100}
-                              height={120}
-                              className="w-full absolute z-1 top-0 h-full"
-                              src="/assets/counter/Asset 5.png"
-                              alt="down bg"
-                            />
-                          </div>
-                          <div className="relative w-full h-1/2">
-                            <Image
-                              width={100}
-                              height={120}
-                              className="w-full absolute bottom-0 z-1 h-full"
-                              src="/assets/counter/Asset 1.png"
-                              alt="red background top"
-                            />
-                          </div>
-                        </div>
-
-                        {/* <!-- number --> */}
-                        <div className="absolute w-full h-full z-[1] overflow-hidden flex justify-center items-center top-0 rounded-lg">
-                          <span className="counter-text absolute top-[-8.7px] text-[3rem] sm:text-[5rem] sm:top-[-10px] rounded-lg text-white pt-[3px] sm:pt-[5px]">
-                            {number}
-                          </span>
-                        </div>
-                        {/* <!-- black line --> */}
-                        <Image
-                          width={100}
-                          height={120}
-                          className="absolute z-[3] h-[2px] bg-[#1a1515] w-full top-[50%] sm:h-[3px]"
-                          src="/assets/counter/Asset 9.png"
-                          alt="red background bottom"
-                        />
-                        {/* <!-- white line --> */}
-                        <div className="absolute overflow-hidden w-full h-full top-0">
+                      {/* <!-- two red bg --> */}
+                      <div className="absolute top-0 h-full w-full p-[2px] pt-[3px] sm:p-1">
+                        <div className="relative w-full h-1/2 mb-[.7px]">
                           <Image
+                            loading="eager"
                             width={100}
                             height={120}
-                            className="absolute top-[-40px] h-[120px] w-full object-cover z-[1] sm:h-[210px] sm:top-[-70px]"
-                            src="/assets/counter/Asset 8.png"
-                            alt="two white line to set shadow top"
+                            className="w-full absolute z-1 top-0 h-full"
+                            src="/assets/counter/Asset 5.png"
+                            alt="down bg"
                           />
+                        </div>
+                        <div className="relative w-full h-1/2">
                           <Image
+                            loading="eager"
                             width={100}
                             height={120}
-                            className="absolute top-[-40px] h-[120px] w-full object-cover z-[1] sm:h-[210px] sm:top-[-70px]"
-                            src="/assets/counter/Asset 8.png"
-                            alt="two white line to set shadow center"
+                            className="w-full absolute bottom-0 z-1 h-full"
+                            src="/assets/counter/Asset 1.png"
+                            alt="red background top"
                           />
                         </div>
                       </div>
+
+                      {/* <!-- number --> */}
+                      <div className="absolute w-full h-full z-[1] overflow-hidden flex justify-center items-center top-0 rounded-lg">
+                        <span className="counter-text absolute top-[-8.7px] text-[3rem] sm:text-[5rem] sm:top-[-10px] rounded-lg text-white pt-[3px] sm:pt-[5px]">
+                          {number}
+                        </span>
+                      </div>
+                      {/* <!-- black line --> */}
+                      <Image
+                        loading="eager"
+                        width={100}
+                        height={120}
+                        className="absolute z-[3] h-[2px] bg-[#1a1515] w-full top-[50%] sm:h-[3px]"
+                        src="/assets/counter/Asset 9.png"
+                        alt="red background bottom"
+                      />
+                      {/* <!-- white line --> */}
+                      <div className="absolute overflow-hidden w-full h-full top-0">
+                        <Image
+                          loading="eager"
+                          width={100}
+                          height={120}
+                          className="absolute top-[-40px] h-[120px] w-full object-cover z-[1] sm:h-[210px] sm:top-[-70px]"
+                          src="/assets/counter/Asset 8.png"
+                          alt="two white line to set shadow top"
+                        />
+                        <Image
+                          loading="eager"
+                          width={100}
+                          height={120}
+                          className="absolute top-[-40px] h-[120px] w-full object-cover z-[1] sm:h-[210px] sm:top-[-70px]"
+                          src="/assets/counter/Asset 8.png"
+                          alt="two white line to set shadow center"
+                        />
+                      </div>
                     </div>
                   </div>
-                </>
+                </div>
+                // </>
               ))}
             </div>
 
             <Image
+              loading="eager"
               width={100}
               height={100}
               className="w-fit h-[100px] sm:h-[200px] absolute right-[-60px] top-[-10px] z-[10]  sm:top-[-67px] sm:right-[-23px] sm:absolute"
@@ -206,6 +228,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
             </div>
             <div className="relative flex justify-center items-center py-[2vw] mt-[-20px]">
               <Image
+                loading="eager"
                 width={100}
                 height={120}
                 className="w-fit h-[18vw] sm:h-[11vw] object-cover  bottom-[0vw] left-[.5vw] sm:bottom-[0vw] sm:left-[14.4vw]"
@@ -213,6 +236,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
                 alt="Sonia Gandhi"
               />
               <Image
+                loading="eager"
                 width={100}
                 height={120}
                 className="w-fit h-[18vw] sm:h-[11vw] object-cover  bottom-[0vw] left-[.5vw] sm:bottom-[0vw] sm:left-[14.4vw]"
@@ -220,6 +244,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
                 alt="Akhilesh Yadev"
               />
               <Image
+                loading="eager"
                 width={100}
                 height={120}
                 className="w-fit h-[14vw] sm:h-[11vw] object-cover  bottom-[0vw] left-[.5vw] sm:bottom-[0vw] sm:left-[14.4vw]"
@@ -227,6 +252,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
                 alt="Sharad Pawar"
               />
               <Image
+                loading="eager"
                 width={100}
                 height={120}
                 className="w-fit h-[15vw] sm:h-[9vw]  bottom-[0vw] left-[13vw] sm:bottom-[-.2vw] sm:left-[24vw] "
@@ -235,6 +261,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
                 alt="Rahul Gandhi"
               />
               {/* <!-- <Image
+              loading="eager"
                  
                   width={100}
                   height={120}
@@ -243,6 +270,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
                 alt="mamata"
                 /> --> */}
               <Image
+                loading="eager"
                 width={100}
                 height={120}
                 className="w-fit h-[14vw] sm:h-[8vw]  bottom-[.2vw] right-[2vw] sm:bottom-[0vw] sm:right-[15vw]"
@@ -250,6 +278,7 @@ export default async function PledgeCounter({ lang = "hi" }: { lang: string }) {
                 alt="kejriwal"
               />
               <Image
+                loading="eager"
                 width={100}
                 height={120}
                 className="w-fit h-[14vw] sm:h-[8vw]  bottom-[.5vw] right-[15vw] sm:bottom-[.4vw] sm:right-[26vw]"

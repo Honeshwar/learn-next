@@ -24,57 +24,57 @@ function MediaCoverage({
   const articles = [
     {
       href: "https://indianexpress.com/article/political-pulse/india-alliance-sp-vs-congress-8991266/",
-      imgSrcHindi: "/assets/media coverage/hindi/1.webp",
+      imgSrcHindi: "/assets/media coverage/hi/1.webp",
       imgSrcEnglish: "/assets/media coverage/en/1.webp",
     },
     {
       href: "https://timesofindia.indiatimes.com/city/delhi/congress-disowns-netas-statement-after-aap-threatens-to-exit-india/articleshow/102783368.cms",
-      imgSrcHindi: "/assets/media coverage/hindi/2.webp",
+      imgSrcHindi: "/assets/media coverage/hi/2.webp",
       imgSrcEnglish: "/assets/media coverage/en/2.webp",
     },
     {
       href: "https://www.youtube.com/watch?v=8KwbsXzc2ww",
-      imgSrcHindi: "/assets/media coverage/hindi/3.webp",
+      imgSrcHindi: "/assets/media coverage/hi/3.webp",
       imgSrcEnglish: "/assets/media coverage/en/3.webp",
     },
     {
       href: "https://www.youtube.com/watch?v=-n16_RrxB18",
-      imgSrcHindi: "/assets/media coverage/hindi/4.webp",
+      imgSrcHindi: "/assets/media coverage/hi/4.webp",
       imgSrcEnglish: "/assets/media coverage/en/4.webp",
     },
     {
       href: "https://www.indiatoday.in/india/story/sanjay-singh-3rd-aap-leader-arrested-5-points-on-charges-against-them-2444581-2023-10-04",
-      imgSrcHindi: "/assets/media coverage/hindi/5.webp",
+      imgSrcHindi: "/assets/media coverage/hi/5.webp",
       imgSrcEnglish: "/assets/media coverage/en/5.webp",
     },
     {
       href: "https://economictimes.indiatimes.com/news/politics-and-nation/cash-seizure-in-tax-raids-shows-how-congress-has-kept-tradition-of-corruption-alive-bjp/articleshow/105865699.cms?from=mdr",
-      imgSrcHindi: "/assets/media coverage/hindi/6.webp",
+      imgSrcHindi: "/assets/media coverage/hi/6.webp",
       imgSrcEnglish: "/assets/media coverage/en/6.webp",
     },
     {
       href: "https://www.thehindu.com/news/cities/Madurai/one-third-of-dmk-ministers-face-corruption-charges-annamalai/article67304128.ece",
-      imgSrcHindi: "/assets/media coverage/en/7.webp",
-      imgSrcEnglish: "/assets/media coverage/en/1.webp",
+      imgSrcHindi: "/assets/media coverage/hi/7.webp",
+      imgSrcEnglish: "/assets/media coverage/en/7.webp",
     },
     {
       href: "https://www.ndtv.com/india-news/uttar-pradesh-ed-arrests-sp-politician-in-ponzi-linked-money-laundering-case-4235825",
-      imgSrcHindi: "/assets/media coverage/hindi/8.webp",
+      imgSrcHindi: "/assets/media coverage/hi/8.webp",
       imgSrcEnglish: "/assets/media coverage/en/8.webp",
     },
     {
       href: "https://zeenews.india.com/tamil-nadu/will-support-it-if-southern-states-want-to-break-away-from-india-dmk-leader-mk-stalin-2090888.html",
-      imgSrcHindi: "/assets/media coverage/hindi/9.webp",
+      imgSrcHindi: "/assets/media coverage/hi/9.webp",
       imgSrcEnglish: "/assets/media coverage/en/9.webp",
     },
     {
       href: "https://www.livemint.com/politics/news/bjp-winning-elections-in-gaumutra-states-dmk-mps-comments-dnv-senthilkumar-s-bjp-says-take-mental-treatment-11701779541455.html",
-      imgSrcHindi: "/assets/media coverage/hindi/10.webp",
+      imgSrcHindi: "/assets/media coverage/hi/10.webp",
       imgSrcEnglish: "/assets/media coverage/en/10.webp",
     },
     {
       href: "https://sanatanprabhat.org/english/73633.html",
-      imgSrcHindi: "/assets/media coverage/hindi/11.webp",
+      imgSrcHindi: "/assets/media coverage/hi/11.webp",
       imgSrcEnglish: "/assets/media coverage/en/11.webp",
     },
   ];

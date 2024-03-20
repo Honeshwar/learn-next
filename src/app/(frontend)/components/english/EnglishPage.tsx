@@ -1,6 +1,6 @@
 "use client";
-import Image from "next/image";
-import { Suspense, useEffect, useState } from "react";
+// import Image from "next/image";
+// import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useAppContext } from "../../context/appContext";
 import {
@@ -13,22 +13,27 @@ import {
   ThugTalesSkeleton,
 } from "../skeleton/Skeleton";
 import Header from "../Header";
-
+// import PledgeCounter from "../PledgeCounter";
+import ScrollAware from "../ScrollAware";
+import React, { useEffect, useState } from "react";
+import PledgeCounter from "../PledgeCounter";
+import Achievement from "../Achievement";
+import MediaCoverage from "../MediaCoverage";
+import ThugTales from "../ThugTales";
+import MemeBank from "../MemeBank";
+import Banner from "../Banner";
+import SpinTheWheel from "../SpinTheWheel";
 export default function EnglishPage() {
   const { isMobile } = useAppContext();
 
-  // const HeaderComponent = dynamic(() => import("../Header"));
-  const PledgeCounterComponent = dynamic(() => import("../PledgeCounter"));
-  const AchievementComponent = dynamic(() => import("../Achievement"));
-  const BannerComponent = dynamic(() => import("../Banner"), {
-    ssr: false,
-  });
-  const SpinTheWheelComponent = dynamic(() => import("../SpinTheWheel"));
-  const MemeBankComponent = dynamic(() => import("../MemeBank"), {
-    ssr: false,
-  });
-  const ThugTalesComponent = dynamic(() => import("../ThugTales"));
-  const MediaCoverageComponent = dynamic(() => import("../MediaCoverage"));
+  // const Header = dynamic(() => import("../Header"));
+  const LazyPledgeCounter = dynamic(() => import("../PledgeCounter"));
+  const LazyAchievement = dynamic(() => import("../Achievement"));
+  const LazyBanner = dynamic(() => import("../Banner"));
+  const LazySpinTheWheel = dynamic(() => import("../SpinTheWheel"));
+  const LazyMemeBank = dynamic(() => import("../MemeBank"));
+  const LazyThugTales = dynamic(() => import("../ThugTales"));
+  const LazyMediaCoverage = dynamic(() => import("../MediaCoverage"));
   const [delay, setDelay] = useState(false);
   useEffect(() => {
     // if (window.screen.width <= 640) {
@@ -39,11 +44,119 @@ export default function EnglishPage() {
 
     setTimeout(() => {
       setDelay(true);
-    }, 3000);
+    }, 100);
   }, []);
+
   return (
     <>
-      {/* <Suspense
+      <Header isMobile={isMobile} lang="en" />
+      {/* <PledgeCounter lang="en" />
+
+      <Achievement title="OUR ACHIEVEMENTS" lang="en" />
+      <Banner section_name="ctm" lang="en" />
+      <SpinTheWheel lang="en" />
+      <Banner section_name="quiz" lang="en" />
+      <MemeBank lang="en" />
+      <ThugTales title="OUR THUG TALES" lang="en" />
+      <MediaCoverage title="MEDIA COVERAGE" lang="en" /> */}
+
+      {/* {delay && (
+      <>
+        
+      </>
+     )} */}
+      <LazyPledgeCounter lang="en" />
+      <LazyAchievement title="OUR ACHIEVEMENTS" lang="en" />
+      <LazyBanner section_name="ctm" lang="en" />
+      <LazySpinTheWheel lang="en" />
+      <LazyBanner section_name="quiz" lang="en" />
+      <LazyMemeBank lang="en" />
+      <LazyThugTales title="OUR THUG TALES" lang="en" />
+      <LazyMediaCoverage title="MEDIA COVERAGE" lang="en" />
+
+      {/* <ScrollAware
+        lazyComponent={<LazyPledgeCounter lang="en" />}
+        fallbackUI={<PledgeCounterSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyAchievement title="OUR ACHIEVEMENTS" lang="en" />}
+        fallbackUI={<AchievementSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyBanner section_name="ctm" lang="en" />}
+        fallbackUI={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
+      />
+      <ScrollAware
+        lazyComponent={<LazySpinTheWheel lang="en" />}
+        fallbackUI={<ChoosePMSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyBanner section_name="quiz" lang="en" />}
+        fallbackUI={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyMemeBank lang="en" />}
+        fallbackUI={<MemeSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyThugTales title="OUR THUG TALES" lang="en" />}
+        fallbackUI={<ThugTalesSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyMediaCoverage title="Media Coverage" lang="en" />}
+        fallbackUI={<MediaCoverageSkeleton />}
+      /> */}
+    </>
+  );
+}
+
+// <>
+//   <Header isMobile={isMobile} lang="en" />
+{
+  /* <PledgeCounter lang="en" /> */
+}
+{
+  /* <ScrollAware
+        lazyComponent={<LazyPledgeCounter lang="en" />}
+        fallbackUI={<PledgeCounterSkeleton />}
+      /> */
+}
+{
+  /* <ScrollAware
+        lazyComponent={<LazyAchievement title="OUR ACHIEVEMENTS" lang="en" />}
+        fallbackUI={<AchievementSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyBanner section_name="ctm" lang="en" />}
+        fallbackUI={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
+      />
+      <ScrollAware
+        lazyComponent={<LazySpinTheWheel lang="en" />}
+        fallbackUI={<ChoosePMSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyBanner section_name="quiz" lang="en" />}
+        fallbackUI={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyMemeBank lang="en" />}
+        fallbackUI={<MemeSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyThugTales title="OUR THUG TALES" lang="en" />}
+        fallbackUI={<ThugTalesSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyMediaCoverage title="Media Coverage" lang="en" />}
+        fallbackUI={<MediaCoverageSkeleton />}
+      />
+    </> */
+}
+{
+  /* <> */
+}
+{
+  /* <Suspense
         fallback={
           <div>
             <Image
@@ -54,39 +167,45 @@ export default function EnglishPage() {
             />
           </div>
         }
-      > */}
-      <Header isMobile={isMobile} lang="en" />
-      {/* </Suspense> */}
-      {delay ? (
+      > */
+}
+{
+  /* <Header isMobile={isMobile} lang="en" /> */
+}
+{
+  /* </Suspense> */
+}
+{
+  /* {delay ? (
         <>
           <Suspense fallback={<PledgeCounterSkeleton />}>
-            <PledgeCounterComponent lang="en" />
+            <LazyPledgeCounter lang="en" />
           </Suspense>
           <Suspense fallback={<AchievementSkeleton />}>
-            <AchievementComponent title="OUR ACHIEVEMENTS" lang="en" />
+            <LazyAchievement title="OUR ACHIEVEMENTS" lang="en" />
           </Suspense>
           <Suspense
             fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
           >
-            <BannerComponent section_name="ctm" lang="en" />
+            <LazyBanner section_name="ctm" lang="en" />
           </Suspense>
           <Suspense fallback={<ChoosePMSkeleton />}>
-            <SpinTheWheelComponent lang="en" />
+            <LazySpinTheWheel lang="en" />
           </Suspense>
           <Suspense
             fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
           >
-            <BannerComponent section_name="quiz" lang="en" />
+            <LazyBanner section_name="quiz" lang="en" />
           </Suspense>
           <Suspense fallback={<MemeSkeleton />}>
-            <MemeBankComponent lang="en" />
+            <LazyMemeBank lang="en" />
           </Suspense>
 
           <Suspense fallback={<ThugTalesSkeleton />}>
-            <ThugTalesComponent title="OUR THUG TALES" lang="en" />
+            <LazyThugTales title="OUR THUG TALES" lang="en" />
           </Suspense>
           <Suspense fallback={<MediaCoverageSkeleton />}>
-            <MediaCoverageComponent title="Media Coverage" lang="en" />
+            <LazyMediaCoverage title="Media Coverage" lang="en" />
           </Suspense>
         </>
       ) : (
@@ -101,6 +220,5 @@ export default function EnglishPage() {
           <MediaCoverageSkeleton />
         </>
       )}
-    </>
-  );
+    </> */
 }

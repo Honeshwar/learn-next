@@ -345,6 +345,7 @@ function Header({
                         <a
                           key={index}
                           href={item.url}
+                          onClick={() => setOpenNavDropdown(false)}
                           className={clsx(
                             "text-yellow-500 rounded-md px-3 py-2 text-[1rem] text-center",
                             {
@@ -379,6 +380,7 @@ function Header({
                       : "/assets/mtb_english_logo.webp"
                   }
                   priority={true}
+                  loading="eager"
                   placeholder="blur"
                   blurDataURL={
                     lang === "hi"
