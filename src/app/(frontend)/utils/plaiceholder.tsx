@@ -1,18 +1,18 @@
-"use server";
-import fs from "node:fs/promises";
-import { getPlaiceholder } from "plaiceholder";
+// "use server";
+// import fs from "node:fs/promises";
+// import { getPlaiceholder } from "plaiceholder";
 
-async function getPlaiceholderImage(url: string) {
-  try {
-    const file = await fs.readFile(url);
+// async function getPlaiceholderImage(url: string) {
+//   try {
+//     const file = await fs.readFile(url);
 
-    const { base64 } = await getPlaiceholder(file);
+//     const { base64 } = await getPlaiceholder(file);
 
-    console.log(base64);
-    return base64;
-  } catch (err) {
-    err;
-  }
-}
+//     console.log(base64);
+//     return base64;
+//   } catch (err) {
+//     err;
+//   }
+// }
 
-export default getPlaiceholderImage;
+// export default getPlaiceholderImage;
