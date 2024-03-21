@@ -12,7 +12,11 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { video_share_count } from "../utils/common-functions";
 import clsx from "clsx";
-
+import dynamic from "next/dynamic";
+// import ThugVideo from "./ThugVideo";
+const LazyThugVideo = dynamic(() => import("./swiper Slider/ThugVideo"), {
+  ssr: false,
+});
 interface Swiper {
   autoplay: {
     stop: () => void;
@@ -279,100 +283,16 @@ function ThugTales({
               key={index}
               className="w-full h-full flex justify-center"
             >
-              <div className="h-full relative flex justify-center items-center">
-                <video
-                  id={`thug-${index + 1}`}
-                  className="w-[90vw] sm:w-[60vw] max-h-fit  rounded-[15px] sm:rounded-[30px] mx-auto"
-                  data-url=""
-                  poster={video.poster}
-                  onClick={() =>
-                    playThugVideo(
-                      `img-${index + 1}`,
-                      `thug-${index + 1}`,
-                      video["data-url"],
-                      `thug-shares-${index + 1}`
-                    )
-                  }
-                >
-                  <source src={video.src} type="video/mp4" />
-                  Your browser doesn&apos;t support video
-                </video>
-                <Image
-                  id={`img-${index + 1}`}
-                  width={100}
-                  height={100}
-                  onClick={() =>
-                    playThugVideo(
-                      `img-${index + 1}`,
-                      `thug-${index + 1}`,
-                      video["data-url"],
-                      `thug-shares-${index + 1}`
-                    )
-                  }
-                  className="w-[5vw] h-[5vw] min-h-[30px]  min-w-[30px]  max-h-[70px]  max-w-[70px] absolute cursor-pointer"
-                  src="/assets/thug tales/Video icon.webp"
-                  alt="video icon"
-                />
-                <div
-                  id={`thug-shares-${index + 1}`}
-                  className=" absolute right-[8vw] top-[5vw] sm:right-[19vw] sm:top-[5vw] text-white flex flex-col justify-center items-center gap-[2vw] sm:gap-5"
-                >
-                  {playingThugVideo && (
-                    <>
-                      <a
-                        onClick={video_share_count}
-                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
-                        href={whatsapp_link}
-                        target="_blank"
-                        style={{ color: "black" }}
-                      >
-                        <Image
-                          width={50}
-                          height={50}
-                          className="w-fit h-[6vw] sm:h-[4vw] sm:max-h-[50px]"
-                          src="/assets/svg/whatsapp.svg"
-                          alt="whatsapp logo"
-                        />
-                      </a>
-                      <a
-                        onClick={video_share_count}
-                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
-                        href={twitter_link}
-                        style={{ color: "black" }}
-                        target="_blank"
-                      >
-                        <Image
-                          width={50}
-                          height={50}
-                          className="w-fit h-[6vw] sm:h-[4vw] sm:max-h-[50px]"
-                          src="/assets/svg/twt-x-logo.svg"
-                          alt="twitter logo"
-                          style={{
-                            backgroundColor: "black",
-                            padding: "3px",
-                            borderRadius: "50%",
-                          }}
-                        />
-                      </a>
-                      <a
-                        onClick={video_share_count}
-                        className="flex flex-col justify-center items-center gap-0 sm:gap-2"
-                        href={facebook_link}
-                        target="_blank"
-                        style={{ color: "black" }}
-                      >
-                        <Image
-                          width={50}
-                          height={50}
-                          className="w-fit h-[6vw] sm:h-[4vw] sm:max-h-[50px]"
-                          src="/assets/svg/fb.svg"
-                          alt="facebook logo"
-                        />
-                      </a>
-                    </>
-                  )}
-                </div>
-              </div>
+              <LazyThugVideo
+                index={index}
+                video={video}
+                playThugVideo={playThugVideo}
+                twitter_link={twitter_link}
+                facebook_link={facebook_link}
+                whatsapp_link={whatsapp_link}
+                video_share_count={video_share_count}
+                playingThugVideo={playingThugVideo}
+              />
             </SwiperSlide>
           ))}
           {/* <!-- arrow --> */}

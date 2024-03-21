@@ -73,7 +73,7 @@ const data = {
         "submit-btn": "Submit OTP",
         "error-msg": "*** Error Occured: Invalid OTP",
       },
-      "already-registerd": {
+      "already-registered": {
         heading: "You are already registered",
         "sub-heading": "Thanks for Pledge",
       },
@@ -192,7 +192,7 @@ const data = {
         "submit-btn": "ओटीपी जमा करें",
         "error-msg": "*** त्रुटि उत्पन्न हुई अमान्य ओटीपी",
       },
-      "already-registerd": {
+      "already-registered": {
         heading: "आप पहले से ही पंजीकृत हैं",
         "sub-heading": "प्रतिज्ञा के लिए धन्यवाद ",
       },

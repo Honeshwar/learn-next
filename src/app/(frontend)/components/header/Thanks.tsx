@@ -21,7 +21,7 @@ export default function Thanks({
               })}
             >
               {/* प्रतिज्ञा के लिए धन्यवाद */}
-              {CTA["already-registerd"]["sub-heading"]}
+              {CTA["already-registered"]["sub-heading"]}
             </span>
           </h3>
         </div>

@@ -11,6 +11,18 @@ import Mobile from "./header/Mobile";
 // import AlreadyRegisterd from "./header/AlreadyRegisterd";
 // import Thanks from "./header/thanks";
 import Logo from "./header/Logo";
+const LazyOTP = dynamic(() => import("./header/OTP"), {
+  ssr: false,
+});
+
+const LazyDetailForm = dynamic(() => import("./DetailForm"), {
+  ssr: false,
+});
+const LazyThankYouPledge = dynamic(() => import("./header/ThankYouPledge"), {
+  ssr: false,
+});
+const LazyAlreadyRegisterd = dynamic(() => import("./header/AlreadyRegisterd"));
+const LazyThanks = dynamic(() => import("./header/Thanks"), {});
 
 function Header({
   isMobile,
@@ -27,21 +39,6 @@ function Header({
 
   const [step, setStep] = useState(1);
   const [states, setStates] = useState([]);
-
-  const LazyOTP = dynamic(() => import("./header/OTP"), {
-    ssr: false,
-  });
-
-  const LazyDetailForm = dynamic(() => import("./DetailForm"), {
-    ssr: false,
-  });
-  const LazyThankYouPledge = dynamic(() => import("./header/ThankYouPledge"), {
-    ssr: false,
-  });
-  const LazyAlreadyRegisterd = dynamic(
-    () => import("./header/AlreadyRegisterd")
-  );
-  const LazyThanks = dynamic(() => import("./header/Thanks"), {});
 
   return (
     <>

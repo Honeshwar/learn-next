@@ -3,37 +3,38 @@
 // import { Suspense, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { useAppContext } from "../../context/appContext";
-import {
-  AchievementSkeleton,
-  BannerSkeleton,
-  ChoosePMSkeleton,
-  MediaCoverageSkeleton,
-  MemeSkeleton,
-  PledgeCounterSkeleton,
-  ThugTalesSkeleton,
-} from "../skeleton/Skeleton";
+// import {
+//   AchievementSkeleton,
+//   BannerSkeleton,
+//   ChoosePMSkeleton,
+//   MediaCoverageSkeleton,
+//   MemeSkeleton,
+//   PledgeCounterSkeleton,
+//   ThugTalesSkeleton,
+// } from "../skeleton/Skeleton";
 import Header from "../Header";
 // import PledgeCounter from "../PledgeCounter";
-import ScrollAware from "../ScrollAware";
-// import React, { useEffect, useState } from "react";
-import PledgeCounter from "../PledgeCounter";
-import Achievement from "../Achievement";
-import MediaCoverage from "../MediaCoverage";
-import ThugTales from "../ThugTales";
-import MemeBank from "../MemeBank";
-import Banner from "../Banner";
-import SpinTheWheel from "../SpinTheWheel";
+// import ScrollAware from "../ScrollAware";
+// // import React, { useEffect, useState } from "react";
+// import PledgeCounter from "../PledgeCounter";
+// import Achievement from "../Achievement";
+// import MediaCoverage from "../MediaCoverage";
+// import ThugTales from "../ThugTales";
+// import MemeBank from "../MemeBank";
+// import Banner from "../Banner";
+// import SpinTheWheel from "../SpinTheWheel";
+// const Header = dynamic(() => import("../Header"));
+const LazyPledgeCounter = dynamic(() => import("../PledgeCounter"));
+const LazyAchievement = dynamic(() => import("../Achievement"));
+const LazyBanner = dynamic(() => import("../Banner"));
+const LazySpinTheWheel = dynamic(() => import("../SpinTheWheel"));
+const LazyMemeBank = dynamic(() => import("../MemeBank"));
+const LazyThugTales = dynamic(() => import("../ThugTales"));
+const LazyMediaCoverage = dynamic(() => import("../MediaCoverage"));
+
 export default function EnglishPage() {
   const { isMobile } = useAppContext();
 
-  // const Header = dynamic(() => import("../Header"));
-  const LazyPledgeCounter = dynamic(() => import("../PledgeCounter"));
-  const LazyAchievement = dynamic(() => import("../Achievement"));
-  const LazyBanner = dynamic(() => import("../Banner"));
-  const LazySpinTheWheel = dynamic(() => import("../SpinTheWheel"));
-  const LazyMemeBank = dynamic(() => import("../MemeBank"));
-  const LazyThugTales = dynamic(() => import("../ThugTales"));
-  const LazyMediaCoverage = dynamic(() => import("../MediaCoverage"));
   // const [delay, setDelay] = useState(false);
   // useEffect(() => {
   //   // if (window.screen.width <= 640) {

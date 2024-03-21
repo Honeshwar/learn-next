@@ -459,10 +459,18 @@ function Footer({ lang }: { lang: string }) {
           </div>
         )}
         <div
-          className="w-full h-[100%] bg-contain   flex flex-col justify-between pb-2 relative   "
-          style={{ backgroundImage: "url('/assets/footer/Bg Footer.webp')" }}
+          className="w-full h-[100%] bg-cover   flex flex-col justify-between  relative   "
+          style={{ backgroundImage: "url('/assets/footer/Bg Footer.web')" }}
         >
-          <div className="w-full h-full flex gap-5 justify-between items-end px-[7vw]   relative mt-[2vw]  ">
+          {/* pb-2 */}
+          <Image
+            width={1920}
+            height={1080}
+            className="w-full h-[100%]   flex flex-col justify-between pb-0 absolute z-0"
+            src="/assets/footer/Bg Footer.webp"
+            alt="bg"
+          />
+          <div className="w-full h-full flex gap-5 justify-between items-end px-[7vw]   relative mt-[2vw]  z-10">
             <div className="w-full flex gap-5 justify-between items-end px-[7vw]   relative pb-[1vw]  ">
               {/* <!-- footer left  --> */}
               <div className="flex flex-col"></div>

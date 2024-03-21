@@ -1,6 +1,6 @@
 "use client";
 // import Image from "next/legacy/image";//layout property can use
-import Image from "next/image";
+// import Image from "next/image";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation, Autoplay } from "swiper/modules";
@@ -13,7 +13,11 @@ import "../styles/media-coverage.css";
 import Footer from "./Footer";
 import { useEffect, useState } from "react";
 import clsx from "clsx";
-
+// import MediaCoverageImage from "./swiper Slider/MediaCoverageImage";
+import dynamic from "next/dynamic";
+const LazyMediaCoverageImage = dynamic(
+  () => import("./swiper Slider/MediaCoverageImage")
+);
 function MediaCoverage({
   title = "मीडिया कवरेज",
   lang = "hi",
@@ -114,7 +118,7 @@ function MediaCoverage({
         </div>
         <div
           id="media-coverage-slider"
-          className="w-full relative flex justify-center items-center overflow-hidden"
+          className="w-full relative flex justify-center items-center overflow-hidden pt-[10px] pb-[50px] md:pt-[2vw] md:pb-[8vw]"
         >
           {/* <!-- Swiper --> */}
           <Swiper
@@ -145,42 +149,7 @@ function MediaCoverage({
             {articles.map((article, index) => (
               <SwiperSlide key={index} className="w-full h-full ">
                 {/* <div className="w-full h-full swiper-slide flex justify-center border"> */}
-                <a
-                  href={article.href}
-                  target="_blank"
-                  className="w-full h-full"
-                >
-                  <Image
-                    width={400}
-                    height={300}
-                    className="w-full h-full"
-                    src={
-                      lang === "hi"
-                        ? article.imgSrcHindi
-                        : article.imgSrcEnglish
-                    }
-                    alt="media coverage article"
-                  />
-                </a>
-                {/* <!-- arrow --> */}
-                <div className="swiper-button-next media-coverage-button-next">
-                  <Image
-                    width={50}
-                    height={50}
-                    className="opacity-50 z-[2] w-full h-full object-contain"
-                    src="/assets/media coverage/Navigator Left.webp"
-                    alt="navigation left"
-                  />
-                </div>
-                <div className="swiper-button-prev media-coverage-button-prev">
-                  <Image
-                    width={100}
-                    height={50}
-                    className="opacity-50 z-[2] w-full h-full  object-contain"
-                    src="/assets/media coverage/Navigator Right.webp"
-                    alt="avigation right"
-                  />
-                </div>
+                <LazyMediaCoverageImage lang={lang} article={article} />
                 {/* </div> */}
               </SwiperSlide>
             ))}

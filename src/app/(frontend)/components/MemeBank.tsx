@@ -14,6 +14,8 @@ import {
   upload_count,
 } from "../utils/common-functions";
 import clsx from "clsx";
+import MemeImage from "./swiper Slider/MemeImage";
+import dynamic from "next/dynamic";
 
 function MemeBank({ lang = "hi" }: { lang: string }) {
   const [slides, setSlides] = useState(4.7);
@@ -29,6 +31,9 @@ function MemeBank({ lang = "hi" }: { lang: string }) {
   const [twitter_link, setTwitter_link] = useState("");
   const [slideChanged, setSlideChanged] = useState(false);
 
+  const LazyMemeImage = dynamic(() => import("./swiper Slider/MemeImage"), {
+    ssr: false,
+  });
   useEffect(() => {
     if (window.screen.width <= 640) {
       setSlides(1.7);
@@ -199,9 +204,6 @@ function MemeBank({ lang = "hi" }: { lang: string }) {
 
     setSlideChanged(false);
   };
-  useEffect(() => {
-    generateShareLinks();
-  }, [slideChanged]);
 
   return (
     <>
@@ -261,39 +263,12 @@ function MemeBank({ lang = "hi" }: { lang: string }) {
           >
             {images.map((image, index) => (
               <SwiperSlide key={index} className="w-full h-full">
-                <Image
-                  className="w-full h-full "
-                  width={1000}
-                  height={800}
-                  src={image.src}
-                  alt="meme card"
-                  data-url={image["data-url"]}
+                <LazyMemeImage
+                  image={image}
+                  setSlideChanged={setSlideChanged}
+                  slideChanged={slideChanged}
+                  generateShareLinks={generateShareLinks}
                 />
-                {/* <!-- arrow --> */}
-                <div
-                  onClick={() => setSlideChanged(true)}
-                  className="swiper-button-next meme-bazar-button-next"
-                >
-                  <Image
-                    width={50}
-                    height={50}
-                    className="z-[2] w-full h-full object-contain"
-                    src="/assets/meme-bazar/Navigator Left.webp"
-                    alt="navigation left"
-                  />
-                </div>
-                <div
-                  onClick={() => setSlideChanged(true)}
-                  className="swiper-button-prev meme-bazar-button-prev"
-                >
-                  <Image
-                    width={50}
-                    height={50}
-                    className="z-[2] w-full h-full object-contain"
-                    src="/assets/meme-bazar/Navigator Right.webp"
-                    alt="avigation right"
-                  />
-                </div>
               </SwiperSlide>
             ))}
           </Swiper>
