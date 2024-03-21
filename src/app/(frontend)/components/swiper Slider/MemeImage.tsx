@@ -4,17 +4,16 @@ import { useEffect } from "react";
 export default function MemeImage({
   image,
   setSlideChanged,
-  slideChanged,
-  generateShareLinks,
 }: {
   image: any;
   setSlideChanged: React.Dispatch<React.SetStateAction<boolean>>;
-  slideChanged: boolean;
-  generateShareLinks: Function;
 }) {
-  useEffect(() => {
-    generateShareLinks();
-  }, [slideChanged]);
+  //   useEffect(() => {
+  //     if(slideChanged) {
+  //       generateShareLinks();
+  //       setSlideChanged(false);
+  //     }
+  //   }, [slideChanged]);
   return (
     <>
       <Image

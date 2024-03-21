@@ -266,8 +266,8 @@ function MemeBank({ lang = "hi" }: { lang: string }) {
                 <LazyMemeImage
                   image={image}
                   setSlideChanged={setSlideChanged}
-                  slideChanged={slideChanged}
-                  generateShareLinks={generateShareLinks}
+                  // slideChanged={slideChanged}
+                  // generateShareLinks={generateShareLinks}
                 />
               </SwiperSlide>
             ))}
@@ -300,7 +300,10 @@ function MemeBank({ lang = "hi" }: { lang: string }) {
               <span>{lang === "hi" ? "डाउनलोड करें" : "Download"}</span>
             </a>
             <a
-              onClick={() => setOpenShareModal(true)}
+              onClick={() => {
+                generateShareLinks();
+                setOpenShareModal(true);
+              }}
               className={clsx(
                 "w-[120px] bg-[rgb(255,0,0)] p-1  flex justify-center items-center  rounded-md text-white font-bold cursor-pointer ",
                 {

@@ -35,7 +35,7 @@ function Banner({
       console.log("error while swi");
   }
   return (
-    <section id={bannerData.id} className="w-full">
+    <section id={bannerData.id} className="w-full h-fit">
       <Link href={bannerData.href} className="w-full h-full">
         <Image
           className="w-full h-full "
