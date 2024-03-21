@@ -323,7 +323,7 @@ function Header({
 
         {/* <!-- blue bg --> */}
         <div
-          className="z-[1] absolute bottom-0 h-[50vw] sm:h-[10vw] w-full sm:top-[35vw]"
+          className="z-[1] absolute bottom-0 h-[50vw] sm:h-[10vw] w-full sm:top-[38vw] xl:top-[35vw]"
           style={{
             backgroundImage: "linear-gradient(to top, #12129e, #12129e00)",
           }}
