@@ -13,6 +13,7 @@ import { useAppContext } from "../../context/appContext";
 //   ThugTalesSkeleton,
 // } from "../skeleton/Skeleton";
 import Header from "../Header";
+import Banner from "../Banner";
 // import PledgeCounter from "../PledgeCounter";
 // import ScrollAware from "../ScrollAware";
 // // import React, { useEffect, useState } from "react";
@@ -69,9 +70,11 @@ export default function EnglishPage() {
       {/* decrease first load size from 155kb - 106kb */}
       <LazyPledgeCounter lang="en" />
       <LazyAchievement title="OUR ACHIEVEMENTS" lang="en" />
-      <LazyBanner section_name="ctm" lang="en" />
+      {/* <LazyBanner section_name="ctm" lang="en" /> */}
+      <Banner section_name="ctm" lang="en" />
       <LazySpinTheWheel lang="en" />
-      <LazyBanner section_name="quiz" lang="en" />
+      {/* <LazyBanner section_name="quiz" lang="en" /> */}
+      <Banner section_name="quiz" lang="en" />
       <LazyMemeBank lang="en" />
       <LazyThugTales title="OUR THUG TALES" lang="en" />
       <LazyMediaCoverage title="MEDIA COVERAGE" lang="en" />

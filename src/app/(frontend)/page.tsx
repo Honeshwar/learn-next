@@ -23,6 +23,7 @@ import {
 import { useAppContext } from "./context/appContext";
 import TeaserVideo from "./components/TeaserVideo";
 import ScrollAware from "./components/ScrollAware";
+import Banner from "./components/Banner";
 const LazyPledgeCounter = dynamic(() => import("./components/PledgeCounter"));
 const LazyAchievement = dynamic(() => import("./components/Achievement"));
 const LazyBanner = dynamic(() => import("./components/Banner"));
@@ -56,9 +57,11 @@ export default function HindiPage() {
 
       <LazyPledgeCounter lang="hi" />
       <LazyAchievement title="हमारी उपलब्धियाँ" lang="hi" />
-      <LazyBanner section_name="ctm" lang="hi" />
+      {/* <LazyBanner section_name="ctm" lang="hi" /> */}
+      <Banner section_name="ctm" lang="hi" />
       <LazySpinTheWheel lang="hi" />
-      <LazyBanner section_name="quiz" lang="hi" />
+      {/* <LazyBanner section_name="quiz" lang="hi" /> */}
+      <Banner section_name="quiz" lang="hi" />
       <LazyMemeBank lang="hi" />
       <LazyThugTales title="हमारी ठग की कहानियाँ" lang="hi" />
       <LazyMediaCoverage title="मीडिया कवरेज" lang="hi" />

@@ -33,6 +33,7 @@ export default function MediaCoverageImage({
         <Image
           width={100}
           height={50}
+          priority={true}
           className="opacity-50 z-[2] w-full h-full  object-contain"
           src="/assets/media coverage/Navigator Right.webp"
           alt="avigation right"

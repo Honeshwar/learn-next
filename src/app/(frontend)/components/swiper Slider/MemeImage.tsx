@@ -18,6 +18,7 @@ export default function MemeImage({
   return (
     <>
       <Image
+        priority={true}
         className="w-full h-full "
         width={1000}
         height={800}

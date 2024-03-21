@@ -9,6 +9,7 @@ export default function Achievement({
 }) {
   return (
     <Image
+      priority={true}
       className="w-full h-fit max-h-[100vh] object-cover"
       width={isMobile ? 500 : 1920}
       height={isMobile ? 1080 : 700}
