@@ -4,6 +4,8 @@ import "./globals.css";
 import DATA from "./utils/constant";
 import { AppContextProvider } from "./context/appContext";
 
+import { SpeedInsights } from "@vercel/speed-insights/next";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = DATA.hi.Metadata;
@@ -31,6 +33,7 @@ export default function RootLayout({
         /> */}
       </head>
       <body className={inter.className}>
+        <SpeedInsights />
         <AppContextProvider>{children}</AppContextProvider>
 
         {/* <script defer src="/swipper.js"></script> */}
