@@ -41,11 +41,11 @@
 }
 @font-face {
   font-family: "personal";
-  src: url("/fonts/Personal Services.ttf") format("woff2");
+  src: url("/fonts/Personal Services.woff2") format("woff2");
 }
 @font-face {
   font-family: "yatra";
-  src: url("/fonts/TEKO-SEMIBOLD.TTF") format("woff2");
+  src: url("/fonts/TEKO-SEMIBOLD.woff2") format("woff2");
 }
 
 @layer utilities {

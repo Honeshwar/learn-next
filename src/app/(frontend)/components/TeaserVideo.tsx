@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 
-export default function Video({
+export default function TeaserVideo({
   isMobile,
   lang,
 }: {
@@ -101,7 +101,7 @@ export default function Video({
         <video
           id="teaser-video"
           className=" h-full w-full object-fill z-[1] block sm:object-cover sm:w-full  md:absolute md:top-[0]"
-          preload="true"
+          preload="auto"
           autoPlay
           playsInline
           muted

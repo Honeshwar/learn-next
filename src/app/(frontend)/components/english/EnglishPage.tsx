@@ -15,7 +15,7 @@ import {
 import Header from "../Header";
 // import PledgeCounter from "../PledgeCounter";
 import ScrollAware from "../ScrollAware";
-import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState } from "react";
 import PledgeCounter from "../PledgeCounter";
 import Achievement from "../Achievement";
 import MediaCoverage from "../MediaCoverage";
@@ -34,18 +34,18 @@ export default function EnglishPage() {
   const LazyMemeBank = dynamic(() => import("../MemeBank"));
   const LazyThugTales = dynamic(() => import("../ThugTales"));
   const LazyMediaCoverage = dynamic(() => import("../MediaCoverage"));
-  const [delay, setDelay] = useState(false);
-  useEffect(() => {
-    // if (window.screen.width <= 640) {
-    //   setIsMobile(true);
-    // } else {
-    //   setIsMobile(false);
-    // }
+  // const [delay, setDelay] = useState(false);
+  // useEffect(() => {
+  //   // if (window.screen.width <= 640) {
+  //   //   setIsMobile(true);
+  //   // } else {
+  //   //   setIsMobile(false);
+  //   // }
 
-    setTimeout(() => {
-      setDelay(true);
-    }, 100);
-  }, []);
+  //   setTimeout(() => {
+  //     setDelay(true);
+  //   }, 100);
+  // }, []);
 
   return (
     <>
@@ -65,16 +65,17 @@ export default function EnglishPage() {
         
       </>
      )} */}
-      <LazyPledgeCounter lang="en" />
+      {/* decrease first load size from 155kb - 106kb */}
+      {/* <LazyPledgeCounter lang="en" />
       <LazyAchievement title="OUR ACHIEVEMENTS" lang="en" />
       <LazyBanner section_name="ctm" lang="en" />
       <LazySpinTheWheel lang="en" />
       <LazyBanner section_name="quiz" lang="en" />
       <LazyMemeBank lang="en" />
       <LazyThugTales title="OUR THUG TALES" lang="en" />
-      <LazyMediaCoverage title="MEDIA COVERAGE" lang="en" />
+      <LazyMediaCoverage title="MEDIA COVERAGE" lang="en" /> */}
 
-      {/* <ScrollAware
+      <ScrollAware
         lazyComponent={<LazyPledgeCounter lang="en" />}
         fallbackUI={<PledgeCounterSkeleton />}
       />
@@ -105,7 +106,7 @@ export default function EnglishPage() {
       <ScrollAware
         lazyComponent={<LazyMediaCoverage title="Media Coverage" lang="en" />}
         fallbackUI={<MediaCoverageSkeleton />}
-      /> */}
+      />
     </>
   );
 }

@@ -12,7 +12,7 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[25vw] left-[27vw] top-[-8vw]"
-              src="/assets/footer/hindi/Layer-1.webp"
+              src="/assets/footer/hi/Layer-1.webp"
               alt="maha"
             />
             <Image
@@ -26,14 +26,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[35vw] left-[20vw] top-[3vw] z-[1] -rotate-12"
-              src="/assets/footer/hindi/thug-2.webp"
+              src="/assets/footer/hi/thug-2.webp"
               alt="thug"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute  w-[35vw] right-[20vw] top-[2.5vw] z-[1]"
-              src="/assets/footer/hindi/Layer-11.webp"
+              src="/assets/footer/hi/Layer-11.webp"
               alt="bandhan"
             />
 
@@ -42,14 +42,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute  w-[31.5vw] top-[10.5vw] left-0 z-[0]"
-              src="/assets/footer/hindi/Layer 4 copy 4.webp"
+              src="/assets/footer/hi/Layer 4 copy 4.webp"
               alt="wire left"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute w-[10vw] left-[24.5vw] top-[10vw] z-[2]  "
-              src="/assets/footer/hindi/Layer 821.webp"
+              src="/assets/footer/hi/Layer 821.webp"
               alt="wire left2"
             />
 
@@ -58,14 +58,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[12vw] left-[40.5vw] top-[11vw] z-[2] rotate-[20deg]"
-              src="/assets/footer/hindi/Layer 15 copy 2.webp"
+              src="/assets/footer/hi/Layer 15 copy 2.webp"
               alt="center"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute w-[12vw] left-[40.5vw] top-[8.5vw] z-[0] opacity-50 rotate-[20deg]"
-              src="/assets/footer/hindi/Layer 15 copy 2.webp"
+              src="/assets/footer/hi/Layer 15 copy 2.webp"
               alt="back center"
             />
 
@@ -74,14 +74,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[26vw] right-0 top-[10vw] z-[2]"
-              src="/assets/footer/hindi/Layer 4 copy 3.webp"
+              src="/assets/footer/hi/Layer 4 copy 3.webp"
               alt="wire right"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute w-[10vw] right-[14vw] top-[9.7vw] rotate-6  "
-              src="/assets/footer/hindi/Layer 15 copy.webp"
+              src="/assets/footer/hi/Layer 15 copy.webp"
               alt="r2"
             />
           </div>
@@ -304,7 +304,7 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[15vw] left-[33vw] top-[-3vw]"
-              src="/assets/footer/hindi/Layer-1.webp"
+              src="/assets/footer/hi/Layer-1.webp"
               alt="maha"
             />
             <Image
@@ -318,14 +318,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[20vw] left-[30vw] top-[3vw] z-[1] -rotate-12"
-              src="/assets/footer/hindi/thug-2.webp"
+              src="/assets/footer/hi/thug-2.webp"
               alt="thug"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute  w-[20vw] right-[35vw] top-[2.5vw] z-[1]"
-              src="/assets/footer/hindi/Layer-11.webp"
+              src="/assets/footer/hi/Layer-11.webp"
               alt="bandhan"
             />
 
@@ -334,14 +334,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute  w-[38.5vw] top-[7vw] left-0 z-[0]"
-              src="/assets/footer/hindi/Layer 4 copy 4.webp"
+              src="/assets/footer/hi/Layer 4 copy 4.webp"
               alt="wire left"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute w-[10vw] left-[28.5vw] top-[7vw] z-[2]  "
-              src="/assets/footer/hindi/Layer 821.webp"
+              src="/assets/footer/hi/Layer 821.webp"
               alt="wire left2"
             />
 
@@ -350,14 +350,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[6vw] left-[42vw] top-[8vw] z-[2] rotate-[20deg]"
-              src="/assets/footer/hindi/Layer 15 copy 2.webp"
+              src="/assets/footer/hi/Layer 15 copy 2.webp"
               alt="center"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute w-[6vw] left-[42vw] top-[6.5vw] z-[0] opacity-50 rotate-[20deg]"
-              src="/assets/footer/hindi/Layer 15 copy 2.webp"
+              src="/assets/footer/hi/Layer 15 copy 2.webp"
               alt="back center"
             />
 
@@ -366,14 +366,14 @@ function Footer({ lang }: { lang: string }) {
               width={1920}
               height={1080}
               className="absolute w-[39vw] right-0 top-[6vw] z-[2]"
-              src="/assets/footer/hindi/Layer 4 copy 3.webp"
+              src="/assets/footer/hi/Layer 4 copy 3.webp"
               alt="wire right"
             />
             <Image
               width={1920}
               height={1080}
               className="absolute w-[10vw] right-[28vw] top-[6.7vw] rotate-6  "
-              src="/assets/footer/hindi/Layer 15 copy.webp"
+              src="/assets/footer/hi/Layer 15 copy.webp"
               alt="r2"
             />
           </div>

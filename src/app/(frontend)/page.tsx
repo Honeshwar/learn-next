@@ -21,41 +21,15 @@ import {
   ThugTalesSkeleton,
 } from "./components/skeleton/Skeleton";
 import { useAppContext } from "./context/appContext";
-
-// const HeaderComponent = dynamic(() => import('./UI/components/hindi/Header'), {
-//   loading: () => <p>Loading...</p>,
-//  });
-
-const PledgeCounterComponent = dynamic(
-  () => import("./components/PledgeCounter"),
-  {
-    // loading: () => <p>Loading...</p>,
-  }
-);
-const AchievementComponent = dynamic(() => import("./components/Achievement"), {
-  // loading: () => <p>Loading...</p>,
-});
-const BannerComponent = dynamic(() => import("./components/Banner"), {
-  // loading: () => <p>Loading...</p>,
-});
-const SpinTheWheelComponent = dynamic(
-  () => import("./components/SpinTheWheel"),
-  {
-    // loading: () => <p>Loading...</p>,
-  }
-);
-const MemeBankComponent = dynamic(() => import("./components/MemeBank"), {
-  // loading: () => <p>Loading...</p>,
-});
-const MediaCoverageComponent = dynamic(
-  () => import("./components/MediaCoverage"),
-  {
-    // loading: () => <p>Loading...</p>,
-  }
-);
-const ThugTalesComponent = dynamic(() => import("./components/ThugTales"), {
-  // loading: () => <p>Loading...</p>,
-});
+import TeaserVideo from "./components/TeaserVideo";
+import ScrollAware from "./components/ScrollAware";
+const LazyPledgeCounter = dynamic(() => import("./components/PledgeCounter"));
+const LazyAchievement = dynamic(() => import("./components/Achievement"));
+const LazyBanner = dynamic(() => import("./components/Banner"));
+const LazySpinTheWheel = dynamic(() => import("./components/SpinTheWheel"));
+const LazyMemeBank = dynamic(() => import("./components/MemeBank"));
+const LazyThugTales = dynamic(() => import("./components/ThugTales"));
+const LazyMediaCoverage = dynamic(() => import("./components/MediaCoverage"));
 export default function HindiPage() {
   const { isMobile } = useAppContext();
   // const [isMobile, setIsMobile] = useState(false);
@@ -71,52 +45,96 @@ export default function HindiPage() {
   //     setDelay(true);
   //   }, 3000);
   // }, []);
+
   console.log("isMobile", isMobile);
   return (
     <>
+      {/* <TeaserVideo lang="hi" isMobile={isMobile} /> */}
       {/* <Suspense fallback={<div></div>}> */}
       <Header isMobile={isMobile} lang="hi" />
       {/* </Suspense> */}
 
+      {/* <PledgeCounterComponent lang="hi" />
+      <AchievementComponent title="हमारी उपलब्धियाँ" lang="hi" />
+      <BannerComponent section_name="ctm" lang="hi" />
+      <SpinTheWheelComponent lang="hi" />
+      <BannerComponent section_name="quiz" lang="hi" />
+      <MemeBankComponent lang="hi" />
+      <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hi" />
+      <MediaCoverageComponent title="मीडिया कवरेज" lang="hi" /> */}
+
+      <ScrollAware
+        lazyComponent={<LazyPledgeCounter lang="hi" />}
+        fallbackUI={<PledgeCounterSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyAchievement title="हमारी उपलब्धियाँ" lang="hi" />}
+        fallbackUI={<AchievementSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyBanner section_name="ctm" lang="hi" />}
+        fallbackUI={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}
+      />
+      <ScrollAware
+        lazyComponent={<LazySpinTheWheel lang="hi" />}
+        fallbackUI={<ChoosePMSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyBanner section_name="quiz" lang="hi" />}
+        fallbackUI={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyMemeBank lang="hi" />}
+        fallbackUI={<MemeSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyThugTales title="हमारी ठग की कहानियाँ" lang="hi" />}
+        fallbackUI={<ThugTalesSkeleton />}
+      />
+      <ScrollAware
+        lazyComponent={<LazyMediaCoverage title="मीडिया कवरेज" lang="hi" />}
+        fallbackUI={<MediaCoverageSkeleton />}
+      />
+
       {/* {delay ? ( */}
-      <>
-        {/* <Suspense fallback={<PledgeCounterSkeleton />}> */}
-        <PledgeCounterComponent lang="hi" key={"counter"} />
-        {/* </Suspense> */}
-        {/* <Suspense fallback={<AchievementSkeleton />}> */}
-        <AchievementComponent title="हमारी उपलब्धियाँ" lang="hi" />
-        {/* </Suspense> */}
-        {/* <Suspense fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}> */}
-        <BannerComponent section_name="ctm" lang="hi" />
-        {/* </Suspense> */}
-        {/* <Suspense fallback={<ChoosePMSkeleton />}> */}
-        <SpinTheWheelComponent lang="hi" />
-        {/* </Suspense> */}
-        {/* <Suspense
+      {/* <>
+        <Suspense fallback={<PledgeCounterSkeleton />}>
+          <PledgeCounterComponent lang="hi" />
+        </Suspense>
+        <Suspense fallback={<AchievementSkeleton />}>
+          <AchievementComponent title="हमारी उपलब्धियाँ" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<BannerSkeleton src="/assets/skeleton/ctm.webp" />}>
+          <BannerComponent section_name="ctm" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<ChoosePMSkeleton />}>
+          <SpinTheWheelComponent lang="hi" />
+        </Suspense>
+        <Suspense
           fallback={<BannerSkeleton src="/assets/skeleton/quiz.webp" />}
-        > */}
-        <BannerComponent section_name="quiz" lang="hi" />
-        {/* </Suspense> */}
-        {/* <Suspense fallback={<MemeSkeleton />}> */}
-        <MemeBankComponent lang="hi" />
-        {/* </Suspense> */}
-        {/* <Suspense fallback={<ThugTalesSkeleton />}> */}
-        <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hi" />
-        {/* </Suspense> */}
-        {/* <Suspense fallback={<MediaCoverageSkeleton />}> */}
-        <MediaCoverageComponent title="मीडिया कवरेज" lang="hi" />
-        {/* </Suspense> */}
-      </>
+        >
+          <BannerComponent section_name="quiz" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<MemeSkeleton />}>
+          <MemeBankComponent lang="hi" />
+        </Suspense>
+        <Suspense fallback={<ThugTalesSkeleton />}>
+          <ThugTalesComponent title="हमारी ठग की कहानियाँ" lang="hi" />
+        </Suspense>
+        <Suspense fallback={<MediaCoverageSkeleton />}>
+          <MediaCoverageComponent title="मीडिया कवरेज" lang="hi" />
+        </Suspense>
+      </> */}
       {/* ) : ( */}
       <>
-        <PledgeCounterSkeleton />
+        {/* <PledgeCounterSkeleton />
         <AchievementSkeleton />
         <BannerSkeleton src="/assets/skeleton/ctm.webp" />
         <ChoosePMSkeleton />
         <BannerSkeleton src="/assets/skeleton/quiz.webp" />
         <MemeSkeleton />
         <ThugTalesSkeleton />
-        <MediaCoverageSkeleton />
+        <MediaCoverageSkeleton /> */}
         {/* <FooterSkeleton /> */}
       </>
       {/* )} */}
