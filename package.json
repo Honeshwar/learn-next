@@ -11,11 +11,15 @@
   "dependencies": {
     "@vercel/speed-insights": "^1.0.10",
     "clsx": "^2.1.0",
+    "mongoose": "^8.2.2",
+    "moongoose": "^0.0.5",
     "next": "14.1.4",
+    "otp-generator": "^4.0.1",
     "react": "^18",
     "react-dom": "^18",
     "sharp": "^0.33.2",
-    "swiper": "^11.0.7"
+    "swiper": "^11.0.7",
+    "twilio": "^5.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",
