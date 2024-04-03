@@ -1,18 +1,8 @@
- .eslintrc.json
-        .gitignore
-        README.md
-        next.config.mjs
-        package-lock.json
-        package.json
-        postcss.config.js
-        
-        tailwind.config.ts
-        tsconfig.json
-
+ 
 
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 .env
-public
+# public
 # dependencies
 /node_modules
 /.pnp
