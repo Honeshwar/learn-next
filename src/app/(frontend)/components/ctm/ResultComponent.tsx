@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import RedirectToMainSite from "./RedirectToMainSite";
+// import RedirectToMainSite from "./RedirectToMainSite";
 import { useState } from "react";
 import { useCTMContext } from "../../context/ctmContext";
 import {
@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
-const LazyshowRedirectModal = dynamic(() => import("./RedirectToMainSite"), {
+const LazyRedirectToMainSite = dynamic(() => import("./RedirectToMainSite"), {
   ssr: false,
 });
 function ResultComponent({ lang = "hi" }: { lang: string }) {
@@ -263,7 +263,7 @@ function ResultComponent({ lang = "hi" }: { lang: string }) {
       </div>
 
       {/* <!-- redirect popup --> */}
-      {LazyshowRedirectModal && <RedirectToMainSite lang={lang} />}
+      {showRedirectModal && <LazyRedirectToMainSite lang={lang} />}
     </>
   );
 }

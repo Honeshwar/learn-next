@@ -1,53 +1,12 @@
 "use client";
-import { useEffect } from "react";
 
-export default function TeaserVideo({
-  // isMobile,
-  lang,
-}: {
-  // isMobile: boolean;
-  lang: string;
-}) {
-  useEffect(() => {
-    // console.log("video mounted", isMobile);
-    // let videoElement = document.getElementById(
-    //   "teaser-video"
-    // ) as HTMLVideoElement;
-    // let sourceElement = document.getElementById(
-    //   "source-of-teaser-video"
-    // ) as HTMLSourceElement;
-    // if (window.screen.width > 640) {
-    //   // videoElement.setAttribute("poster", "/assets/teaser/poster_hd.webp");
-    //   // videoElement.style.objectFit = "contain";
-    //   // videoElement.style.objectPosition = "0px";
-    //   sourceElement.setAttribute(
-    //     "src",
-    //     `/assets/teaser/teaser_${lang === "hi" ? "hd" : "ed"}.mp4`
-    //   );
-    // } else {
-    //   // videoElement.setAttribute("poster", "/assets/teaser/poster_hm.webp");
-    //   // videoElement.style.objectFit = "auto";
-    //   // videoElement.style.objectPosition = "0px"; //-20px
-    //   // videoElement.style.objectFit = "fill";
-    //   // videoElement.style.objectPosition = "auto";
-    //   sourceElement.setAttribute(
-    //     "src",
-    //     `/assets/teaser/teaser_${lang === "hi" ? "hm" : "em"}.mp4`
-    //   );
-    // }
-    // videoElement.load();
-    // Show loading animation.
-    // var playPromise = video.play();
-    // let playPromise =
-    // console.log("playPromise", playPromise);
-    // if (playPromise !== undefined) {
-    //   videoElement.play();
-    // }
-  }, []);
+import { useAppContext } from "../context/appContext";
 
+export default function TeaserVideo({ lang }: { lang: string }) {
+  const { isMobile } = useAppContext();
   const toggleMute = () => {
     let videoElement = document.getElementById(
-      "teaser-video"
+      isMobile ? "teaser-video-mobile" : "teaser-video-desktop"
     ) as HTMLVideoElement;
     if (videoElement.muted) {
       videoElement.muted = false;
@@ -90,34 +49,16 @@ export default function TeaserVideo({
         <path d="M320 64c0-12.6-7.4-24-18.9-29.2s-25-3.1-34.4 5.3L131.8 160H64c-35.3 0-64 28.7-64 64v64c0 35.3 28.7 64 64 64h67.8L266.7 471.9c9.4 8.4 22.9 10.4 34.4 5.3S320 460.6 320 448V64z" />
       </svg>
 
-      {/* <!-- video --> */}
+      {/* <!-- video optimize , src add directly--> */}
       {/* <div
         id="header-video"
         className="relative w-full h-full bg-black flex justify-center items-center"
         style={{ minHeight: "600px" }}
       > */}
+
+      {/* {isMobile ? ( */}
       <video
-        id="teaser-video"
-        preload="true"
-        autoPlay
-        playsInline
-        muted
-        loop
-        className="relative w-full h-full bg-black hidden md:flex justify-center items-center   object-cover z-[1]   sm:object-cover sm:w-full  md:absolute md:top-[0]"
-        style={{ minHeight: "600px" }}
-      >
-        <source
-          id="source-of-teaser-video"
-          src={
-            lang === "hi"
-              ? "/assets/teaser/teaser_hd.mp4"
-              : "/assets/teaser/teaser_ed.mp4"
-          }
-          type="video/mp4"
-        />
-      </video>
-      <video
-        id="teaser-video"
+        id="teaser-video-mobile"
         preload="true"
         autoPlay
         playsInline
@@ -136,6 +77,28 @@ export default function TeaserVideo({
           type="video/mp4"
         />
       </video>
+      {/* ) : ( */}
+      <video
+        id="teaser-video-desktop"
+        preload="true"
+        autoPlay
+        playsInline
+        muted
+        loop
+        className="relative w-full h-full bg-black hidden md:flex justify-center items-center   object-cover z-[1]   sm:object-cover sm:w-full  md:absolute md:top-[0]"
+        style={{ minHeight: "600px" }}
+      >
+        <source
+          id="source-of-teaser-video"
+          src={
+            lang === "hi"
+              ? "/assets/teaser/teaser_hd.mp4"
+              : "/assets/teaser/teaser_ed.mp4"
+          }
+          type="video/mp4"
+        />
+      </video>
+      {/* )} */}
       {/* </div> */}
     </>
   );

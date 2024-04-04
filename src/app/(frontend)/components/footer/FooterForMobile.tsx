@@ -7,6 +7,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
       {lang === "hi" ? (
         <div className="relative w-full h-1/2   top-[-2vw]">
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[25vw] left-[27vw] top-[-8vw]"
@@ -14,6 +15,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="maha"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[20vw] right-[28vw] top-[-12vw] "
@@ -21,6 +23,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="akhel"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[35vw] left-[20vw] top-[3vw] z-[1] -rotate-12"
@@ -28,6 +31,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="thug"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute  w-[35vw] right-[20vw] top-[2.5vw] z-[1]"
@@ -37,6 +41,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
 
           {/* <!-- wire left --> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute  w-[31.5vw] top-[10.5vw] left-0 z-[0]"
@@ -44,6 +49,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="wire left"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[10vw] left-[24.5vw] top-[10vw] z-[2]  "
@@ -53,6 +59,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
 
           {/* <!-- center wire --> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[12vw] left-[40.5vw] top-[11vw] z-[2] rotate-[20deg]"
@@ -60,6 +67,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="center"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[12vw] left-[40.5vw] top-[8.5vw] z-[0] opacity-50 rotate-[20deg]"
@@ -69,6 +77,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
 
           {/* <!-- wire right --> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[26vw] right-0 top-[10vw] z-[2]"
@@ -76,6 +85,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="wire right"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[10vw] right-[14vw] top-[9.7vw] rotate-6  "
@@ -86,6 +96,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
       ) : (
         <div className="relative w-full h-1/2  top-[8vw]">
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[25vw] left-[22vw] top-[-9vw]"
@@ -93,6 +104,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="maha"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[25vw] right-[28vw] top-[-16vw] "
@@ -100,6 +112,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="akhel"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[25vw] left-[18vw] top-[2vw] z-[1]"
@@ -107,6 +120,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="thug"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit  w-[40vw] right-[22vw] top-[-.5vw] z-[1]"
@@ -116,6 +130,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
 
           {/* <!-- wire left --> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit  w-[25vw] top-[7.5vw] left-0 z-[2]"
@@ -123,6 +138,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="wire left"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[10vw] left-[14vw] top-[7vw]  "
@@ -132,6 +148,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
 
           {/* <!-- center wire -- /> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[6vw] left-[39.2vw] top-[8vw] z-[2] "
@@ -139,6 +156,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="center"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[8vw] left-[38.2vw] top-[5.5vw] z-[0] opacity-100 "
@@ -148,6 +166,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
 
           {/* <!-- wire right -- /> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[30vw] right-0 top-[9vw] z-[2]"
@@ -155,6 +174,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="wire right"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute h-fit w-[17vw] right-[12vw] top-[9vw] rotate-12 "
@@ -169,6 +189,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
         // style={{ backgroundImage: "url('/assets/footer/Bg Footer.webp')" }}
       >
         <Image
+          priority={true}
           width={300}
           height={200}
           src="/assets/footer/Bg Footer.webp"
@@ -210,6 +231,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
               {/* <!-- <li>
                     <a className="hover:text-blue-500" href="">
                         <Image
+                        priority={true}
                           width={640}
                           height={360}
                         className="w-[6vw] h-[6vw] object-cover"
@@ -224,6 +246,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
                   href="https://www.instagram.com/mahathugbandhan_2019/"
                 >
                   <Image
+                    priority={true}
                     width={640}
                     height={360}
                     className="w-[6vw] h-[6vw] object-cover"
@@ -238,6 +261,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
                   href="https://www.youtube.com/@mahathugbandhan-3259/featured"
                 >
                   <Image
+                    priority={true}
                     width={640}
                     height={360}
                     className="w-[6vw] h-[6vw] object-cover"
@@ -252,6 +276,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
                   href="https://www.facebook.com/mahaTHUGbandhan2019/"
                 >
                   <Image
+                    priority={true}
                     width={640}
                     height={360}
                     className="w-[6vw] h-[6vw] object-cover"
@@ -264,6 +289,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
           </div>
           {/* <!-- images --> */}
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[27vw] left-[1.82vw] top-[30vw]"
@@ -271,6 +297,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="lalu son"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[30vw] left-[20vw] top-[-10vw]"
@@ -278,6 +305,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="Rahul gandhi"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[25vw] right-[3vw] top-[50vw]"
@@ -285,6 +313,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="stalin"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[22vw] right-[20vw]  top-[0vw]"
@@ -292,6 +321,7 @@ export default function FooterForMobile({ lang }: { lang: string }) {
             alt="Soni gandhi"
           />
           <Image
+            priority={true}
             width={640}
             height={360}
             className="absolute w-[15vw] right-[2vw] top-[18vw]"

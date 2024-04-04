@@ -124,7 +124,7 @@ function SpinTheWheel({ lang = "hi" }: { lang: string }) {
         // adding mobile data
         body.append("mobile", mobileNumber),
         // call api
-        fetch("https:mahathugbandhan.com/api/v1/" + "user", {
+        fetch("https://mahathugbandhan.com/api/v1/" + "user", {
           method: "POST",
           body,
         })

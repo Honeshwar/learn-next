@@ -48,6 +48,10 @@ function Banner({
           style={{ background: "transparent" }}
           width={isMobile ? 500 : 1920}
           height={isMobile ? 150 : 400}
+          placeholder="blur"
+          blurDataURL={
+            "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAMklEQVR4nAEnANj/AG5gPEpAIVdVT87OzgDahmP/o3fsx6v7+/sAVhcZKAAA6MbH1LvAZpETuCsInsIAAAAASUVORK5CYII="
+          }
         />
       </Link>
     </section>
