@@ -371,13 +371,16 @@ function SpinTheWheel({ lang = "hi" }: { lang: string }) {
             <div className="w-full h-full shape  rounded-[20px] flex flex-col justify-center items-center  gap-7 overflow-visible relative ">
               <div className="w-[100vw] flex flex-col sm:flex-row justify-center items-center relative gap-[5vw] sm:gap-5 ">
                 <Image
-                  width={1920}
-                  height={1080}
+                  width={isMobile ? 400 : 800}
+                  height={isMobile ? 300 : 600}
                   id="result-popup-img"
                   className="h-full w-full sm:w-[50%]   object-contain sm:object-cover"
                   src={spinResultData[result_ID].imgUrl}
                   alt="spin the wheel result"
-                  quality={100}
+                  // quality={100}
+                  priority={true}
+                  placeholder="blur"
+                  blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAMklEQVR4nAEnANj/AG5gPEpAIVdVT87OzgDahmP/o3fsx6v7+/sAVhcZKAAA6MbH1LvAZpETuCsInsIAAAAASUVORK5CYII="
                 />
                 <div className=" h-full w-full sm:w-[30%]  text-white flex flex-col justify-center items-center gap-5 sm:gap-[3vw] ">
                   <div className="flex flex-col justify-center items-center gap-[1vw] ">

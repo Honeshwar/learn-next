@@ -110,9 +110,12 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
   const { setScreen, scored, setScored, setTotalQuestion, setCertificateUrl } =
     useQuizContext();
   const [alreadyRegistered, setAlreadyRegistered] = useState(false);
+
+  const [select, setSelect] = useState("");
   useEffect(() => {
     setTotalQuestion(Questions.length);
   }, []);
+  console.log("alreadyRegistered", alreadyRegistered);
   useEffect(() => {
     function callAPI(mobile: string, score: number) {
       let fd = new FormData();
@@ -139,15 +142,18 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
               );
             }
             setAlreadyRegistered(false);
+            setScored(score);
           }
         });
     }
     if (alreadyRegistered) {
-      console.log("scored", scored);
-      callAPI(localStorage.getItem("mobile_quiz")!, scored);
+      // console.log("scored from already register useEffect", scored);
+      // callAPI(localStorage.getItem("mobile_quiz")!, scored);
+      console.log("scored from already register useEffect", score);
+      callAPI(localStorage.getItem("mobile_quiz")!, score);
     }
   }, [alreadyRegistered]);
-  const selectOption = (e: any, isRightAnswer: boolean) => {
+  const selectOption = (e: any, optionValue: string) => {
     setError(false);
 
     let buttons = document.querySelectorAll("div.buttons button");
@@ -158,11 +164,13 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
     }
     e.target.classList.add("active-btn");
 
-    console.log("select option", isRightAnswer);
+    console.log("select option", optionValue);
     setIsOptionSelected(true);
-    if (isRightAnswer) {
-      setScore((prev) => prev + 1);
-    }
+    setSelect(optionValue);
+    // if (isRightAnswer) {
+    //   console.log("score before +1", score);
+    //   setScore((prev) => prev + 1);
+    // }
   };
 
   const nextQuestion = () => {
@@ -170,10 +178,17 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
       setError(true);
       return;
     }
+    let newScore = score;
+
+    if (select === question.answer) {
+      newScore = score + 1;
+      console.log("old score", score, " new score", newScore);
+      setScore(newScore);
+    }
     if (currentQuestion === Questions.length) {
       if (localStorage.getItem("mobile_quiz")) {
         console.log("score", score);
-        setScored(score);
+        // setScored(score );
         // setScreen(3);
         setAlreadyRegistered(true);
       } else {
@@ -238,35 +253,19 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
             <div className="question-section col-12">
               <p className="col-12">{question.question}</p>
               <div className="buttons  mx-auto">
-                <button
-                  onClick={(e) =>
-                    selectOption(e, question.answer === question.a)
-                  }
-                >
+                <button onClick={(e) => selectOption(e, question.a)}>
                   <span className="option-alphabate">A</span>
                   {question.a}
                 </button>
-                <button
-                  onClick={(e) =>
-                    selectOption(e, question.answer === question.a)
-                  }
-                >
+                <button onClick={(e) => selectOption(e, question.b)}>
                   <span className="option-alphabate">B</span>
                   {question.b}
                 </button>
-                <button
-                  onClick={(e) =>
-                    selectOption(e, question.answer === question.a)
-                  }
-                >
+                <button onClick={(e) => selectOption(e, question.c)}>
                   <span className="option-alphabate">C</span>
                   {question.c}
                 </button>
-                <button
-                  onClick={(e) =>
-                    selectOption(e, question.answer === question.a)
-                  }
-                >
+                <button onClick={(e) => selectOption(e, question.d)}>
                   <span className="option-alphabate">D</span>
                   {question.d}
                 </button>

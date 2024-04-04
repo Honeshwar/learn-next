@@ -11,6 +11,7 @@ import {
 import Link from "next/link";
 import clsx from "clsx";
 import dynamic from "next/dynamic";
+import { useAppContext } from "../../context/appContext";
 const LazyRedirectToMainSite = dynamic(() => import("./RedirectToMainSite"), {
   ssr: false,
 });
@@ -119,6 +120,7 @@ function ResultComponent({ lang = "hi" }: { lang: string }) {
     f: facebook_link,
   } = generateShareLinks(link, text);
 
+  const { isMobile } = useAppContext();
   return (
     <>
       <div
@@ -129,12 +131,14 @@ function ResultComponent({ lang = "hi" }: { lang: string }) {
           <div className="w-[100vw] flex flex-col sm:flex-row justify-center items-center relative gap-[5vw] sm:gap-5 lg:gap-20 ">
             <div className="h-full w-[85%] sm:w-[45%] flex flex-col  gap-5 ">
               <Image
-                width={1920}
-                height={1080}
+                width={isMobile ? 350 : 700}
+                height={isMobile ? 150 : 300}
                 id="ctm-result-popup-img1"
                 className="h-full w-full    object-contain "
                 src={result.imgUrl1}
                 alt="ctm result card "
+                placeholder="blur"
+                blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAIAAAA7ljmRAAAACXBIWXMAAAPoAAAD6AG1e1JrAAAAMklEQVR4nAEnANj/AG5gPEpAIVdVT87OzgDahmP/o3fsx6v7+/sAVhcZKAAA6MbH1LvAZpETuCsInsIAAAAASUVORK5CYII="
               />
               {/* <!-- <Image width={50} height={80}
                 id="ctm-result-popup-img2"
