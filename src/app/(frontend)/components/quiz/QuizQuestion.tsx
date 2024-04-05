@@ -150,7 +150,11 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
       // console.log("scored from already register useEffect", scored);
       // callAPI(localStorage.getItem("mobile_quiz")!, scored);
       console.log("scored from already register useEffect", score);
-      callAPI(localStorage.getItem("mobile_quiz")!, score);
+      callAPI(
+        localStorage.getItem("mobile_quiz") ||
+          localStorage.getItem("mobile_main")!,
+        score
+      );
     }
   }, [alreadyRegistered]);
   const selectOption = (e: any, optionValue: string) => {
@@ -186,7 +190,10 @@ export default function QuizQuestion({ lang = "hi" }: { lang: string }) {
       setScore(newScore);
     }
     if (currentQuestion === Questions.length) {
-      if (localStorage.getItem("mobile_quiz")) {
+      if (
+        localStorage.getItem("mobile_main") ||
+        localStorage.getItem("mobile_quiz")
+      ) {
         console.log("score", score);
         // setScored(score );
         // setScreen(3);

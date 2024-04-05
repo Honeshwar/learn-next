@@ -51,8 +51,10 @@ function DetailForm({
       body.append("name", details.name);
       body.append("age", details.age);
       body.append("gender", details.gender);
-      body.append("state", details.state);
-      body.append("district", details.district);
+      // body.append("state", details.state);
+      // body.append("district", details.district);
+      body.append("assemblies_id", details.state);
+      body.append("districts_id", details.district);
       body.append("mobile", localStorage.getItem("mobile_main")!);
       fetch(`https://mahathugbandhan.com/api/v1/user/update`, {
         method: "PATCH",
@@ -115,7 +117,7 @@ function DetailForm({
   const stateHandler = (e: any) => {
     e.preventDefault();
     setError("");
-    setStateId(e.target.value);
+    setStateId(e.target.value); //to call api on the basis of state id to get the districts
     setState(e.target.value);
   };
 

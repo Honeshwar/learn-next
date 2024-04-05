@@ -147,7 +147,11 @@ function SpinTheWheel({ lang = "hi" }: { lang: string }) {
     if (isSpinning) {
       setTimeout(() => {
         console.log("result popup");
-        if (!localStorage.getItem("mobile_spin")) {
+        if (
+          !localStorage.getItem("mobile_spin") &&
+          !localStorage.getItem("mobile_main")
+        ) {
+          //localStorage.getItem("mobile_spin")
           setShowPhoneModal(true);
         }
       }, 4800);
@@ -175,7 +179,10 @@ function SpinTheWheel({ lang = "hi" }: { lang: string }) {
         }
         setResultID(id);
 
-        if (localStorage.getItem("mobile_spin")) {
+        if (
+          localStorage.getItem("mobile_spin") ||
+          localStorage.getItem("mobile_main")
+        ) {
           generateShareLinks(id);
           setShowResult(true);
         }

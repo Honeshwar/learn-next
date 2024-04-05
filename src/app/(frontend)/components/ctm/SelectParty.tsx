@@ -18,7 +18,10 @@ function SelectParty({ lang = "hi" }: { lang: string }) {
       return;
     }
     setParty_name(select);
-    if (localStorage.getItem("mobile_ctm")) {
+    if (
+      // localStorage.getItem("mobile_main") ||//because logic different
+      localStorage.getItem("mobile_ctm")
+    ) {
       setScreen(3);
     } else {
       setScreen(2);
