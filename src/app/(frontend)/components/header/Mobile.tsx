@@ -31,7 +31,7 @@ export default function Mobile({
       console.log("form data", body);
 
       // calling api
-      fetch("https:mahathugbandhan.com/api/v1/" + "user", {
+      fetch("https://mahathugbandhan.com/api/v1/" + "user", {
         method: "POST",
         body,
       })
@@ -45,7 +45,7 @@ export default function Mobile({
           ) {
             // send otp
             fetch(
-              "https:mahathugbandhan.com/api/v1/" +
+              "https://mahathugbandhan.com/api/v1/" +
                 `user/send_otp?language=${lang}`,
               {
                 method: "PATCH",

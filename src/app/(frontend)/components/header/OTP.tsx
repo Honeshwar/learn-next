@@ -34,7 +34,7 @@ export default function OTP({
 
       // call api
       fetch(
-        "https:mahathugbandhan.com/api/v1/" +
+        "https://mahathugbandhan.com/api/v1/" +
           `user/verify_otp?language=${lang}`,
         {
           method: "PATCH",
